@@ -1,610 +1,0 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kawanosachi Naturals | Premium Pet Treats from Laos</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        /* Added Noto Sans SC (Simplified) and TC (Traditional) for Chinese */
-        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&family=Nunito:wght@300;400;600;700&family=Noto+Sans+Lao:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap');
-        
-        body {
-            font-family: 'Nunito', 'Noto Sans Lao', 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans SC', 'Noto Sans TC', sans-serif;
-        }
-        
-        h1, h2, h3, h4, .brand-font {
-            font-family: 'Fredoka', 'Noto Sans Lao', 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans SC', 'Noto Sans TC', sans-serif;
-        }
-
-        .hero-pattern {
-            background-color: #f0f9ff;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23bae6fd' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-
-        /* Language Switching Logic for 6 Languages */
-        /* Hide all language spans by default */
-        .lang-en, .lang-la, .lang-jp, .lang-kr, .lang-cn, .lang-hk { display: none; }
-
-        /* Show specific language based on body class */
-        body.show-en .lang-en { display: inline !important; }
-        body.show-la .lang-la { display: inline !important; }
-        body.show-jp .lang-jp { display: inline !important; }
-        body.show-kr .lang-kr { display: inline !important; }
-        body.show-cn .lang-cn { display: inline !important; }
-        body.show-hk .lang-hk { display: inline !important; }
-
-        /* --- PIXEL ART PETS ANIMATION --- */
-        .pixel-pets-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 60px;
-            z-index: 9999;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .pixel-pets-wrapper {
-            position: absolute;
-            bottom: 5px;
-            display: flex;
-            align-items: flex-end;
-            animation: runLoop 20s linear infinite;
-        }
-
-        .pixel-pet {
-            width: 48px;
-            height: 48px;
-            margin-right: 0;
-            animation: bounce 0.4s cubic-bezier(0.3, 0, 0.7, 1) infinite alternate;
-        }
-        
-        .pixel-pet svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.2));
-        }
-
-        .pixel-cat {
-            animation-delay: 0.1s;
-        }
-
-        @keyframes runLoop {
-            0% { left: -150px; transform: scaleX(1); }
-            45% { left: 100%; transform: scaleX(1); }
-            45.01% { transform: scaleX(-1); }
-            50% { left: 100%; transform: scaleX(-1); }
-            95% { left: -150px; transform: scaleX(-1); }
-            95.01% { transform: scaleX(1); }
-            100% { left: -150px; transform: scaleX(1); }
-        }
-
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-10px); }
-        }
-    </style>
-    <script>
-        function setLanguage(lang) {
-            // Remove all language classes
-            document.body.classList.remove('show-en', 'show-la', 'show-jp', 'show-kr', 'show-cn', 'show-hk');
-            // Add the selected language class
-            document.body.classList.add('show-' + lang);
-        }
-    </script>
-</head>
-<body class="bg-gray-50 text-gray-800 show-en">
-
-    <!-- PIXEL ART PETS OVERLAY -->
-    <div class="pixel-pets-container">
-        <div class="pixel-pets-wrapper">
-            <!-- Pixel Art Dog -->
-            <div class="pixel-pet pixel-dog">
-                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
-                    <rect x="3" y="6" width="8" height="5" fill="#8B4513"/>
-                    <rect x="3" y="11" width="2" height="3" fill="#8B4513"/>
-                    <rect x="9" y="11" width="2" height="3" fill="#8B4513"/>
-                    <rect x="8" y="3" width="5" height="4" fill="#8B4513"/>
-                    <rect x="11" y="4" width="1" height="1" fill="black"/>
-                    <rect x="13" y="5" width="1" height="1" fill="black"/>
-                    <rect x="2" y="5" width="2" height="3" fill="#8B4513"/>
-                    <rect x="9" y="3" width="2" height="2" fill="#5D4037"/>
-                </svg>
-            </div>
-            <!-- Pixel Art Cat -->
-            <div class="pixel-pet pixel-cat">
-                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
-                    <rect x="4" y="7" width="7" height="4" fill="#FFA500"/>
-                    <rect x="4" y="11" width="2" height="2" fill="#FFA500"/>
-                    <rect x="9" y="11" width="2" height="2" fill="#FFA500"/>
-                    <rect x="8" y="4" width="4" height="4" fill="#FFA500"/>
-                    <rect x="8" y="3" width="1" height="2" fill="#FFA500"/>
-                    <rect x="11" y="3" width="1" height="2" fill="#FFA500"/>
-                    <rect x="10" y="5" width="1" height="1" fill="black"/>
-                    <rect x="2" y="6" width="2" height="3" fill="#FFA500"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                <div class="flex items-center">
-                    <i class="fa-solid fa-paw text-3xl text-sky-500 mr-2"></i>
-                    <span class="brand-font text-2xl font-bold text-gray-800">Kawanosachi <span class="text-sky-500">Naturals</span></span>
-                </div>
-                <div class="hidden lg:flex space-x-6 items-center">
-                    <a href="#home" class="text-gray-600 hover:text-sky-500 font-medium transition">
-                        <span class="lang-en">Home</span><span class="lang-la">ໜ້າຫຼັກ</span><span class="lang-jp">ホーム</span><span class="lang-kr">홈</span><span class="lang-cn">首页</span><span class="lang-hk">首頁</span>
-                    </a>
-                    <a href="#products" class="text-gray-600 hover:text-sky-500 font-medium transition">
-                        <span class="lang-en">Our Treats</span><span class="lang-la">ຜະລິດຕະພັນ</span><span class="lang-jp">商品一覧</span><span class="lang-kr">제품 소개</span><span class="lang-cn">产品</span><span class="lang-hk">產品</span>
-                    </a>
-                    <a href="#about" class="text-gray-600 hover:text-sky-500 font-medium transition">
-                        <span class="lang-en">Our Story</span><span class="lang-la">ເລື່ອງລາວຂອງເຮົາ</span><span class="lang-jp">私たちのストーリー</span><span class="lang-kr">브랜드 스토리</span><span class="lang-cn">品牌故事</span><span class="lang-hk">品牌故事</span>
-                    </a>
-                    <a href="#contact" class="bg-sky-500 text-white px-5 py-2 rounded-full font-medium hover:bg-sky-600 transition shadow-lg shadow-sky-200">
-                        <span class="lang-en">Contact Us</span><span class="lang-la">ຕິດຕໍ່</span><span class="lang-jp">お問い合わせ</span><span class="lang-kr">문의하기</span><span class="lang-cn">联系我们</span><span class="lang-hk">聯絡我們</span>
-                    </a>
-                    <!-- Language Switcher -->
-                    <div class="flex items-center space-x-1 border-l pl-4 border-gray-300">
-                        <button onclick="setLanguage('en')" class="text-xs font-bold text-gray-500 hover:text-sky-500">EN</button><span class="text-gray-300">|</span>
-                        <button onclick="setLanguage('la')" class="text-xs font-bold text-gray-500 hover:text-sky-500">LA</button><span class="text-gray-300">|</span>
-                        <button onclick="setLanguage('jp')" class="text-xs font-bold text-gray-500 hover:text-sky-500">JP</button><span class="text-gray-300">|</span>
-                        <button onclick="setLanguage('kr')" class="text-xs font-bold text-gray-500 hover:text-sky-500">KR</button><span class="text-gray-300">|</span>
-                        <button onclick="setLanguage('cn')" class="text-xs font-bold text-gray-500 hover:text-sky-500">CN</button><span class="text-gray-300">|</span>
-                        <button onclick="setLanguage('hk')" class="text-xs font-bold text-gray-500 hover:text-sky-500">HK</button>
-                    </div>
-                </div>
-                <!-- Mobile menu button -->
-                <div class="lg:hidden flex items-center gap-4">
-                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-gray-600 hover:text-sky-500 focus:outline-none">
-                        <i class="fa-solid fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t">
-            <div class="p-4 flex flex-wrap gap-2 justify-center bg-gray-50 border-b">
-                <button onclick="setLanguage('en')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">EN</button>
-                <button onclick="setLanguage('la')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">LA</button>
-                <button onclick="setLanguage('jp')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">JP</button>
-                <button onclick="setLanguage('kr')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">KR</button>
-                <button onclick="setLanguage('cn')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">CN</button>
-                <button onclick="setLanguage('hk')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">HK</button>
-            </div>
-            <a href="#home" class="block py-3 px-4 text-gray-700 hover:bg-gray-50">
-                <span class="lang-en">Home</span><span class="lang-la">ໜ້າຫຼັກ</span><span class="lang-jp">ホーム</span><span class="lang-kr">홈</span><span class="lang-cn">首页</span><span class="lang-hk">首頁</span>
-            </a>
-            <a href="#products" class="block py-3 px-4 text-gray-700 hover:bg-gray-50">
-                <span class="lang-en">Our Treats</span><span class="lang-la">ຜະລິດຕະພັນ</span><span class="lang-jp">商品一覧</span><span class="lang-kr">제품 소개</span><span class="lang-cn">产品</span><span class="lang-hk">產品</span>
-            </a>
-            <a href="#about" class="block py-3 px-4 text-gray-700 hover:bg-gray-50">
-                <span class="lang-en">Our Story</span><span class="lang-la">ເລື່ອງລາວຂອງເຮົາ</span><span class="lang-jp">私たちのストーリー</span><span class="lang-kr">브랜드 스토리</span><span class="lang-cn">品牌故事</span><span class="lang-hk">品牌故事</span>
-            </a>
-            <a href="#contact" class="block py-3 px-4 text-sky-600 font-bold hover:bg-gray-50">
-                <span class="lang-en">Contact Us</span><span class="lang-la">ຕິດຕໍ່</span><span class="lang-jp">お問い合わせ</span><span class="lang-kr">문의하기</span><span class="lang-cn">联系我们</span><span class="lang-hk">聯絡我們</span>
-            </a>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero-pattern pt-20 pb-28 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-3xl mx-auto">
-                <div class="inline-block bg-sky-100 text-sky-600 px-4 py-1 rounded-full text-sm font-semibold mb-6 animate-bounce">
-                    <span class="lang-en">Running out of treats? 🐾</span>
-                    <span class="lang-la">ໝົດຂະໜົມໃຫ້ເຈົ້ານາຍແລ້ວບໍ່? 🐾</span>
-                    <span class="lang-jp">おやつ、足りていますか？ 🐾</span>
-                    <span class="lang-kr">간식이 떨어졌나요? 🐾</span>
-                    <span class="lang-cn">零食吃完了吗？ 🐾</span>
-                    <span class="lang-hk">零食食晒啦？ 🐾</span>
-                </div>
-                <h1 class="text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-6">
-                    <!-- English -->
-                    <span class="lang-en">The Fresh Bounty of the <br/><span class="text-sky-500">Nam Ngum River</span></span>
-                    
-                    <!-- Lao: "The fresh abundance from..." -->
-                    <span class="lang-la">ຄວາມອຸດົມສົມບູນອັນສົດໃໝ່ຈາກ <br/><span class="text-sky-500">ແມ່ນໍ້າງື່ມ</span></span>
-                    
-                    <!-- Japanese: "Fresh blessings from..." -->
-                    <span class="lang-jp"><span class="text-sky-500">ナムグム川</span>からの<br/>新鮮な恵み</span>
-                    
-                    <!-- Korean: "Fresh bounty of..." -->
-                    <span class="lang-kr"><span class="text-sky-500">남늠강</span>의 <br/>신선한 풍요</span>
-                    
-                    <!-- Mandarin: "Fresh gift/bounty from..." -->
-                    <span class="lang-cn">来自<span class="text-sky-500">南俄河</span>的<br/>新鲜馈赠</span>
-                    
-                    <!-- Cantonese: "Fresh bounty from..." -->
-                    <span class="lang-hk">來自<span class="text-sky-500">南俄河</span>嘅<br/>新鮮豐饒</span>
-                </h1>
-                <p class="text-xl text-gray-600 mb-10 leading-relaxed">
-                    <span class="lang-en">Premium pet snacks made from sustainably sourced Tilapia. 100% Natural, Low-Temp Dehydrated, and produced with love in Laos.</span>
-                    <span class="lang-la">ຂະໜົມສັດລ້ຽງເກຣດພຣີມ່ຽມ ຜະລິດຈາກປານິນທຳມະຊາດ. ປອດສານພິດ 100%, ອົບແຫ້ງດ້ວຍອຸນຫະພູມຕໍ່າ ແລະ ຜະລິດດ້ວຍໃຈໃນລາວ.</span>
-                    <span class="lang-jp">持続可能な方法で調達されたティラピアから作られたプレミアムペットスナック。100%天然、低温乾燥、そしてラオスで愛を込めて生産されています。</span>
-                    <span class="lang-kr">지속 가능한 방식으로 공급된 틸라피아로 만든 프리미엄 반려동물 간식. 100% 천연, 저온 건조 공법, 라오스에서 정성을 다해 생산되었습니다.</span>
-                    <span class="lang-cn">源自老挝的可持续罗非鱼，100%天然，低温脱水，精心制作的高级宠物零食。</span>
-                    <span class="lang-hk">源自老撾嘅可持續羅非魚，100%天然，低溫脫水，用心製作嘅高級寵物零食。</span>
-                </p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="#products" class="bg-sky-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-sky-600 transition shadow-xl shadow-sky-200 flex items-center justify-center">
-                        <i class="fa-solid fa-bone mr-2"></i> 
-                        <span class="lang-en">Shop Treats</span><span class="lang-la">ເລືອກຊື້ສິນຄ້າ</span><span class="lang-jp">商品を見る</span><span class="lang-kr">쇼핑하기</span><span class="lang-cn">立即购买</span><span class="lang-hk">立即購買</span>
-                    </a>
-                    <a href="#about" class="bg-white text-gray-700 border-2 border-gray-200 px-8 py-4 rounded-full font-bold text-lg hover:border-sky-500 hover:text-sky-500 transition flex items-center justify-center">
-                        <span class="lang-en">Learn More</span><span class="lang-la">ອ່ານເພີ່ມເຕີມ</span><span class="lang-jp">もっと詳しく</span><span class="lang-kr">더 알아보기</span><span class="lang-cn">了解更多</span><span class="lang-hk">了解更多</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Decorative blobs -->
-        <div class="absolute top-1/4 left-0 -translate-x-1/2 w-64 h-64 bg-sky-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
-        <div class="absolute bottom-0 right-0 translate-x-1/3 w-80 h-80 bg-teal-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
-    </section>
-
-    <!-- Features / USP -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
-                <div class="p-6 rounded-2xl bg-gray-50 hover:bg-sky-50 transition duration-300">
-                    <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4 text-sky-600 text-2xl">
-                        <i class="fa-solid fa-leaf"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">
-                        <span class="lang-en">100% Natural</span><span class="lang-la">ທຳມະຊາດ 100%</span><span class="lang-jp">100%天然</span><span class="lang-kr">100% 천연 재료</span><span class="lang-cn">100% 天然</span><span class="lang-hk">100% 天然</span>
-                    </h3>
-                    <p class="text-gray-600">
-                        <span class="lang-en">No additives, no seasoning, and absolutely no preservatives. Just pure goodness.</span>
-                        <span class="lang-la">ບໍ່ມີສານປຸງແຕ່ງ, ບໍ່ມີລົດຊາດປຸງແຕ່ງ ແລະ ບໍ່ມີວັດຖຸກັນເສຍ. ຄຸນປະໂຫຍດເນັ້ນໆ.</span>
-                        <span class="lang-jp">添加物、調味料、保存料は一切使用していません。純粋な美味しさだけ。</span>
-                        <span class="lang-kr">첨가물, 조미료, 방부제가 전혀 들어있지 않습니다. 오직 순수한 재료만 담았습니다.</span>
-                        <span class="lang-cn">无添加剂，无调味，绝对无防腐剂。只有纯净的美味。</span>
-                        <span class="lang-hk">無添加劑，無調味，絕對無防腐劑。只有純淨嘅美味。</span>
-                    </p>
-                </div>
-                <div class="p-6 rounded-2xl bg-gray-50 hover:bg-sky-50 transition duration-300">
-                    <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4 text-sky-600 text-2xl">
-                        <i class="fa-solid fa-temperature-low"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">
-                        <span class="lang-en">Slow Dehydrated</span><span class="lang-la">ອົບແຫ້ງອຸນຫະພູມຕໍ່າ</span><span class="lang-jp">じっくり低温乾燥</span><span class="lang-kr">저온 건조 공법</span><span class="lang-cn">低温慢烘</span><span class="lang-hk">低溫慢烘</span>
-                    </h3>
-                    <p class="text-gray-600">
-                        <span class="lang-en">Low-temperature dehydration locks in nutrients and flavor without cooking them away.</span>
-                        <span class="lang-la">ການອົບແຫ້ງດ້ວຍອຸນຫະພູມຕໍ່າ ຊ່ວຍຮັກສາຄຸນຄ່າທາງອາຫານ ແລະ ລົດຊາດໄວ້ຢ່າງຄົບຖ້ວນ.</span>
-                        <span class="lang-jp">低温乾燥により、栄養と風味を損なうことなく閉じ込めました。</span>
-                        <span class="lang-kr">저온 건조 공법으로 조리 과정에서 손실될 수 있는 영양소와 풍미를 그대로 지켰습니다.</span>
-                        <span class="lang-cn">低温脱水技术锁住营养和风味，避免高温破坏。</span>
-                        <span class="lang-hk">低溫脫水技術鎖住營養同風味，避免高溫破壞。</span>
-                    </p>
-                </div>
-                <div class="p-6 rounded-2xl bg-gray-50 hover:bg-sky-50 transition duration-300">
-                    <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4 text-sky-600 text-2xl">
-                        <i class="fa-solid fa-water"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">
-                        <span class="lang-en">Nam Ngum Origin</span><span class="lang-la">ຕົ້ນກຳເນີດຈາກນໍ້າງື່ມ</span><span class="lang-jp">ナムグム産</span><span class="lang-kr">남늠강 원산지</span><span class="lang-cn">源自南俄河</span><span class="lang-hk">源自南俄河</span>
-                    </h3>
-                    <p class="text-gray-600">
-                        <span class="lang-en">Sourced from quality Tilapia bred in fish pens directly at the Nam Ngum River.</span>
-                        <span class="lang-la">ຜະລິດຈາກປານິນຄຸນນະພາບດີ ທີ່ລ້ຽງໃນກະຊັງໃນແມ່ນໍ້າງື່ມໂດຍກົງ.</span>
-                        <span class="lang-jp">ナムグム川の養殖生け簀で育てられた高品質なティラピアを使用しています。</span>
-                        <span class="lang-kr">남늠강의 양식장에서 직접 기른 고품질 틸라피아를 사용합니다.</span>
-                        <span class="lang-cn">选用直接在南俄河网箱养殖的优质罗非鱼。</span>
-                        <span class="lang-hk">選用直接喺南俄河網箱養殖嘅優質羅非魚。</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certifications Section -->
-    <section class="py-12 bg-sky-50 border-t border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-bold text-gray-900 mb-8">
-                <span class="lang-en">Certified Quality & Safety</span>
-                <span class="lang-la">ຮັບຮອງຄຸນນະພາບ ແລະ ຄວາມປອດໄພ</span>
-                <span class="lang-jp">品質と安全の証明</span>
-                <span class="lang-kr">인증된 품질 및 안전성</span>
-                <span class="lang-cn">质量与安全认证</span>
-                <span class="lang-hk">質量與安全認證</span>
-            </h2>
-            <p class="text-gray-600 max-w-2xl mx-auto mb-10">
-                <span class="lang-en">We prioritize your pet's health. Our products are rigorously tested and analyzed.</span>
-                <span class="lang-la">ພວກເຮົາໃຫ້ຄວາມສຳຄັນກັບສຸຂະພາບຂອງສັດລ້ຽງຂອງທ່ານ. ຜະລິດຕະພັນຂອງພວກເຮົາໄດ້ຜ່ານການກວດກາ ແລະ ວິເຄາະຢ່າງເຂັ້ມງວດ.</span>
-                <span class="lang-jp">私たちはペットの健康を第一に考えています。製品は厳格な検査と分析を受けています。</span>
-                <span class="lang-kr">우리는 반려동물의 건강을 최우선으로 생각합니다. 당사의 제품은 엄격한 테스트와 분석을 거쳤습니다.</span>
-                <span class="lang-cn">我们优先考虑宠物的健康。我们的产品经过严格的测试和分析。</span>
-                <span class="lang-hk">我哋優先考慮寵物嘅健康。我哋嘅產品經過嚴格嘅測試同分析。</span>
-            </p>
-            <div class="flex flex-col md:flex-row justify-center gap-8">
-                <!-- Certificate 1 -->
-                <div class="bg-white p-4 rounded-xl shadow-md max-w-md mx-auto transition hover:shadow-lg">
-                    <div class="aspect-[3/4] bg-gray-100 rounded-lg mb-4 overflow-hidden flex items-center justify-center">
-                        <img src="Test_Certificate.jpg" alt="Mandatory Test Certificate" class="w-full h-full object-contain"
-                             onerror="this.parentElement.innerHTML='<div class=\'p-8 text-gray-400 text-sm\'>Certificate Image Not Found<br>(Test_Certificate.jpg)</div>'">
-                    </div>
-                    <h3 class="font-bold text-lg text-gray-800">
-                        <span class="lang-en">Mandatory Test Certificate</span>
-                        <span class="lang-la">ໃບຢັ້ງຢືນຜົນການກວດກາ</span>
-                        <span class="lang-jp">必須検査証明書</span>
-                        <span class="lang-kr">필수 검사 증명서</span>
-                        <span class="lang-cn">强制性检测证书</span>
-                        <span class="lang-hk">強制性檢測證書</span>
-                    </h3>
-                </div>
-                <!-- Certificate 2 -->
-                <div class="bg-white p-4 rounded-xl shadow-md max-w-md mx-auto transition hover:shadow-lg">
-                    <div class="aspect-[3/4] bg-gray-100 rounded-lg mb-4 overflow-hidden flex items-center justify-center">
-                        <img src="Nutrition_Certificate.jpg" alt="Nutritional Analysis Certificate" class="w-full h-full object-contain"
-                             onerror="this.parentElement.innerHTML='<div class=\'p-8 text-gray-400 text-sm\'>Certificate Image Not Found<br>(Nutrition_Certificate.jpg)</div>'">
-                    </div>
-                    <h3 class="font-bold text-lg text-gray-800">
-                        <span class="lang-en">Nutritional Analysis</span>
-                        <span class="lang-la">ໃບຢັ້ງຢືນການວິເຄາະໂພຊະນາການ</span>
-                        <span class="lang-jp">栄養成分分析</span>
-                        <span class="lang-kr">영양 성분 분석</span>
-                        <span class="lang-cn">营养成分分析</span>
-                        <span class="lang-hk">營養成分分析</span>
-                    </h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section id="products" class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <span class="text-sky-500 font-bold uppercase tracking-wider text-sm">
-                    <span class="lang-en">Our Selection</span><span class="lang-la">ສິນຄ້າຂອງເຮົາ</span><span class="lang-jp">商品ラインナップ</span><span class="lang-kr">제품 라인업</span><span class="lang-cn">我们的精选</span><span class="lang-hk">我哋嘅精選</span>
-                </span>
-                <h2 class="text-4xl font-bold text-gray-900 mt-2">
-                    <span class="lang-en">Treats They'll Beg For</span><span class="lang-la">ຂະໜົມທີ່ສັດລ້ຽງຂອງທ່ານຕ້ອງຫຼົງຮັກ</span><span class="lang-jp">おねだりしたくなるおやつ</span><span class="lang-kr">반려동물이 간절히 원하는 간식</span><span class="lang-cn">宠物爱不释手的零食</span><span class="lang-hk">寵物愛不釋手嘅零食</span>
-                </h2>
-                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">
-                    <span class="lang-en">Suitable for both dogs and cats. Perfect for training, playtime, or just saying "I love you."</span>
-                    <span class="lang-la">ເໝາະສຳລັບທັງໝາ ແລະ ແມວ. ດີເລີດສຳລັບການຝຶກສອນ, ເວລາຫຼິ້ນ ຫຼື ມອບເປັນລາງວັນແຫ່ງຄວາມຮັກ.</span>
-                    <span class="lang-jp">犬猫兼用。トレーニングや遊び、そして「大好き」を伝えるのに最適です。</span>
-                    <span class="lang-kr">강아지와 고양이 모두에게 적합합니다. 훈련, 놀이 시간, 또는 사랑을 전할 때 완벽한 선택입니다.</span>
-                    <span class="lang-cn">猫狗皆宜。完美的训练奖励、游戏伴侣，或表达爱意的小礼物。</span>
-                    <span class="lang-hk">貓狗皆宜。完美嘅訓練獎勵、遊戲伴侶，或表達愛意嘅小禮物。</span>
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Product 1 -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
-                    <div class="h-64 overflow-hidden relative bg-gray-200">
-                        <img src="FishJerky.jpg" 
-                             alt="Fish Fillet Jerky" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
-                        <div class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">Best Seller</div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">
-                            <span class="lang-en">Fish Fillet Jerky</span><span class="lang-la">ປານິນແຜ່ນອົບແຫ້ງ</span><span class="lang-jp">魚のフィレジャーキー</span><span class="lang-kr">생선 필레 저키</span><span class="lang-cn">罗非鱼肉干</span><span class="lang-hk">羅非魚肉乾</span>
-                        </h3>
-                        <p class="text-gray-600 mb-4 line-clamp-3">
-                            <span class="lang-en">Whole fillets of Tilapia, dehydrated to perfection. Chewy texture that helps clean teeth while providing high protein.</span>
-                            <span class="lang-la">ຊີ້ນປານິນແຜ່ນ, ອົບແຫ້ງຢ່າງພິຖີພິຖັນ. ມີຄວາມໜຽວນຸ້ມ ຊ່ວຍຂັດແຂ້ວ ແລະ ໃຫ້ໂປຣຕີນສູງ.</span>
-                            <span class="lang-jp">ティラピアの切り身を丸ごと完璧に乾燥させました。噛み応えがあり、歯の健康を保ちながら高タンパク質を摂取できます。</span>
-                            <span class="lang-kr">틸라피아 통살을 완벽하게 건조했습니다. 쫄깃한 식감으로 치아 건강에 도움을 주며 단백질이 풍부합니다.</span>
-                            <span class="lang-cn">整片罗非鱼片完美脱水。耐嚼的口感有助于清洁牙齿，同时提供高蛋白。</span>
-                            <span class="lang-hk">整片羅非魚片完美脫水。耐嚼嘅口感有助於清潔牙齒，同時提供高蛋白。</span>
-                        </p>
-                        <ul class="text-sm text-gray-500 mb-6 space-y-2">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">High Protein</span><span class="lang-la">ໂປຣຕີນສູງ</span><span class="lang-jp">高タンパク</span><span class="lang-kr">고단백</span><span class="lang-cn">高蛋白</span><span class="lang-hk">高蛋白</span></li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">Single Ingredient</span><span class="lang-la">ວັດຖຸດິບຢ່າງດຽວ</span><span class="lang-jp">原材料ひとつだけ</span><span class="lang-kr">단일 원료</span><span class="lang-cn">单一原料</span><span class="lang-hk">單一原料</span></li>
-                        </ul>
-                        <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" class="w-full bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-sky-500 transition">
-                            <span class="lang-en">Order Now</span><span class="lang-la">ສັ່ງຊື້ເລີຍ</span><span class="lang-jp">今すぐ注文</span><span class="lang-kr">주문하기</span><span class="lang-cn">立即购买</span><span class="lang-hk">立即購買</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Product 2 -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
-                    <div class="h-64 overflow-hidden relative bg-gray-200">
-                        <img src="FishCookie.jpg" 
-                             alt="Minced Fish Cookie" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">
-                            <span class="lang-en">Minced Fish Cookie</span><span class="lang-la">ຄຸກກີ້ປາບົດ</span><span class="lang-jp">魚のミンチクッキー</span><span class="lang-kr">다진 생선 쿠키</span><span class="lang-cn">鱼肉曲奇</span><span class="lang-hk">魚肉曲奇</span>
-                        </h3>
-                        <p class="text-gray-600 mb-4 line-clamp-3">
-                            <span class="lang-en">Easy-to-chew bites made from minced quality Tilapia. Fantastic for training rewards or older pets.</span>
-                            <span class="lang-la">ຊິ້ນນ້ອຍກິນງ່າຍ ຜະລິດຈາກປານິນບົດຄຸນນະພາບ. ເໝາະສຳລັບເປັນລາງວັນຝຶກສອນ ຫຼື ສັດລ້ຽງອາຍຸສູງ.</span>
-                            <span class="lang-jp">上質なティラピアのミンチで作った、食べやすい一口サイズ。トレーニングのご褒美やシニアペットに最適です。</span>
-                            <span class="lang-kr">다진 고품질 틸라피아로 만든 씹기 편한 한입 크기 간식. 훈련 보상이나 노령 반려동물에게 아주 좋습니다.</span>
-                            <span class="lang-cn">由优质罗非鱼碎肉制成，易于咀嚼。非常适合作为训练奖励或老年宠物食用。</span>
-                            <span class="lang-hk">由優質羅非魚碎肉製成，易於咀嚼。非常適合作為訓練獎勵或老年寵物食用。</span>
-                        </p>
-                        <ul class="text-sm text-gray-500 mb-6 space-y-2">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">Great for Training</span><span class="lang-la">ເໝາະສຳລັບຝຶກສອນ</span><span class="lang-jp">トレーニングに最適</span><span class="lang-kr">훈련용으로 최고</span><span class="lang-cn">适合训练</span><span class="lang-hk">適合訓練</span></li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">Easy Digestion</span><span class="lang-la">ຍ່ອຍງ່າຍ</span><span class="lang-jp">消化に良い</span><span class="lang-kr">소화가 잘됨</span><span class="lang-cn">易于消化</span><span class="lang-hk">易於消化</span></li>
-                        </ul>
-                        <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" class="w-full bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-sky-500 transition">
-                            <span class="lang-en">Order Now</span><span class="lang-la">ສັ່ງຊື້ເລີຍ</span><span class="lang-jp">今すぐ注文</span><span class="lang-kr">주문하기</span><span class="lang-cn">立即购买</span><span class="lang-hk">立即購買</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
-                    <div class="h-64 overflow-hidden relative bg-gray-200">
-                        <img src="FishSkin.jpg" 
-                             alt="Dry Fish Skin" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
-                        <div class="absolute top-4 right-4 bg-orange-400 text-white text-xs font-bold px-3 py-1 rounded-full">Crunchy!</div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">
-                            <span class="lang-en">Dry Fish Skin</span><span class="lang-la">ໜັງປາກອບ</span><span class="lang-jp">魚の皮チップス</span><span class="lang-kr">건조 생선 껍질</span><span class="lang-cn">香脆鱼皮</span><span class="lang-hk">香脆魚皮</span>
-                        </h3>
-                        <p class="text-gray-600 mb-4 line-clamp-3">
-                            <span class="lang-en">Crispy, crunchy fish skin loaded with Omega-3 fatty acids for a shiny coat and healthy skin.</span>
-                            <span class="lang-la">ໜັງປາກອບ, ກິນເພີນ ອຸດົມໄປດ້ວຍ ໂອເມກ້າ-3 ຊ່ວຍບຳລຸງຂົນໃຫ້ເງົາງາມ ແລະ ຜິວໜັງສຸຂະພາບດີ.</span>
-                            <span class="lang-jp">パリパリとした食感の魚の皮には、艶やかな毛並みと健康な皮膚のためのオメガ3脂肪酸がたっぷり。</span>
-                            <span class="lang-kr">바삭바삭한 생선 껍질에는 오메가-3 지방산이 풍부하여 윤기 나는 털과 건강한 피부를 만들어줍니다.</span>
-                            <span class="lang-cn">酥脆的鱼皮富含Omega-3脂肪酸，有助于毛发光亮和皮肤健康。</span>
-                            <span class="lang-hk">酥脆嘅魚皮富含Omega-3脂肪酸，有助於毛髮光亮同皮膚健康。</span>
-                        </p>
-                        <ul class="text-sm text-gray-500 mb-6 space-y-2">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">Rich in Omega-3</span><span class="lang-la">ມີ ໂອເມກ້າ-3 ສູງ</span><span class="lang-jp">オメガ3豊富</span><span class="lang-kr">오메가-3 풍부</span><span class="lang-cn">富含 Omega-3</span><span class="lang-hk">富含 Omega-3</span></li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">Skin & Coat Health</span><span class="lang-la">ບຳລຸງຜິວ ແລະ ຂົນ</span><span class="lang-jp">皮膚と被毛の健康</span><span class="lang-kr">피부 및 피모 건강</span><span class="lang-cn">皮肤与毛发健康</span><span class="lang-hk">皮膚與毛髮健康</span></li>
-                        </ul>
-                        <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" class="w-full bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-sky-500 transition">
-                            <span class="lang-en">Order Now</span><span class="lang-la">ສັ່ງຊື້ເລີຍ</span><span class="lang-jp">今すぐ注文</span><span class="lang-kr">주문하기</span><span class="lang-cn">立即购买</span><span class="lang-hk">立即購買</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Usage / About Section -->
-    <section id="about" class="py-20 bg-white relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row items-start gap-12">
-                <div class="md:w-1/2">
-                    <!-- Existing Photo -->
-                    <img src="https://images.unsplash.com/photo-1551730459-92db2a308d6a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Dog Training" class="rounded-3xl shadow-2xl w-full mb-8">
-                </div>
-                <div class="md:w-1/2">
-                    <!-- Updated New Landscape Photo: More reliable link -->
-                    <img src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                         alt="Hand petting a cat" 
-                         class="rounded-3xl shadow-xl w-full max-w-md mb-8 object-cover aspect-video h-64">
-                    
-                    <span class="text-sky-500 font-bold uppercase tracking-wider text-sm">
-                        <span class="lang-en">Our Promise</span><span class="lang-la">ຄຳໝັ້ນສັນຍາຂອງເຮົາ</span><span class="lang-jp">私たちの約束</span><span class="lang-kr">우리의 약속</span><span class="lang-cn">我们的承诺</span><span class="lang-hk">我哋嘅承諾</span>
-                    </span>
-                    <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-6">
-                        <span class="lang-en">From Our River to Your Home</span><span class="lang-la">ຈາກແມ່ນໍ້າຂອງເຮົາ ສູ່ເຮືອນຂອງທ່ານ</span><span class="lang-jp">私たちの川から、あなたの家へ</span><span class="lang-kr">우리의 강에서 당신의 집으로</span><span class="lang-cn">从我们的河流到您的家</span><span class="lang-hk">從我哋嘅河流到你嘅家</span>
-                    </h2>
-                    <p class="text-gray-600 mb-4 text-lg">
-                        <span class="lang-en">At <strong>Kawanosachi Naturals</strong>, we believe pets deserve real food. Our journey begins at the <strong>Nam Ngum River</strong> in Laos, where we sustainably breed our own Tilapia in river pens.</span>
-                        <span class="lang-la">ທີ່ <strong>Kawanosachi Naturals</strong>, ພວກເຮົາເຊື່ອວ່າສັດລ້ຽງຄວນໄດ້ຮັບອາຫານທີ່ແທ້ຈິງ. ການເດີນທາງຂອງພວກເຮົາເລີ່ມຕົ້ນທີ່ <strong>ແມ່ນໍ້າງື່ມ</strong> ໃນລາວ, ບ່ອນທີ່ພວກເຮົາລ້ຽງປານິນໃນກະຊັງແບບຍືນຍົງ.</span>
-                        <span class="lang-jp"><strong>Kawanosachi Naturals</strong>では、ペットには本物の食事が必要だと信じています。私たちの旅はラオスの<strong>ナムグム川</strong>で始まり、そこで川の生け簀でティラピアを持続可能な方法で養殖しています。</span>
-                        <span class="lang-kr"><strong>Kawanosachi Naturals</strong>는 반려동물이 진짜 음식을 먹을 자격이 있다고 믿습니다. 우리의 여정은 라오스의 <strong>남늠강</strong>에서 시작됩니다. 이곳에서 우리는 강 가두리 양식으로 틸라피아를 지속 가능하게 기릅니다.</span>
-                        <span class="lang-cn">在 <strong>Kawanosachi Naturals</strong>，我们相信宠物值得拥有真正的食物。我们的旅程始于老挝的<strong>南俄河</strong>，我们在那里以可持续的方式在河网箱中养殖罗非鱼。</span>
-                        <span class="lang-hk">喺 <strong>Kawanosachi Naturals</strong>，我哋相信寵物值得擁有真正嘅食物。我哋嘅旅程始於老撾嘅<strong>南俄河</strong>，我哋喺嗰度以可持續嘅方式喺河網箱中養殖羅非魚。</span>
-                    </p>
-                    <p class="text-gray-600 mb-6">
-                        <span class="lang-en">We use a precise <strong>low-temperature dehydration</strong> process. This takes longer than baking, but it ensures that the natural vitamins and minerals of the fish are preserved. The result is a snack that is not only delicious but also highly nutritious.</span>
-                        <span class="lang-la">ພວກເຮົາໃຊ້ຂະບວນການ <strong>ອົບແຫ້ງດ້ວຍອຸນຫະພູມຕໍ່າ</strong> ທີ່ຊັດເຈນ. ເຖິງຈະໃຊ້ເວລາແກ່ກວ່າການອົບທຳມະດາ, ແຕ່ມັນຊ່ວຍຮັກສາວິຕາມິນ ແລະ ແຮ່ທາດທຳມະຊາດຂອງປາໄວ້ໄດ້. ຜົນໄດ້ຮັບແມ່ນຂະໜົມທີ່ບໍ່ພຽງແຕ່ແຊບ ແຕ່ຍັງມີປະໂຫຍດສູງ.</span>
-                        <span class="lang-jp">私たちは精密な<strong>低温乾燥</strong>プロセスを使用しています。焼くよりも時間はかかりますが、魚の天然ビタミンやミネラルを確実に保持します。その結果、美味しいだけでなく栄養価の高いおやつが出来上がります。</span>
-                        <span class="lang-kr">우리는 정밀한 <strong>저온 건조</strong> 공정을 사용합니다. 굽는 것보다 시간이 오래 걸리지만, 생선의 천연 비타민과 미네랄을 보존할 수 있습니다. 그 결과 맛있을 뿐만 아니라 영양가도 매우 높은 간식이 탄생합니다.</span>
-                        <span class="lang-cn">我们使用精确的<strong>低温脱水</strong>工艺。这比烘烤需要更长的时间，但能确保鱼的天然维生素和矿物质得以保留。结果不仅仅是美味，更是营养丰富的零食。</span>
-                        <span class="lang-hk">我哋使用精確嘅<strong>低溫脫水</strong>工藝。呢個比烘烤需要更長時間，但能確保魚嘅天然維他命同礦物質得以保留。結果唔單止係美味，仲係營養豐富嘅零食。</span>
-                    </p>
-                    
-                    <div class="grid grid-cols-2 gap-4 mt-8">
-                        <div class="flex items-center p-3 bg-sky-50 rounded-lg">
-                            <i class="fa-solid fa-dog text-sky-500 mr-3 text-xl"></i>
-                            <span class="font-bold text-gray-700">
-                                <span class="lang-en">For Dogs</span><span class="lang-la">ສຳລັບໝາ</span><span class="lang-jp">犬用</span><span class="lang-kr">강아지용</span><span class="lang-cn">适合狗狗</span><span class="lang-hk">適合狗狗</span>
-                            </span>
-                        </div>
-                        <div class="flex items-center p-3 bg-sky-50 rounded-lg">
-                            <i class="fa-solid fa-cat text-sky-500 mr-3 text-xl"></i>
-                            <span class="font-bold text-gray-700">
-                                <span class="lang-en">For Cats</span><span class="lang-la">ສຳລັບແມວ</span><span class="lang-jp">猫用</span><span class="lang-kr">고양이용</span><span class="lang-cn">适合猫咪</span><span class="lang-hk">適合貓咪</span>
-                            </span>
-                        </div>
-                        <div class="flex items-center p-3 bg-sky-50 rounded-lg">
-                            <i class="fa-solid fa-medal text-sky-500 mr-3 text-xl"></i>
-                            <span class="font-bold text-gray-700">
-                                <span class="lang-en">Award / Training</span><span class="lang-la">ລາງວັນ / ຝຶກສອນ</span><span class="lang-jp">ご褒美 / トレーニング</span><span class="lang-kr">보상 / 훈련</span><span class="lang-cn">奖励 / 训练</span><span class="lang-hk">獎勵 / 訓練</span>
-                            </span>
-                        </div>
-                        <div class="flex items-center p-3 bg-sky-50 rounded-lg">
-                            <i class="fa-solid fa-heart text-sky-500 mr-3 text-xl"></i>
-                            <span class="font-bold text-gray-700">
-                                <span class="lang-en">Healthy Play</span><span class="lang-la">ການຫຼິ້ນທີ່ມີປະໂຫຍດ</span><span class="lang-jp">健康的な遊び</span><span class="lang-kr">건강한 놀이</span><span class="lang-cn">健康玩耍</span><span class="lang-hk">健康玩耍</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact / Footer -->
-    <footer id="contact" class="bg-gray-900 text-white pt-16 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-                <div>
-                    <div class="flex items-center mb-6">
-                        <i class="fa-solid fa-paw text-2xl text-sky-500 mr-2"></i>
-                        <span class="brand-font text-2xl font-bold">Kawanosachi</span>
-                    </div>
-                    <p class="text-gray-400">
-                        <span class="lang-en">Pure, natural treats from the heart of Laos. Give your pets the nutrition they deserve.</span>
-                        <span class="lang-la">ຂະໜົມທຳມະຊາດແທ້ໆ ຈາກໃຈກາງປະເທດລາວ. ມອບສານອາຫານທີ່ສັດລ້ຽງຂອງທ່ານຄູ່ຄວນ.</span>
-                        <span class="lang-jp">ラオスの中心部から届く、純粋で自然なおやつ。ペットにふさわしい栄養を与えましょう。</span>
-                        <span class="lang-kr">라오스의 중심에서 온 순수하고 자연 그대로의 간식. 반려동물에게 그들이 마땅히 받아야 할 영양을 선물하세요.</span>
-                        <span class="lang-cn">来自老挝心脏地带的纯天然零食。为您心爱的宠物提供应得的营养。</span>
-                        <span class="lang-hk">來自老撾心臟地帶嘅純天然零食。為你心愛嘅寵物提供應得嘅營養。</span>
-                    </p>
-                </div>
-                
-                <div>
-                    <h4 class="text-lg font-bold mb-6">
-                        <span class="lang-en">Products</span><span class="lang-la">ສິນຄ້າ</span><span class="lang-jp">商品</span><span class="lang-kr">제품</span><span class="lang-cn">产品</span><span class="lang-hk">產品</span>
-                    </h4>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><a href="#" class="hover:text-sky-400 transition"><span class="lang-en">Fish Fillet Jerky</span><span class="lang-la">ປານິນແຜ່ນອົບແຫ້ງ</span><span class="lang-jp">魚のフィレジャーキー</span><span class="lang-kr">생선 필레 저키</span><span class="lang-cn">罗非鱼肉干</span><span class="lang-hk">羅非魚肉乾</span></a></li>
-                        <li><a href="#" class="hover:text-sky-400 transition"><span class="lang-en">Minced Fish Cookie</span><span class="lang-la">ຄຸກກີ້ປາບົດ</span><span class="lang-jp">魚のミンチクッキー</span><span class="lang-kr">다진 생선 쿠키</span><span class="lang-cn">鱼肉曲奇</span><span class="lang-hk">魚肉曲奇</span></a></li>
-                        <li><a href="#" class="hover:text-sky-400 transition"><span class="lang-en">Dry Fish Skin</span><span class="lang-la">ໜັງປາກອບ</span><span class="lang-jp">魚の皮チップス</span><span class="lang-kr">건조 생선 껍질</span><span class="lang-cn">香脆鱼皮</span><span class="lang-hk">香脆魚皮</span></a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-lg font-bold mb-6">
-                        <span class="lang-en">Contact</span><span class="lang-la">ຕິດຕໍ່</span><span class="lang-jp">お問い合わせ</span><span class="lang-kr">연락처</span><span class="lang-cn">联系我们</span><span class="lang-hk">聯絡我們</span>
-                    </h4>
-                    <ul class="space-y-3 text-gray-400">
-                        <li class="flex items-start"><i class="fa-solid fa-location-dot mt-1 mr-3 text-sky-500"></i> Twomeals Ventures Individual Enterprise<br>Vientiane, Laos</li>
-                        <li class="flex items-center"><i class="fa-solid fa-envelope mr-3 text-sky-500"></i> allanpang@twomeals.biz</li>
-                        <li class="flex items-center">
-                            <i class="fa-solid fa-phone mr-3 text-sky-500"></i> 
-                            <i class="fa-brands fa-whatsapp mr-2 text-green-500 text-lg"></i>
-                            +856 20 5809 6813
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-lg font-bold mb-6">
-                        <span class="lang-en">LINE us</span><span class="lang-la">ຕິດຕໍ່ທາງ LINE</span><span class="lang-jp">LINEで連絡</span><span class="lang-kr">LINE 문의</span><span class="lang-cn">LINE 联系</span><span class="lang-hk">LINE 聯絡</span>
-                    </h4>
-                    <!-- REPLACED FORM WITH LINE QR CODE IMAGE -->
-                    <div class="bg-white p-4 rounded-lg inline-block">
-                        <img src="LineQRcode.jpg" alt="LINE QR Code" class="w-32 h-32 object-contain">
-                    </div>
-                    <p class="text-gray-400 text-sm mt-3">
-                        <span class="lang-en">Scan to chat with us!</span><span class="lang-la">ສະແກນເພື່ອສົນທະນາກັບພວກເຮົາ!</span><span class="lang-jp">スキャンしてチャット！</span><span class="lang-kr">스캔하여 채팅하세요!</span><span class="lang-cn">扫码联系我们！</span><span class="lang-hk">掃碼聯絡我哋！</span>
-                    </p>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
-                <p>&copy; 2024 Twomeals Ventures Individual Enterprise. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-</body>
-</html>
