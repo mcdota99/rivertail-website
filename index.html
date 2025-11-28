@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kawanosachi Naturals | Premium Pet Treats from Laos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Added Noto Sans SC (Simplified) and TC (Traditional) for Chinese */
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&family=Nunito:wght@300;400;600;700&family=Noto+Sans+Lao:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Nunito', 'Noto Sans Lao', 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans SC', 'Noto Sans TC', sans-serif;
+        }
+        
+        h1, h2, h3, h4, .brand-font {
+            font-family: 'Fredoka', 'Noto Sans Lao', 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans SC', 'Noto Sans TC', sans-serif;
+        }
+
+        .hero-pattern {
+            background-color: #f0f9ff;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23bae6fd' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* Language Switching Logic for 7 Languages (Added Malay) */
+        /* Hide all language spans by default */
+        .lang-en, .lang-la, .lang-jp, .lang-kr, .lang-cn, .lang-hk, .lang-my { display: none; }
+
+        /* Show specific language based on body class */
+        body.show-en .lang-en { display: inline !important; }
+        body.show-la .lang-la { display: inline !important; }
+        body.show-jp .lang-jp { display: inline !important; }
+        body.show-kr .lang-kr { display: inline !important; }
+        body.show-cn .lang-cn { display: inline !important; }
+        body.show-hk .lang-hk { display: inline !important; }
+        body.show-my .lang-my { display: inline !important; }
+
+        /* MALAY SPECIAL LOGIC: Hide Dog Content */
+        body.show-my .dog-content { display: none !important; }
+        
+        /* Hide Malay-specific cat content by default, show only when Malay is active */
+        .cat-content-my-only { display: none; }
+        body.show-my .cat-content-my-only { display: block !important; }
+
+        /* --- PIXEL ART PETS ANIMATION --- */
+        .pixel-pets-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            z-index: 9999;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .pixel-pets-wrapper {
+            position: absolute;
+            bottom: 5px;
+            display: flex;
+            align-items: flex-end;
+            animation: runLoop 20s linear infinite;
+        }
+
+        .pixel-pet {
+            width: 48px;
+            height: 48px;
+            margin-right: 0;
+            animation: bounce 0.4s cubic-bezier(0.3, 0, 0.7, 1) infinite alternate;
+        }
+        
+        .pixel-pet svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.2));
+        }
+
+        .pixel-cat {
+            animation-delay: 0.1s;
+        }
+
+        @keyframes runLoop {
+            0% { left: -150px; transform: scaleX(1); }
+            45% { left: 100%; transform: scaleX(1); }
+            45.01% { transform: scaleX(-1); }
+            50% { left: 100%; transform: scaleX(-1); }
+            95% { left: -150px; transform: scaleX(-1); }
+            95.01% { transform: scaleX(1); }
+            100% { left: -150px; transform: scaleX(1); }
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        /* --- MODAL STYLES --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 95vw; /* Increased max-width to allow larger images */
+            width: auto;     /* Changed from fixed % to auto to fit content */
+            min-width: 300px; /* Minimum width for mobile */
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transition: width 0.3s, height 0.3s; /* Smooth transition for resizing */
+        }
+    </style>
+    <script>
+        function setLanguage(lang) {
+            // Remove all language classes
+            document.body.classList.remove('show-en', 'show-la', 'show-jp', 'show-kr', 'show-cn', 'show-hk', 'show-my');
+            // Add the selected language class
+            document.body.classList.add('show-' + lang);
+        }
+
+        // --- MODAL LOGIC (UPDATED FOR 2 BUTTONS & DYNAMIC SIZING) ---
+        // type: 'raw' or 'cert'
+        function openModal(type, productName, rawImageSrc, testCertSrc, nutritionCertSrc) {
+            const modal = document.getElementById('info-modal');
+            const modalContent = modal.querySelector('.modal-content'); // Get the content wrapper
+            const modalTitle = document.getElementById('modal-title');
+            
+            // Sections
+            const rawSection = document.getElementById('modal-section-raw');
+            const certSection = document.getElementById('modal-section-cert');
+            
+            // Images
+            const rawImage = document.getElementById('modal-raw-image');
+            const testCertImage = document.getElementById('modal-test-cert');
+            const nutritionCertImage = document.getElementById('modal-nutrition-cert');
+            
+            // Reset modal content styles to default (removes previous fixed sizing)
+            modalContent.style.width = '';
+            modalContent.style.height = '';
+            modalContent.style.maxWidth = '';
+            modalContent.style.maxHeight = '';
+            modalContent.style.padding = '';
+
+            // Handle Content based on Type
+            if (type === 'raw') {
+                // CHANGED: "Raw Material" to "Ingredient"
+                if(modalTitle) modalTitle.textContent = "Ingredient: " + productName;
+                
+                // Show Raw, Hide Certs
+                if(rawSection) rawSection.classList.remove('hidden');
+                if(certSection) certSection.classList.add('hidden');
+                
+                // Update Image
+                if(rawImage) {
+                    rawImage.src = rawImageSrc;
+                    // Reset inline styles that might have been set previously
+                    rawImage.style.height = ''; 
+                    rawImage.style.maxHeight = ''; 
+                }
+                
+            } else if (type === 'cert') {
+                if(modalTitle) modalTitle.textContent = "Certificates: " + productName;
+                
+                // Hide Raw, Show Certs
+                if(rawSection) rawSection.classList.add('hidden');
+                if(certSection) certSection.classList.remove('hidden');
+                
+                // Set images with safety checks and error reset
+                if(testCertImage) {
+                    testCertImage.style.display = 'block'; 
+                    testCertImage.src = testCertSrc;
+                    const errorMsg = testCertImage.nextElementSibling;
+                    if(errorMsg && errorMsg.classList.contains('error-msg')) {
+                        errorMsg.style.display = 'none';
+                    }
+                }
+                
+                if(nutritionCertImage) {
+                    nutritionCertImage.style.display = 'block';
+                    nutritionCertImage.src = nutritionCertSrc;
+                    const errorMsg = nutritionCertImage.nextElementSibling;
+                    if(errorMsg && errorMsg.classList.contains('error-msg')) {
+                        errorMsg.style.display = 'none';
+                    }
+                }
+            }
+            
+            if(modal) modal.classList.add('show');
+            // Prevent body scrolling
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('info-modal');
+            if(modal) modal.classList.remove('show');
+            // Re-enable body scrolling
+            document.body.style.overflow = 'auto';
+        }
+
+        // --- NEW RIVER MODAL LOGIC ---
+        function openRiverModal() {
+            const modal = document.getElementById('river-modal');
+            if(modal) modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeRiverModal() {
+            const modal = document.getElementById('river-modal');
+            if(modal) modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // --- DOG & CAT MODAL LOGIC ---
+        function openDogModal() {
+            const modal = document.getElementById('dog-modal');
+            if(modal) modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeDogModal() {
+            const modal = document.getElementById('dog-modal');
+            if(modal) modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        function openCatModal() {
+            const modal = document.getElementById('cat-modal');
+            if(modal) modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeCatModal() {
+            const modal = document.getElementById('cat-modal');
+            if(modal) modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // --- DEHYDRATED MODAL LOGIC ---
+        function openDehydratedModal() {
+            const modal = document.getElementById('dehydrated-modal');
+            if(modal) modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeDehydratedModal() {
+            const modal = document.getElementById('dehydrated-modal');
+            if(modal) modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on outside click (Handles all modals)
+        window.onclick = function(event) {
+            const infoModal = document.getElementById('info-modal');
+            const riverModal = document.getElementById('river-modal');
+            const dogModal = document.getElementById('dog-modal');
+            const catModal = document.getElementById('cat-modal');
+            const dehydratedModal = document.getElementById('dehydrated-modal');
+            
+            if (event.target == infoModal) closeModal();
+            if (event.target == riverModal) closeRiverModal();
+            if (event.target == dogModal) closeDogModal();
+            if (event.target == catModal) closeCatModal();
+            if (event.target == dehydratedModal) closeDehydratedModal();
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 show-en">
+
+    <!-- PIXEL ART PETS OVERLAY -->
+    <div class="pixel-pets-container">
+        <div class="pixel-pets-wrapper">
+            <!-- Pixel Art Dog: Added dog-content class to hide in Malay -->
+            <div class="pixel-pet pixel-dog dog-content">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+                    <rect x="3" y="6" width="8" height="5" fill="#8B4513"/>
+                    <rect x="3" y="11" width="2" height="3" fill="#8B4513"/>
+                    <rect x="9" y="11" width="2" height="3" fill="#8B4513"/>
+                    <rect x="8" y="3" width="5" height="4" fill="#8B4513"/>
+                    <rect x="11" y="4" width="1" height="1" fill="black"/>
+                    <rect x="13" y="5" width="1" height="1" fill="black"/>
+                    <rect x="2" y="5" width="2" height="3" fill="#8B4513"/>
+                    <rect x="9" y="3" width="2" height="2" fill="#5D4037"/>
+                </svg>
+            </div>
+            <!-- Pixel Art Cat -->
+            <div class="pixel-pet pixel-cat">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+                    <rect x="4" y="7" width="7" height="4" fill="#FFA500"/>
+                    <rect x="4" y="11" width="2" height="2" fill="#FFA500"/>
+                    <rect x="9" y="11" width="2" height="2" fill="#FFA500"/>
+                    <rect x="8" y="4" width="4" height="4" fill="#FFA500"/>
+                    <rect x="8" y="3" width="1" height="2" fill="#FFA500"/>
+                    <rect x="11" y="3" width="1" height="2" fill="#FFA500"/>
+                    <rect x="10" y="5" width="1" height="1" fill="black"/>
+                    <rect x="2" y="6" width="2" height="3" fill="#FFA500"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Removed onclick="showPage" as we are reverting to single page + modal -->
+                <div class="flex items-center">
+                    <i class="fa-solid fa-paw text-3xl text-sky-500 mr-2"></i>
+                    <span class="brand-font text-2xl font-bold text-gray-800">Kawanosachi <span class="text-sky-500">Naturals</span></span>
+                </div>
+                <div class="hidden lg:flex space-x-6 items-center">
+                    <!-- Standard href links restored -->
+                    <a href="#home" class="text-gray-600 hover:text-sky-500 font-medium transition">
+                        <span class="lang-en">Home</span><span class="lang-la">ໜ້າຫຼັກ</span><span class="lang-jp">ホーム</span><span class="lang-kr">홈</span><span class="lang-cn">首页</span><span class="lang-hk">首頁</span><span class="lang-my">Laman Utama</span>
+                    </a>
+                    <a href="#products" class="text-gray-600 hover:text-sky-500 font-medium transition">
+                        <span class="lang-en">Our Treats</span><span class="lang-la">ຜະລິດຕະພັນ</span><span class="lang-jp">商品一覧</span><span class="lang-kr">제품 소개</span><span class="lang-cn">产品</span><span class="lang-hk">產品</span><span class="lang-my">Snek Kami</span>
+                    </a>
+                    <a href="#about" class="text-gray-600 hover:text-sky-500 font-medium transition">
+                        <span class="lang-en">Our Story</span><span class="lang-la">ເລື່ອງລາວຂອງເຮົາ</span><span class="lang-jp">私たちのストーリー</span><span class="lang-kr">브랜드 스토리</span><span class="lang-cn">品牌故事</span><span class="lang-hk">品牌故事</span><span class="lang-my">Cerita Kami</span>
+                    </a>
+                    <a href="#contact" class="bg-sky-500 text-white px-5 py-2 rounded-full font-medium hover:bg-sky-600 transition shadow-lg shadow-sky-200">
+                        <span class="lang-en">Contact Us</span><span class="lang-la">ຕິດຕໍ່</span><span class="lang-jp">お問い合わせ</span><span class="lang-kr">문의하기</span><span class="lang-cn">联系我们</span><span class="lang-hk">聯絡我們</span><span class="lang-my">Hubungi Kami</span>
+                    </a>
+                    <!-- Language Switcher -->
+                    <div class="flex items-center space-x-1 border-l pl-4 border-gray-300">
+                        <button onclick="setLanguage('en')" class="text-xs font-bold text-gray-500 hover:text-sky-500">EN</button><span class="text-gray-300">|</span>
+                        <button onclick="setLanguage('la')" class="text-xs font-bold text-gray-500 hover:text-sky-500">LA</button><span class="text-gray-300">|</span>
+                        <button onclick="setLanguage('jp')" class="text-xs font-bold text-gray-500 hover:text-sky-500">JP</button><span class="text-gray-300">|</span>
+                        <button onclick="setLanguage('kr')" class="text-xs font-bold text-gray-500 hover:text-sky-500">KR</button><span class="text-gray-300">|</span>
+                        <button onclick="setLanguage('cn')" class="text-xs font-bold text-gray-500 hover:text-sky-500">CN</button><span class="text-gray-300">|</span>
+                        <button onclick="setLanguage('hk')" class="text-xs font-bold text-gray-500 hover:text-sky-500">HK</button><span class="text-gray-300">|</span>
+                        <button onclick="setLanguage('my')" class="text-xs font-bold text-gray-500 hover:text-sky-500">MY</button>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="lg:hidden flex items-center gap-4">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-gray-600 hover:text-sky-500 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t">
+            <div class="p-4 flex flex-wrap gap-2 justify-center bg-gray-50 border-b">
+                <button onclick="setLanguage('en')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">EN</button>
+                <button onclick="setLanguage('la')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">LA</button>
+                <button onclick="setLanguage('jp')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">JP</button>
+                <button onclick="setLanguage('kr')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">KR</button>
+                <button onclick="setLanguage('cn')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">CN</button>
+                <button onclick="setLanguage('hk')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">HK</button>
+                <button onclick="setLanguage('my')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">MY</button>
+            </div>
+            <a href="#home" class="block py-3 px-4 text-gray-700 hover:bg-gray-50">
+                <span class="lang-en">Home</span><span class="lang-la">ໜ້າຫຼັກ</span><span class="lang-jp">ホーム</span><span class="lang-kr">홈</span><span class="lang-cn">首页</span><span class="lang-hk">首頁</span><span class="lang-my">Laman Utama</span>
+            </a>
+            <a href="#products" class="block py-3 px-4 text-gray-700 hover:bg-gray-50">
+                <span class="lang-en">Our Treats</span><span class="lang-la">ຜະລິດຕະພັນ</span><span class="lang-jp">商品一覧</span><span class="lang-kr">제품 소개</span><span class="lang-cn">产品</span><span class="lang-hk">產品</span><span class="lang-my">Produk Kami</span>
+            </a>
+            <a href="#about" class="block py-3 px-4 text-gray-700 hover:bg-gray-50">
+                <span class="lang-en">Our Story</span><span class="lang-la">ເລື່ອງລາວຂອງເຮົາ</span><span class="lang-jp">私たちのストーリー</span><span class="lang-kr">브랜드 스토리</span><span class="lang-cn">品牌故事</span><span class="lang-hk">品牌故事</span><span class="lang-my">Cerita Kami</span>
+            </a>
+            <a href="#contact" class="block py-3 px-4 text-sky-600 font-bold hover:bg-gray-50">
+                <span class="lang-en">Contact Us</span><span class="lang-la">ຕິດຕໍ່</span><span class="lang-jp">お問い合わせ</span><span class="lang-kr">문의하기</span><span class="lang-cn">联系我们</span><span class="lang-hk">聯絡我們</span><span class="lang-my">Hubungi Kami</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-pattern pt-20 pb-28 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto">
+                <div class="inline-block bg-sky-100 text-sky-600 px-4 py-1 rounded-full text-sm font-semibold mb-6 animate-bounce">
+                    <span class="lang-en">Running out of treats? 🐾</span>
+                    <span class="lang-la">ໝົດຂະໜົມໃຫ້ເຈົ້ານາຍແລ້ວບໍ່? 🐾</span>
+                    <span class="lang-jp">おやつ、足りていますか？ 🐾</span>
+                    <span class="lang-kr">간식이 떨어졌나요? 🐾</span>
+                    <span class="lang-cn">零食吃完了吗？ 🐾</span>
+                    <span class="lang-hk">零食食晒啦？ 🐾</span>
+                    <span class="lang-my">Kehabisan snek? 🐾</span>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-6">
+                    <!-- English -->
+                    <span class="lang-en">The Fresh Bounty of the <br/>
+                        <a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">Nam Ngum River</a>
+                    </span>
+                    
+                    <!-- Lao -->
+                    <span class="lang-la">ຄວາມອຸດົມສົມບູນອັນສົດໃໝ່ຈາກ <br/>
+                        <a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">ແມ່ນໍ້າງື່ມ</a>
+                    </span>
+                    
+                    <!-- Japanese -->
+                    <span class="lang-jp">
+                        <a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">ナムグム川</a>からの<br/>新鮮な恵み
+                    </span>
+                    
+                    <!-- Korean -->
+                    <span class="lang-kr">
+                        <a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">남늠강</a>의 <br/>신선한 풍요
+                    </span>
+                    
+                    <!-- Mandarin -->
+                    <span class="lang-cn">来自<a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">南俄河</a>的<br/>新鲜馈赠</span>
+                    
+                    <!-- Cantonese -->
+                    <span class="lang-hk">來自<a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">南俄河</a>嘅<br/>新鮮豐饒</span>
+
+                    <!-- Malay -->
+                    <span class="lang-my">Kurniaan Segar dari <br/>
+                        <a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">Sungai Nam Ngum</a>
+                    </span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-10 leading-relaxed">
+                    <span class="lang-en">Premium pet snacks made from sustainably sourced Tilapia. 100% Natural, Low-Temp Dehydrated, and produced with love in Laos.</span>
+                    <span class="lang-la">ຂະໜົມສັດລ້ຽງເກຣດພຣີມ່ຽມ ຜະລິດຈາກປານິນທຳມະຊາດ. ປອດສານພິດ 100%, ອົບແຫ້ງດ້ວຍອຸນຫະພູມຕໍ່າ ແລະ ຜະລິດດ້ວຍໃຈໃນລາວ.</span>
+                    <span class="lang-jp">持続可能な方法で調達されたティラピアから作られたプレミアムペットスナック。100%天然、低温乾燥、そしてラオスで愛を込めて生産されています。</span>
+                    <span class="lang-kr">지속 가능한 방식으로 공급된 틸라피아로 만든 프리미엄 반려동물 간식. 100% 천연, 저온 건조 공법, 라오스에서 정성을 다해 생산되었습니다.</span>
+                    <span class="lang-cn">源自老挝的可持续罗非鱼，100%天然，低温脱水，精心制作的高级宠物零食。</span>
+                    <span class="lang-hk">源自老撾嘅可持續羅非魚，100%天然，低溫脫水，用心製作嘅高級寵物零食。</span>
+                    <span class="lang-my">Snek haiwan peliharaan premium yang diperbuat daripada Tilapia sumber lestari. 100% Semulajadi, Dehidrasi Suhu Rendah, dan dihasilkan dengan kasih sayang di Laos.</span>
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#products" class="bg-sky-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-sky-600 transition shadow-xl shadow-sky-200 flex items-center justify-center">
+                        <i class="fa-solid fa-bone mr-2"></i> 
+                        <span class="lang-en">Shop Treats</span><span class="lang-la">ເລືອກຊື້ສິນຄ້າ</span><span class="lang-jp">商品を見る</span><span class="lang-kr">쇼핑하기</span><span class="lang-cn">立即购买</span><span class="lang-hk">立即購買</span><span class="lang-my">Beli Snek</span>
+                    </a>
+                    <a href="#about" class="bg-white text-gray-700 border-2 border-gray-200 px-8 py-4 rounded-full font-bold text-lg hover:border-sky-500 hover:text-sky-500 transition flex items-center justify-center">
+                        <span class="lang-en">Learn More</span><span class="lang-la">ອ່ານເພີ່ມເຕີມ</span><span class="lang-jp">もっと詳しく</span><span class="lang-kr">더 알아보기</span><span class="lang-cn">了解更多</span><span class="lang-hk">了解更多</span><span class="lang-my">Ketahui Lebih Lanjut</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Decorative blobs -->
+        <div class="absolute top-1/4 left-0 -translate-x-1/2 w-64 h-64 bg-sky-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        <div class="absolute bottom-0 right-0 translate-x-1/3 w-80 h-80 bg-teal-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+    </section>
+
+    <!-- Features / USP -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+                <div class="p-6 rounded-2xl bg-gray-50 hover:bg-sky-50 transition duration-300">
+                    <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4 text-sky-600 text-2xl">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">
+                        <span class="lang-en">100% Natural</span><span class="lang-la">ທຳມະຊາດ 100%</span><span class="lang-jp">100%天然</span><span class="lang-kr">100% 천연 재료</span><span class="lang-cn">100% 天然</span><span class="lang-hk">100% 天然</span><span class="lang-my">100% Semulajadi</span>
+                    </h3>
+                    <p class="text-gray-600">
+                        <span class="lang-en">No additives, no seasoning, and absolutely no preservatives. Just pure goodness.</span>
+                        <span class="lang-la">ບໍ່ມີສານປຸງແຕ່ງ, ບໍ່ມີລົດຊາດປຸງແຕ່ງ ແລະ ບໍ່ມີວັດຖຸກັນເສຍ. ຄຸນປະໂຫຍດເນັ້ນໆ.</span>
+                        <span class="lang-jp">添加物、調味料、保存料は一切使用していません。純粋な美味しさだけ。</span>
+                        <span class="lang-kr">첨가물, 조미료, 방부제가 전혀 들어있지 않습니다. 오직 순수한 재료만 담았습니다.</span>
+                        <span class="lang-cn">无添加剂，无调味，绝对无防腐剂。只有纯净的美味。</span>
+                        <span class="lang-hk">無添加劑，無調味，絕對無防腐劑。只有純淨嘅美味。</span>
+                        <span class="lang-my">Tiada bahan tambahan, tiada perasa, dan tiada bahan pengawet. Hanya kebaikan tulen.</span>
+                    </p>
+                </div>
+                <!-- ADDED: onclick="openDehydratedModal()" and cursor-pointer class -->
+                <div onclick="openDehydratedModal()" class="p-6 rounded-2xl bg-gray-50 hover:bg-sky-50 transition duration-300 cursor-pointer group">
+                    <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4 text-sky-600 text-2xl group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-temperature-low"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">
+                        <span class="lang-en">Slow Dehydrated</span><span class="lang-la">ອົບແຫ້ງອຸນຫະພູມຕໍ່າ</span><span class="lang-jp">じっくり低温乾燥</span><span class="lang-kr">저온 건조 공법</span><span class="lang-cn">低温慢烘</span><span class="lang-hk">低溫慢烘</span><span class="lang-my">Dehidrasi Perlahan</span>
+                    </h3>
+                    <p class="text-gray-600">
+                        <span class="lang-en">Low-temperature dehydration locks in nutrients and flavor without cooking them away.</span>
+                        <span class="lang-la">ການອົບແຫ້ງດ້ວຍອຸນຫະພູມຕໍ່າ ຊ່ວຍຮັກສາຄຸນຄ່າທາງອາຫານ ແລະ ລົດຊາດໄວ້ຢ່າງຄົບຖ້ວນ.</span>
+                        <span class="lang-jp">低温乾燥により、栄養と風味を損なうことなく閉じ込めました。</span>
+                        <span class="lang-kr">저온 건조 공법으로 조리 과정에서 손실될 수 있는 영양소와 풍미를 그대로 지켰습니다.</span>
+                        <span class="lang-cn">低温脱水技术锁住营养和风味，避免高温破坏。</span>
+                        <span class="lang-hk">低溫脫水技術鎖住營養同風味，避免高溫破壞。</span>
+                        <span class="lang-my">Dehidrasi suhu rendah mengunci nutrien dan rasa tanpa memasaknya.</span>
+                    </p>
+                </div>
+                <div class="p-6 rounded-2xl bg-gray-50 hover:bg-sky-50 transition duration-300">
+                    <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4 text-sky-600 text-2xl">
+                        <i class="fa-solid fa-water"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">
+                        <span class="lang-en">Nam Ngum Origin</span><span class="lang-la">ຕົ້ນກຳເນີດຈາກນໍ້າງື່ມ</span><span class="lang-jp">ナムグム産</span><span class="lang-kr">남늠강 원산지</span><span class="lang-cn">源自南俄河</span><span class="lang-hk">源自南俄河</span><span class="lang-my">Asal Nam Ngum</span>
+                    </h3>
+                    <p class="text-gray-600">
+                        <span class="lang-en">Sourced from quality Tilapia bred in fish pens directly at the <a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">Nam Ngum River</a>.</span>
+                        <span class="lang-la">ຜະລິດຈາກປານິນຄຸນນະພາບດີ ທີ່ລ້ຽງໃນກະຊັງໃນ<a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">ແມ່ນໍ້າງື່ມ</a>ໂດຍກົງ.</span>
+                        <span class="lang-jp"><a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">ナムグム川</a>の養殖生け簀で育てられた高品質なティラピアを使用しています。</span>
+                        <span class="lang-kr"><a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">남늠강</a>의 양식장에서 직접 기른 고품질 틸라피아를 사용합니다.</span>
+                        <span class="lang-cn">选用直接在<a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">南俄河</a>网箱养殖的优质罗非鱼。</span>
+                        <span class="lang-hk">選用直接喺<a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">南俄河</a>網箱養殖嘅優質羅非魚。</span>
+                        <span class="lang-my">Diperoleh daripada Tilapia berkualiti yang dibiakkan dalam sangkar ikan secara terus di <a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">Sungai Nam Ngum</a>.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-sky-500 font-bold uppercase tracking-wider text-sm">
+                    <span class="lang-en">Our Selection</span><span class="lang-la">ສິນຄ້າຂອງເຮົາ</span><span class="lang-jp">商品ラインナップ</span><span class="lang-kr">제품 라인업</span><span class="lang-cn">我们的精选</span><span class="lang-hk">我哋嘅精選</span><span class="lang-my">Pilihan Kami</span>
+                </span>
+                <h2 class="text-4xl font-bold text-gray-900 mt-2">
+                    <span class="lang-en">Treats They'll Beg For</span><span class="lang-la">ຂະໜົມທີ່ສັດລ້ຽງຂອງທ່ານຕ້ອງຫຼົງຮັກ</span><span class="lang-jp">おねだりしたくなるおやつ</span><span class="lang-kr">반려동물이 간절히 원하는 간식</span><span class="lang-cn">宠物爱不释手的零食</span><span class="lang-hk">寵物愛不釋手嘅零食</span><span class="lang-my">Snek yang Mereka Idamkan</span>
+                </h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto mb-8">
+                    <span class="lang-en">Suitable for both dogs and cats. Perfect for training, playtime, or just saying "I love you."</span>
+                    <span class="lang-la">ເໝາະສຳລັບທັງໝາ ແລະ ແມວ. ດີເລີດສຳລັບການຝຶກສອນ, ເວລາຫຼິ້ນ ຫຼື ມອບເປັນລາງວັນແຫ່ງຄວາມຮັກ.</span>
+                    <span class="lang-jp">犬猫兼用。トレーニングや遊び、そして「大好き」を伝えるのに最適です。</span>
+                    <span class="lang-kr">강아지와 고양이 모두에게 적합합니다. 훈련, 놀이 시간, 또는 사랑을 전할 때 완벽한 선택입니다.</span>
+                    <span class="lang-cn">猫狗皆宜。完美的训练奖励、游戏伴侣，或表达爱意的小礼物。</span>
+                    <span class="lang-hk">貓狗皆宜。完美嘅訓練獎勵、遊戲伴侶，或表達愛意嘅小禮物。</span>
+                    <span class="lang-my">Sesuai untuk kucing. Sempurna untuk latihan, masa bermain, atau sekadar berkata "Saya sayang awak."</span>
+                </p>
+                
+                <!-- NEW OEM BUTTON -->
+                <a href="#contact" class="inline-flex items-center bg-white border-2 border-gray-800 text-gray-800 px-6 py-2 rounded-full font-bold hover:bg-gray-800 hover:text-white transition shadow-sm hover:shadow-md">
+                    <i class="fa-solid fa-handshake mr-2"></i>
+                    <span class="lang-en">OEM Order Contact</span>
+                    <span class="lang-la">ຕິດຕໍ່ສັ່ງຜະລິດ OEM</span>
+                    <span class="lang-jp">OEM製造のお問い合わせ</span>
+                    <span class="lang-kr">OEM 주문 문의</span>
+                    <span class="lang-cn">OEM 订单咨询</span>
+                    <span class="lang-hk">OEM 訂單查詢</span>
+                    <span class="lang-my">Hubungi Tempahan OEM</span>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Product 1: Fish Fillet Jerky -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
+                    <div class="h-64 overflow-hidden relative bg-gray-200">
+                        <img src="FishJerky.jpg" 
+                             alt="Fish Fillet Jerky" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                        <div class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">Best Seller</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                            <span class="lang-en">Fish Fillet Jerky</span><span class="lang-la">ປານິນແຜ່ນອົບແຫ້ງ</span><span class="lang-jp">魚のフィレジャーキー</span><span class="lang-kr">생선 필레 저키</span><span class="lang-cn">罗非鱼肉干</span><span class="lang-hk">羅非魚肉乾</span><span class="lang-my">Dendeng Filet Ikan</span>
+                        </h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">
+                            <span class="lang-en">Whole fillets of Tilapia, dehydrated to perfection. Chewy texture that helps clean teeth while providing high protein.</span>
+                            <span class="lang-la">ຊີ້ນປານິນແຜ່ນ, ອົບແຫ້ງຢ່າງພິຖີພິຖັນ. ມີຄວາມໜຽວນຸ້ມ ຊ່ວຍຂັດແຂ້ວ ແລະ ໃຫ້ໂປຣຕີນສູງ.</span>
+                            <span class="lang-jp">ティラピアの切り身を丸ごと完璧に乾燥させました。噛み応えがあり、歯の健康を保ちながら高タンパク質を摂取できます。</span>
+                            <span class="lang-kr">틸라피아 통살을 완벽하게 건조했습니다. 쫄깃한 식감으로 치아 건강에 도움을 주며 단백질이 풍부합니다.</span>
+                            <span class="lang-cn">整片罗非鱼片完美脱水。耐嚼的口感有助于清洁牙齿，同时提供高蛋白。</span>
+                            <span class="lang-hk">整片羅非魚片完美脫水。耐嚼嘅口感有助於清潔牙齒，同時提供高蛋白。</span>
+                            <span class="lang-my">Filet Tilapia penuh, didehidrasi dengan sempurna. Tekstur kenyal yang membantu membersihkan gigi sambil membekalkan protein tinggi.</span>
+                        </p>
+                        <ul class="text-sm text-gray-500 mb-6 space-y-2">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">High Protein</span><span class="lang-la">ໂປຣຕີນສູງ</span><span class="lang-jp">高タンパク</span><span class="lang-kr">고단백</span><span class="lang-cn">高蛋白</span><span class="lang-hk">高蛋白</span><span class="lang-my">Protein Tinggi</span></li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">Single Ingredient</span><span class="lang-la">ວັດຖຸດິບຢ່າງດຽວ</span><span class="lang-jp">原材料ひとつだけ</span><span class="lang-kr">단일 원료</span><span class="lang-cn">单一原料</span><span class="lang-hk">單一原料</span><span class="lang-my">Ramuan Tunggal</span></li>
+                        </ul>
+                        <!-- Updated Buttons: Two Buttons for Jerky -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <!-- CHANGED: Label from "Raw Material" to "Ingredient" (and translations updated) -->
+                            <button onclick="openModal('raw', 'Fish Fillet Jerky', 'FishJerkyRaw.jpg', 'FishJerky_Test.jpg', 'FishJerky_Nutrition.jpg')" class="bg-gray-200 text-gray-800 py-3 rounded-xl font-bold hover:bg-sky-500 hover:text-white transition text-sm">
+                                <span class="lang-en">Ingredient</span><span class="lang-la">ສ່ວນປະກອບ</span><span class="lang-jp">原材料</span><span class="lang-kr">재료</span><span class="lang-cn">成分</span><span class="lang-hk">成分</span><span class="lang-my">Ramuan</span>
+                            </button>
+                            <button onclick="openModal('cert', 'Fish Fillet Jerky', 'FishJerkyRaw.jpg', 'FishJerky_Test.jpg', 'FishJerky_Nutrition.jpg')" class="bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-sky-500 transition text-sm">
+                                <span class="lang-en">Certificates</span><span class="lang-la">ໃບຢັ້ງຢືນ</span><span class="lang-jp">証明書</span><span class="lang-kr">인증서</span><span class="lang-cn">证书</span><span class="lang-hk">證書</span><span class="lang-my">Sijil</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2: Minced Fish Cookie -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
+                    <div class="h-64 overflow-hidden relative bg-gray-200">
+                        <img src="FishCookie.jpg" 
+                             alt="Minced Fish Cookie" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                            <span class="lang-en">Minced Fish Cookie</span><span class="lang-la">ຄຸກກີ້ປາບົດ</span><span class="lang-jp">魚のミンチクッキー</span><span class="lang-kr">다진 생선 쿠키</span><span class="lang-cn">鱼肉曲奇</span><span class="lang-hk">魚肉曲奇</span><span class="lang-my">Biskut Ikan Cincang</span>
+                        </h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">
+                            <span class="lang-en">Easy-to-chew bites made from minced quality Tilapia. Fantastic for training rewards or older pets.</span>
+                            <span class="lang-la">ຊິ້ນນ້ອຍກິນງ່າຍ ຜະລິດຈາກປານິນບົດຄຸນນະພາບ. ເໝາະສຳລັບເປັນລາງວັນຝຶກສອນ ຫຼື ສັດລ້ຽງອາຍຸສູງ.</span>
+                            <span class="lang-jp">上質なティラピアのミンチで作った、食べやすい一口サイズ。トレーニングのご褒美やシニアペットに最適です。</span>
+                            <span class="lang-kr">다진 고품질 틸라피아로 만든 씹기 편한 한입 크기 간식. 훈련 보상이나 노령 반려동물에게 아주 좋습니다.</span>
+                            <span class="lang-cn">由优质罗非鱼碎肉制成，易于咀嚼。非常适合作为训练奖励或老年宠物食用。</span>
+                            <span class="lang-hk">由優質羅非魚碎肉製成，易於咀嚼。非常適合作為訓練獎勵或老年寵物食用。</span>
+                            <span class="lang-my">Gigitan mudah dikunyah daripada Tilapia cincang berkualiti. Hebat untuk ganjaran latihan atau haiwan peliharaan tua.</span>
+                        </p>
+                        <ul class="text-sm text-gray-500 mb-6 space-y-2">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">Great for Training</span><span class="lang-la">ເໝາະສຳລັບຝຶກສອນ</span><span class="lang-jp">トレーニングに最適</span><span class="lang-kr">훈련용으로 최고</span><span class="lang-cn">适合训练</span><span class="lang-hk">適合訓練</span><span class="lang-my">Bagus untuk Latihan</span></li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">Easy Digestion</span><span class="lang-la">ຍ່ອຍງ່າຍ</span><span class="lang-jp">消化に良い</span><span class="lang-kr">소화가 잘됨</span><span class="lang-cn">易于消化</span><span class="lang-hk">易於消化</span><span class="lang-my">Mudah Hadam</span></li>
+                        </ul>
+                        <!-- Updated Buttons: Two Buttons for Cookies -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <!-- CHANGED: Label from "Raw Material" to "Ingredient" -->
+                            <button onclick="openModal('raw', 'Minced Fish Cookie', 'FishCookieRaw.jpg', 'FishCookie_Test.jpg', 'FishCookie_Nutrition.jpg')" class="bg-gray-200 text-gray-800 py-3 rounded-xl font-bold hover:bg-sky-500 hover:text-white transition text-sm">
+                                <span class="lang-en">Ingredient</span><span class="lang-la">ສ່ວນປະກອບ</span><span class="lang-jp">原材料</span><span class="lang-kr">재료</span><span class="lang-cn">成分</span><span class="lang-hk">成分</span><span class="lang-my">Ramuan</span>
+                            </button>
+                            <button onclick="openModal('cert', 'Minced Fish Cookie', 'FishCookieRaw.jpg', 'FishCookie_Test.jpg', 'FishCookie_Nutrition.jpg')" class="bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-sky-500 transition text-sm">
+                                <span class="lang-en">Certificates</span><span class="lang-la">ໃບຢັ້ງຢືນ</span><span class="lang-jp">証明書</span><span class="lang-kr">인증서</span><span class="lang-cn">证书</span><span class="lang-hk">證書</span><span class="lang-my">Sijil</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3: Dry Fish Skin -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
+                    <div class="h-64 overflow-hidden relative bg-gray-200">
+                        <img src="FishSkin.jpg" 
+                             alt="Dry Fish Skin" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                        <div class="absolute top-4 right-4 bg-orange-400 text-white text-xs font-bold px-3 py-1 rounded-full">Crunchy!</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                            <span class="lang-en">Dry Fish Skin</span><span class="lang-la">ໜັງປາກອບ</span><span class="lang-jp">魚の皮チップス</span><span class="lang-kr">건조 생선 껍질</span><span class="lang-cn">香脆鱼皮</span><span class="lang-hk">香脆魚皮</span><span class="lang-my">Kulit Ikan Kering</span>
+                        </h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">
+                            <span class="lang-en">Crispy, crunchy fish skin loaded with Omega-3 fatty acids for a shiny coat and healthy skin.</span>
+                            <span class="lang-la">ໜັງປາກອບ, ກິນເພີນ ອຸດົມໄປດ້ວຍ ໂອເມກ້າ-3 ຊ່ວຍບຳລຸງຂົນໃຫ້ເງົາງາມ ແລະ ຜິວໜັງສຸຂະພາບດີ.</span>
+                            <span class="lang-jp">パリパリとした食感の魚の皮には、艶やかな毛並みと健康な皮膚のためのオメガ3脂肪酸がたっぷり。</span>
+                            <span class="lang-kr">바삭바삭한 생선 껍질에는 오메가-3 지방산이 풍부하여 윤기 나는 털과 건강한 피부를 만들어줍니다.</span>
+                            <span class="lang-cn">酥脆的鱼皮富含Omega-3脂肪酸，有助于毛发光亮和皮肤健康。</span>
+                            <span class="lang-hk">酥脆嘅魚皮富含Omega-3脂肪酸，有助於毛髮光亮同皮膚健康。</span>
+                            <span class="lang-my">Kebaikan rangup yang kaya dengan Omega-3 untuk bulu berkilat dan kulit yang sihat.</span>
+                        </p>
+                        <ul class="text-sm text-gray-500 mb-6 space-y-2">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">Rich in Omega-3</span><span class="lang-la">ມີ ໂອເມກ້າ-3 ສູງ</span><span class="lang-jp">オメガ3豊富</span><span class="lang-kr">오메가-3 풍부</span><span class="lang-cn">富含 Omega-3</span><span class="lang-hk">富含 Omega-3</span><span class="lang-my">Kaya dengan Omega-3</span></li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">Skin & Coat Health</span><span class="lang-la">ບຳລຸງຜິວ ແລະ ຂົນ</span><span class="lang-jp">皮膚と被毛の健康</span><span class="lang-kr">피부 및 피모 건강</span><span class="lang-cn">皮肤与毛发健康</span><span class="lang-hk">皮膚與毛髮健康</span><span class="lang-my">Kesihatan Bulu</span></li>
+                        </ul>
+                        <!-- Updated Buttons: Two Buttons for Skin -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <!-- CHANGED: Label from "Raw Material" to "Ingredient" -->
+                            <button onclick="openModal('raw', 'Dry Fish Skin', 'FishSkinRaw.jpg', 'FishSkin_Test.jpg', 'FishSkin_Nutrition.jpg')" class="bg-gray-200 text-gray-800 py-3 rounded-xl font-bold hover:bg-sky-500 hover:text-white transition text-sm">
+                                <span class="lang-en">Ingredient</span><span class="lang-la">ສ່ວນປະກອບ</span><span class="lang-jp">原材料</span><span class="lang-kr">재료</span><span class="lang-cn">成分</span><span class="lang-hk">成分</span><span class="lang-my">Ramuan</span>
+                            </button>
+                            <button onclick="openModal('cert', 'Dry Fish Skin', 'FishSkinRaw.jpg', 'FishSkin_Test.jpg', 'FishSkin_Nutrition.jpg')" class="bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-sky-500 transition text-sm">
+                                <span class="lang-en">Certificates</span><span class="lang-la">ໃບຢັ້ງຢືນ</span><span class="lang-jp">証明書</span><span class="lang-kr">인증서</span><span class="lang-cn">证书</span><span class="lang-hk">證書</span><span class="lang-my">Sijil</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usage / About Section -->
+    <section id="about" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-start gap-12">
+                <div class="md:w-1/2">
+                    <!-- Existing Photo (Dog Training) - Hidden in Malay mode via class 'dog-content' -->
+                    <img src="https://images.unsplash.com/photo-1551730459-92db2a308d6a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Dog Training" class="rounded-3xl shadow-2xl w-full mb-8 dog-content">
+                    
+                    <!-- New Cat Photo - Only visible in Malay mode via class 'cat-content-my-only' -->
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Cat" class="rounded-3xl shadow-2xl w-full mb-8 cat-content-my-only">
+                </div>
+                <div class="md:w-1/2">
+                    <!-- Updated New Landscape Photo: More reliable link -->
+                    <img src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                         alt="Hand petting a cat" 
+                         class="rounded-3xl shadow-xl w-full max-w-md mb-8 object-cover aspect-video h-64">
+                    
+                    <span class="text-sky-500 font-bold uppercase tracking-wider text-sm">
+                        <span class="lang-en">Our Promise</span><span class="lang-la">ຄຳໝັ້ນສັນຍາຂອງເຮົາ</span><span class="lang-jp">私たちの約束</span><span class="lang-kr">우리의 약속</span><span class="lang-cn">我们的承诺</span><span class="lang-hk">我哋嘅承諾</span><span class="lang-my">Janji Kami</span>
+                    </span>
+                    <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-6">
+                        <span class="lang-en">From Our River to Your Home</span><span class="lang-la">ຈາກແມ່ນໍ້າຂອງເຮົາ ສູ່ເຮືອນຂອງທ່ານ</span><span class="lang-jp">私たちの川から、あなたの家へ</span><span class="lang-kr">우리의 강에서 당신의 집으로</span><span class="lang-cn">从我们的河流到您的家</span><span class="lang-hk">從我哋嘅河流到你嘅家</span><span class="lang-my">Dari Sungai Kami ke Rumah Anda</span>
+                    </h2>
+                    <p class="text-gray-600 mb-4 text-lg">
+                        <!-- Nam Ngum River linked to modal -->
+                        <span class="lang-en">At <strong>Kawanosachi Naturals</strong>, we believe pets deserve real food. Our journey begins at the <a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">Nam Ngum River</a> in Laos, where we sustainably breed our own Tilapia in river pens.</span>
+                        <span class="lang-la">ທີ່ <strong>Kawanosachi Naturals</strong>, ພວກເຮົາເຊື່ອວ່າສັດລ້ຽງຄວນໄດ້ຮັບອາຫານທີ່ແທ້ຈິງ. ການເດີນທາງຂອງພວກເຮົາເລີ່ມຕົ້ນທີ່ <a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">ແມ່ນໍ້າງື່ມ</a> ໃນລາວ, ບ່ອນທີ່ພວກເຮົາລ້ຽງປານິນໃນກະຊັງແບບຍືນຍົງ.</span>
+                        <span class="lang-jp"><strong>Kawanosachi Naturals</strong>では、ペットには本物の食事が必要だと信じています。私たちの旅はラオスの<a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">ナムグム川</a>で始まり、そこで川の生け簀でティラピアを持続可能な方法で養殖しています。</span>
+                        <span class="lang-kr"><strong>Kawanosachi Naturals</strong>는 반려동물이 진짜 음식을 먹을 자격이 있다고 믿습니다. 우리의 여정은 라오스의 <a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">남늠강</a>에서 시작됩니다. 이곳에서 우리는 강 가두리 양식으로 틸라피아를 지속 가능하게 기릅니다.</span>
+                        <span class="lang-cn">在 <strong>Kawanosachi Naturals</strong>，我们相信宠物值得拥有真正的食物。我们的旅程始于老挝的<a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">南俄河</a>，我们在那里以可持续的方式在河网箱中养殖罗非鱼。</span>
+                        <span class="lang-hk">喺 <strong>Kawanosachi Naturals</strong>，我哋相信寵物值得擁有真正嘅食物。我哋嘅旅程始於老撾嘅<a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">南俄河</a>，我哋喺嗰度以可持續嘅方式喺河網箱中養殖羅非魚。</span>
+                        <span class="lang-my">Di <strong>Kawanosachi Naturals</strong>, kami percaya haiwan peliharaan layak mendapat makanan sebenar. Perjalanan kami bermula di <a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">Sungai Nam Ngum</a> di Laos, di mana kami membiak Tilapia kami sendiri secara lestari.</span>
+                    </p>
+                    <p class="text-gray-600 mb-6">
+                        <span class="lang-en">We use a precise <strong>low-temperature dehydration</strong> process. This takes longer than baking, but it ensures that the natural vitamins and minerals of the fish are preserved. The result is a snack that is not only delicious but also highly nutritious.</span>
+                        <span class="lang-la">ພວກເຮົາໃຊ້ຂະບວນການ <strong>ອົບແຫ້ງດ້ວຍອຸນຫະພູມຕໍ່າ</strong> ທີ່ຊັດເຈນ. ເຖິງຈະໃຊ້ເວລາແກ່ກວ່າການອົບທຳມະດາ, ແຕ່ມັນຊ່ວຍຮັກສາວິຕາມິນ ແລະ ແຮ່ທາດທຳມະຊາດຂອງປາໄວ້ໄດ້. ຜົນໄດ້ຮັບແມ່ນຂະໜົມທີ່ບໍ່ພຽງແຕ່ແຊບ ແຕ່ຍັງມີປະໂຫຍດສູງ.</span>
+                        <span class="lang-jp">私たちは精密な<strong>低温乾燥</strong>プロセスを使用しています。焼くよりも時間はかかりますが、魚の天然ビタミンやミネラルを確実に保持します。その結果、美味しいだけでなく栄養価の高いおやつが出来上がります。</span>
+                        <span class="lang-kr">우리는 정밀한 <strong>저온 건조</strong> 공정을 사용합니다. 굽는 것보다 시간이 오래 걸리지만, 생선의 천연 비타민과 미네랄을 보존할 수 있습니다. 그 결과 맛있을 뿐만 아니라 영양가도 매우 높은 간식이 탄생합니다.</span>
+                        <span class="lang-cn">我们使用精确的<strong>低温脱水</strong>工艺。这比烘烤需要更长的时间，但能确保鱼的天然维生素和矿物质得以保留。结果不仅仅是美味，更是营养丰富的零食。</span>
+                        <span class="lang-hk">我哋使用精確嘅<strong>低溫脫水</strong>工藝。呢個比烘烤需要更長時間，但能確保魚嘅天然維他命同礦物質得以保留。結果唔單止係美味，仲係營養豐富嘅零食。</span>
+                        <span class="lang-my">Kami menggunakan proses dehidrasi suhu rendah yang tepat. Ini mengambil masa lebih lama daripada membakar, tetapi ia memastikan vitamin dan mineral semulajadi ikan terpelihara. Hasilnya adalah snek yang bukan sahaja lazat tetapi juga sangat berkhasiat.</span>
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <!-- Dog Card: Hidden in Malay -->
+                        <!-- ADDED: onclick, cursor-pointer, hover effects -->
+                        <div onclick="openDogModal()" class="flex items-center p-3 bg-sky-50 rounded-lg dog-content cursor-pointer hover:bg-sky-100 hover:shadow-md transition">
+                            <i class="fa-solid fa-dog text-sky-500 mr-3 text-xl"></i>
+                            <span class="font-bold text-gray-700">
+                                <span class="lang-en">For Dogs</span><span class="lang-la">ສຳລັບໝາ</span><span class="lang-jp">犬用</span><span class="lang-kr">강아지용</span><span class="lang-cn">适合狗狗</span><span class="lang-hk">適合狗狗</span><span class="lang-my">Untuk Anjing</span>
+                            </span>
+                        </div>
+                        <!-- Cat Card -->
+                        <!-- ADDED: onclick, cursor-pointer, hover effects -->
+                        <div onclick="openCatModal()" class="flex items-center p-3 bg-sky-50 rounded-lg cursor-pointer hover:bg-sky-100 hover:shadow-md transition">
+                            <i class="fa-solid fa-cat text-sky-500 mr-3 text-xl"></i>
+                            <span class="font-bold text-gray-700">
+                                <span class="lang-en">For Cats</span><span class="lang-la">ສຳລັບແມວ</span><span class="lang-jp">猫用</span><span class="lang-kr">고양이용</span><span class="lang-cn">适合猫咪</span><span class="lang-hk">適合貓咪</span><span class="lang-my">Untuk Kucing</span>
+                            </span>
+                        </div>
+                        <div class="flex items-center p-3 bg-sky-50 rounded-lg">
+                            <i class="fa-solid fa-medal text-sky-500 mr-3 text-xl"></i>
+                            <span class="font-bold text-gray-700">
+                                <span class="lang-en">Award / Training</span><span class="lang-la">ລາງວັນ / ຝຶກສອນ</span><span class="lang-jp">ご褒美 / トレーニング</span><span class="lang-kr">보상 / 훈련</span><span class="lang-cn">奖励 / 训练</span><span class="lang-hk">獎勵 / 訓練</span><span class="lang-my">Ganjaran / Latihan</span>
+                            </span>
+                        </div>
+                        <div class="flex items-center p-3 bg-sky-50 rounded-lg">
+                            <i class="fa-solid fa-heart text-sky-500 mr-3 text-xl"></i>
+                            <span class="font-bold text-gray-700">
+                                <span class="lang-en">Healthy Play</span><span class="lang-la">ການຫຼິ້ນທີ່ມີປະໂຫຍດ</span><span class="lang-jp">健康的な遊び</span><span class="lang-kr">건강한 놀이</span><span class="lang-cn">健康玩耍</span><span class="lang-hk">健康玩耍</span><span class="lang-my">Permainan Sihat</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Footer -->
+    <footer id="contact" class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <i class="fa-solid fa-paw text-2xl text-sky-500 mr-2"></i>
+                        <span class="brand-font text-2xl font-bold">Kawanosachi</span>
+                    </div>
+                    <p class="text-gray-400">
+                        <span class="lang-en">Pure, natural treats from the heart of Laos. Give your pets the nutrition they deserve.</span>
+                        <span class="lang-la">ຂະໜົມທຳມະຊາດແທ້ໆ ຈາກໃຈກາງປະເທດລາວ. ມອບສານອາຫານທີ່ສັດລ້ຽງຂອງທ່ານຄູ່ຄວນ.</span>
+                        <span class="lang-jp">ラオスの中心部から届く、純粋で自然なおやつ。ペットにふさわしい栄養を与えましょう。</span>
+                        <span class="lang-kr">라오스의 중심에서 온 순수하고 자연 그대로의 간식. 반려동물에게 그들이 마땅히 받아야 할 영양을 선물하세요.</span>
+                        <span class="lang-cn">来自老挝心脏地带的纯天然零食。为您心爱的宠物提供应得的营养。</span>
+                        <span class="lang-hk">來自老撾心臟地帶嘅純天然零食。為你心愛嘅寵物提供應得嘅營養。</span>
+                        <span class="lang-my">Snek tulen dan semulajadi dari tengah-tengah Laos. Berikan haiwan peliharaan anda nutrisi yang mereka layak dapatkan.</span>
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">
+                        <span class="lang-en">Products</span><span class="lang-la">ສິນຄ້າ</span><span class="lang-jp">商品</span><span class="lang-kr">제품</span><span class="lang-cn">产品</span><span class="lang-hk">產品</span><span class="lang-my">Produk</span>
+                    </h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-sky-400 transition"><span class="lang-en">Fish Fillet Jerky</span><span class="lang-la">ປານິນແຜ່ນອົບແຫ້ງ</span><span class="lang-jp">魚のフィレジャーキー</span><span class="lang-kr">생선 필레 저키</span><span class="lang-cn">罗非鱼肉干</span><span class="lang-hk">羅非魚肉乾</span><span class="lang-my">Dendeng Filet Ikan</span></a></li>
+                        <li><a href="#" class="hover:text-sky-400 transition"><span class="lang-en">Minced Fish Cookie</span><span class="lang-la">ຄຸກກີ້ປາບົດ</span><span class="lang-jp">魚のミンチクッキー</span><span class="lang-kr">다진 생선 쿠키</span><span class="lang-cn">鱼肉曲奇</span><span class="lang-hk">魚肉曲奇</span><span class="lang-my">Biskut Ikan Cincang</span></a></li>
+                        <li><a href="#" class="hover:text-sky-400 transition"><span class="lang-en">Dry Fish Skin</span><span class="lang-la">ໜັງປາກອບ</span><span class="lang-jp">魚の皮チップス</span><span class="lang-kr">건조 생선 껍질</span><span class="lang-cn">香脆鱼皮</span><span class="lang-hk">香脆魚皮</span><span class="lang-my">Kulit Ikan Kering</span></a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-6">
+                        <span class="lang-en">Contact</span><span class="lang-la">ຕິດຕໍ່</span><span class="lang-jp">お問い合わせ</span><span class="lang-kr">연락처</span><span class="lang-cn">联系我们</span><span class="lang-hk">聯絡我們</span><span class="lang-my">Hubungi</span>
+                    </h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start"><i class="fa-solid fa-location-dot mt-1 mr-3 text-sky-500"></i> Twomeals Ventures Individual Enterprise<br>Vientiane, Laos</li>
+                        <li class="flex items-center"><i class="fa-solid fa-envelope mr-3 text-sky-500"></i> allanpang@twomeals.biz</li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-phone mr-3 text-sky-500"></i> 
+                            <i class="fa-brands fa-whatsapp mr-2 text-green-500 text-lg"></i>
+                            +856 20 5809 6813
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-globe mr-3 text-sky-500"></i> 
+                            <a href="http://www.twomeals.biz" target="_blank" class="hover:text-sky-400 transition">www.twomeals.biz</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-6">
+                        <span class="lang-en">LINE us</span><span class="lang-la">ຕິດຕໍ່ທາງ LINE</span><span class="lang-jp">LINEで連絡</span><span class="lang-kr">LINE 문의</span><span class="lang-cn">LINE 联系</span><span class="lang-hk">LINE 聯絡</span><span class="lang-my">Hubungi kami di LINE</span>
+                    </h4>
+                    <!-- REPLACED FORM WITH LINE QR CODE IMAGE -->
+                    <div class="bg-white p-4 rounded-lg inline-block">
+                        <img src="LineQRcode.jpg" alt="LINE QR Code" class="w-32 h-32 object-contain">
+                    </div>
+                    <p class="text-gray-400 text-sm mt-3">
+                        <span class="lang-en">Scan to chat with us!</span><span class="lang-la">ສະແກນເພື່ອສົນທະນາກັບພວກເຮົາ!</span><span class="lang-jp">スキャンしてチャット！</span><span class="lang-kr">스캔하여 채팅하세요!</span><span class="lang-cn">扫码联系我们！</span><span class="lang-hk">掃碼聯絡我哋！</span><span class="lang-my">Imbas untuk berbual dengan kami!</span>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2024 Twomeals Ventures Individual Enterprise. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- --- PRODUCT INFO MODAL --- -->
+    <div id="info-modal" class="modal-overlay">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="modal-title" class="text-2xl font-bold brand-font text-gray-900">Further Information</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Raw Material Section -->
+            <div id="modal-section-raw" class="mb-8">
+                <!-- CHANGED: Header from "Raw Material" to "Ingredient" -->
+                <h4 class="text-xl font-semibold text-gray-800 mb-4">
+                    <span class="lang-en">Ingredient</span><span class="lang-la">ສ່ວນປະກອບ</span><span class="lang-jp">原材料</span><span class="lang-kr">재료</span><span class="lang-cn">成分</span><span class="lang-hk">成分</span><span class="lang-my">Ramuan</span>
+                </h4>
+                <div class="bg-gray-100 rounded-xl p-4 flex justify-center">
+                    <!-- Updated Alt Text -->
+                    <img id="modal-raw-image" src="" alt="Ingredient" class="max-w-full max-h-[75vh] w-auto h-auto object-contain rounded-lg shadow-md">
+                </div>
+            </div>
+
+            <!-- Certificates Section -->
+            <div id="modal-section-cert" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Certificate 1 -->
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Mandatory Test Certificate</h4>
+                    <div class="bg-white p-4 rounded-xl shadow-md transition hover:shadow-lg">
+                        <div class="aspect-[3/4] bg-gray-100 rounded-lg mb-4 overflow-hidden flex items-center justify-center relative">
+                            <img id="modal-test-cert" src="" alt="Mandatory Test Certificate" class="w-full h-full object-contain"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="error-msg hidden absolute inset-0 items-center justify-center p-8 text-center text-gray-400 text-sm">
+                                Certificate Image Not Found
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Certificate 2 -->
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Nutritional Analysis Certificate</h4>
+                    <div class="bg-white p-4 rounded-xl shadow-md transition hover:shadow-lg">
+                        <div class="aspect-[3/4] bg-gray-100 rounded-lg mb-4 overflow-hidden flex items-center justify-center relative">
+                            <img id="modal-nutrition-cert" src="" alt="Nutritional Analysis Certificate" class="w-full h-full object-contain"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="error-msg hidden absolute inset-0 items-center justify-center p-8 text-center text-gray-400 text-sm">
+                                Certificate Image Not Found
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- --- NAM NGUM RIVER MODAL --- -->
+    <div id="river-modal" class="modal-overlay">
+        <div class="modal-content text-left">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-start mb-6 border-b pb-4">
+                <div>
+                    <h3 class="text-2xl font-bold brand-font text-sky-600 mb-1">
+                        <span class="lang-en">The Nam Ngum River</span>
+                        <span class="lang-la">ແມ່ນໍ້າງື່ມ</span>
+                        <span class="lang-jp">ナムグム川</span>
+                        <span class="lang-kr">남늠강</span>
+                        <span class="lang-cn">南俄河</span>
+                        <span class="lang-hk">南俄河</span>
+                        <span class="lang-my">Sungai Nam Ngum</span>
+                    </h3>
+                    <p class="text-gray-500 font-medium">
+                        <span class="lang-en">The Emerald Jewel of Laos</span>
+                        <span class="lang-la">ອັນຍະມະນີສີຂຽວມໍລະກົດແຫ່ງປະເທດລາວ</span>
+                        <span class="lang-jp">ラオスのエメラルド色の宝石</span>
+                        <span class="lang-kr">라오스의 에메랄드 보석</span>
+                        <span class="lang-cn">老挝的翡翠宝石</span>
+                        <span class="lang-hk">老撾嘅翡翠寶石</span>
+                        <span class="lang-my">Permata Zamrud Laos</span>
+                    </p>
+                </div>
+                <button onclick="closeRiverModal()" class="text-gray-400 hover:text-gray-600 transition p-2">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Modal Body Content -->
+            <div class="prose prose-sky max-w-none text-gray-700 leading-relaxed">
+                <!-- Image of Nam Ngum River -->
+                <!-- CHANGED: Now looks for local file 'NamNgumRiver.jpg' first -->
+                <!-- Fallback: Uses a generic tropical lake/island image that resembles the reservoir style -->
+                <div class="relative w-full h-64 mb-6 rounded-xl overflow-hidden shadow-md bg-gray-200">
+                    <img src="NamNgumRiver.jpg" 
+                         alt="Nam Ngum River Landscape" 
+                         class="w-full h-full object-cover"
+                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80';">
+                    
+                    <!-- Caption/Credit (Optional) -->
+                    <div class="absolute bottom-0 right-0 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded-tl-lg">
+                        Nam Ngum Reservoir
+                    </div>
+                </div>
+
+                <p class="mb-4">
+                    <span class="lang-en">The Nam Ngum River is one of the most vital and beautiful waterways in Laos. Stretching approximately <strong>354 kilometers (220 miles)</strong>, it is a major tributary of the Mekong River and plays a central role in the country's geography, economy, and culture.</span>
+                    <span class="lang-la">ແມ່ນໍ້າງື່ມ ແມ່ນໜຶ່ງໃນສາຍນໍ້າທີ່ສຳຄັນ ແລະ ສວຍງາມທີ່ສຸດໃນລາວ. ມີຄວາມຍາວປະມານ <strong>354 ກິໂລແມັດ</strong>, ເປັນສາຂາຫຼັກຂອງແມ່ນໍ້າຂອງ ແລະ ມີບົດບາດສຳຄັນໃນດ້ານພູມສາດ, ເສດຖະກິດ ແລະ ວັດທະນະທຳຂອງປະເທດ.</span>
+                    <span class="lang-jp">ナムグム川は、ラオスで最も重要かつ美しい水路の一つです。全長約<strong>354km</strong>に及び、メコン川の主要な支流として、国の地理、経済、文化において中心的な役割を果たしています。</span>
+                    <span class="lang-kr">남늠강은 라오스에서 가장 중요하고 아름다운 물길 중 하나입니다. 약 <strong>354km</strong>에 달하는 이 강은 메콩강의 주요 지류이며, 라오스의 지리, 경제, 문화에서 중심적인 역할을 합니다.</span>
+                    <span class="lang-cn">南俄河是老挝极其重要且美丽的河流之一。全长约<strong>354公里</strong>，是湄公河的主要支流，在老挝的地理、经济和文化中扮演着核心角色。</span>
+                    <span class="lang-hk">南俄河係老撾極其重要且美麗嘅河流之一。全長約<strong>354公里</strong>，係湄公河嘅主要支流，喺老撾嘅地理、經濟同文化中扮演住核心角色。</span>
+                    <span class="lang-my">Sungai Nam Ngum adalah salah satu laluan air yang paling penting dan indah di Laos. Terbentang kira-kira <strong>354 kilometer</strong>, ia merupakan anak sungai utama Sungai Mekong dan memainkan peranan penting dalam geografi, ekonomi, dan budaya negara.</span>
+                </p>
+
+                <h4 class="text-lg font-bold text-gray-900 mt-6 mb-2">
+                    <span class="lang-en">Geography and Flow</span>
+                    <span class="lang-la">ພູມສາດ ແລະ ການໄຫຼຂອງນໍ້າ</span>
+                    <span class="lang-jp">地理と流れ</span>
+                    <span class="lang-kr">지리와 흐름</span>
+                    <span class="lang-cn">地理与流向</span>
+                    <span class="lang-hk">地理與流向</span>
+                    <span class="lang-my">Geografi dan Aliran</span>
+                </h4>
+                <p class="mb-4">
+                    <span class="lang-en">The river begins its journey high in the misty mountains of Xieng Khouang Province in northern Laos. From there, it winds southward through lush tropical forests and valleys before entering Vientiane Province. Finally, it merges with the mighty Mekong River near the capital city of Vientiane.</span>
+                    <span class="lang-la">ແມ່ນໍ້ານີ້ເລີ່ມຕົ້ນຈາກພູສູງທີ່ມີຫມອກປົກຫຸ້ມໃນແຂວງຊຽງຂວາງ ທາງພາກເໜືອຂອງລາວ. ຈາກນັ້ນ, ມັນໄຫຼລົງໃຕ້ຜ່ານປ່າໄມ້ເຂດຮ້ອນ ແລະ ຮ່ອມພູ ກ່ອນທີ່ຈະເຂົ້າສູ່ແຂວງວຽງຈັນ. ສຸດທ້າຍ, ມັນໄຫຼປ່ອງໃສ່ແມ່ນໍ້າຂອງ ໃກ້ກັບນະຄອນຫຼວງວຽງຈັນ.</span>
+                    <span class="lang-jp">この川は、ラオス北部のシェンクワン県の霧深い山々から始まります。そこから熱帯雨林や渓谷を南下してヴィエンチャン県に入り、最終的に首都ヴィエンチャン近くで雄大なメコン川と合流します。</span>
+                    <span class="lang-kr">강은 라오스 북부 시엥쿠앙 주의 안개 낀 산맥에서 시작됩니다. 그곳에서 울창한 열대 숲과 계곡을 지나 남쪽으로 구불구불 흘러 비엔티안 주에 진입합니다. 마침내 수도 비엔티안 근처에서 거대한 메콩강과 합류합니다.</span>
+                    <span class="lang-cn">这条河发源于老挝北部川圹省云雾缭绕的高山。从那里，它蜿蜒向南穿过茂密的热带森林和山谷，进入万象省。最后，在首都万象附近汇入浩荡的湄公河。</span>
+                    <span class="lang-hk">呢條河發源於老撾北部川壙省雲霧缭繞嘅高山。從嗰度，佢蜿蜒向南穿過茂密嘅熱帶森林同山谷，進入萬象省。最後，喺首都萬象附近匯入浩蕩嘅湄公河。</span>
+                    <span class="lang-my">Sungai ini memulakan perjalanannya tinggi di pergunungan berkabus Wilayah Xieng Khouang di utara Laos. Dari sana, ia berliku ke selatan melalui hutan tropika yang subur dan lembah sebelum memasuki Wilayah Vientiane. Akhirnya, ia bergabung dengan Sungai Mekong yang besar berhampiran ibu kota Vientiane.</span>
+                </p>
+
+                <h4 class="text-lg font-bold text-gray-900 mt-6 mb-2">
+                    <span class="lang-en">The "Lao Sea": Ang Nam Ngum Reservoir</span>
+                    <span class="lang-la">"ທະເລລາວ": ອ່າງນໍ້າງື່ມ</span>
+                    <span class="lang-jp">「ラオスの海」：ナムグム・ダム湖</span>
+                    <span class="lang-kr">"라오스의 바다": 남늠 저수지</span>
+                    <span class="lang-cn">"老挝海"：南俄湖水库</span>
+                    <span class="lang-hk">"老撾海"：南俄湖水庫</span>
+                    <span class="lang-my">"Laut Laos": Takungan Nam Ngum</span>
+                </h4>
+                <p class="mb-2">
+                    <span class="lang-en">The most famous feature of the river is the massive Nam Ngum Reservoir, often affectionately called the <strong>"Lao Sea."</strong></span>
+                    <span class="lang-la">ຈຸດເດັ່ນທີ່ມີຊື່ສຽງທີ່ສຸດຂອງແມ່ນໍ້ານີ້ແມ່ນ ອ່າງນໍ້າງື່ມຂະໜາດໃຫຍ່, ເຊິ່ງມັກຈະຖືກເອີ້ນວ່າ <strong>"ທະເລລາວ."</strong></span>
+                    <span class="lang-jp">この川の最大の特徴は、しばしば親しみを込めて<strong>「ラオスの海」</strong>と呼ばれる巨大なナムグム貯水池（ダム湖）です。</span>
+                    <span class="lang-kr">이 강의 가장 유명한 특징은 흔히 <strong>"라오스의 바다"</strong>라고 불리는 거대한 남늠 저수지입니다.</span>
+                    <span class="lang-cn">这条河最著名的特征是巨大的南俄水库，人们常亲切地称之为<strong>"老挝海"</strong>。</span>
+                    <span class="lang-hk">呢條河最著名嘅特徵係巨大嘅南俄水庫，人們常親切咁稱之為<strong>"老撾海"</strong>。</span>
+                    <span class="lang-my">Ciri sungai yang paling terkenal ialah Takungan Nam Ngum yang besar, yang sering dipanggil <strong>"Laut Laos."</strong></span>
+                </p>
+                <p class="mb-4">
+                    <span class="lang-en">Created in 1971 by the construction of the Nam Ngum 1 Hydropower Dam, this vast body of water covers roughly 370 square kilometers. Before the dam was built, the area was a valley of hills and forests. When the water rose, the peaks of these hills were transformed into hundreds of emerald-green islands scattered across the deep blue water.</span>
+                    <span class="lang-la">ສ້າງຂຶ້ນໃນປີ 1971 ຈາກການກໍ່ສ້າງເຂື່ອນໄຟຟ້ານໍ້າງື່ມ 1, ອ່າງນໍ້ານີ້ກວມເອົາເນື້ອທີ່ປະມານ 370 ຕາລາງກິໂລແມັດ. ກ່ອນການສ້າງເຂື່ອນ, ພື້ນທີ່ນີ້ແມ່ນຮ່ອມພູ ແລະ ປ່າໄມ້. ເມື່ອນໍ້າຂຶ້ນ, ຍອດພູເຫຼົ່ານັ້ນໄດ້ກາຍເປັນເກາະດອນສີຂຽວມໍລະກົດນັບຮ້ອຍ ທີ່ກະຈາຍຢູ່ທົ່ວຜືນນໍ້າສີຟ້າຄາມ.</span>
+                    <span class="lang-jp">1971年のナムグム第1水力発電ダム建設によって作られたこの広大な水域は、約370平方キロメートルに及びます。ダム建設前は丘と森の谷でした。水位が上がると、丘の頂上は深い青色の水面に浮かぶ何百ものエメラルドグリーンの島々に変わりました。</span>
+                    <span class="lang-kr">1971년 남늠 1 수력 발전 댐 건설로 조성된 이 거대한 수역은 약 370평방킬로미터에 달합니다. 댐이 건설되기 전, 이곳은 언덕과 숲이 있는 계곡이었습니다. 물이 차오르면서 언덕의 봉우리들은 짙푸른 물 위에 흩어진 수백 개의 에메랄드빛 섬으로 변모했습니다.</span>
+                    <span class="lang-cn">这个巨大的水体建于1971年，是随着南俄1号水电站大坝的建设而形成的，占地约370平方公里。在大坝建成之前，这里是丘陵和森林的山谷。当水位上升时，这些山峰变成了散布在深蓝色水面上的数百个翡翠绿岛屿。</span>
+                    <span class="lang-hk">呢個巨大嘅水體建於1971年，係隨着南俄1號水電站大壩嘅建設而形成嘅，佔地約370平方公里。喺大壩建成之前，呢度係丘陵同森林嘅山谷。當水位上升時，呢啲山峰變成了散佈喺深藍色水面上嘅數百個翡翠綠島嶼。</span>
+                    <span class="lang-my">Dicipta pada tahun 1971 oleh pembinaan Empangan Hidroelektrik Nam Ngum 1, badan air yang luas ini meliputi kira-kira 370 kilometer persegi. Sebelum empangan dibina, kawasan itu adalah lembah bukit dan hutan. Apabila air naik, puncak bukit-bukit ini berubah menjadi beratus-ratus pulau hijau zamrud yang bertaburan di atas air biru yang dalam.</span>
+                </p>
+                <p class="mb-2 italic text-gray-600">
+                    <span class="lang-en">The scenery is often compared to a tropical fjord, characterized by:</span>
+                    <span class="lang-la">ທິວທັດມັກຈະຖືກປຽບທຽບກັບ ທະເລສາບໃນຮ່ອມພູ (fjord) ເຂດຮ້ອນ, ເຊິ່ງມີຈຸດເດັ່ນຄື:</span>
+                    <span class="lang-jp">その風景はしばしば熱帯のフィヨルドに例えられ、以下の特徴があります：</span>
+                    <span class="lang-kr">이 풍경은 흔히 열대 피요르드에 비유되며 다음과 같은 특징이 있습니다:</span>
+                    <span class="lang-cn">这里的景色常被比作热带峡湾，其特点是：</span>
+                    <span class="lang-hk">呢度嘅景色常被比作熱帶峽灣，其特點係：</span>
+                    <span class="lang-my">Pemandangan sering dibandingkan dengan fjord tropika, dicirikan oleh:</span>
+                </p>
+                <ul class="list-disc pl-5 mb-4 space-y-1">
+                    <li>
+                        <span class="lang-en"><strong>Crystal clear waters:</strong> Deep and oxygen-rich.</span>
+                        <span class="lang-la"><strong>ນໍ້າໃສສະອາດ:</strong> ເລິກ ແລະ ອຸດົມສົມບູນດ້ວຍອົກຊີເຈນ.</span>
+                        <span class="lang-jp"><strong>透き通った水：</strong>深く、酸素が豊富です。</span>
+                        <span class="lang-kr"><strong>수정처럼 맑은 물:</strong> 깊고 산소가 풍부합니다.</span>
+                        <span class="lang-cn"><strong>清澈见底的湖水：</strong> 深邃且富含氧气。</span>
+                        <span class="lang-hk"><strong>清澈見底嘅湖水：</strong> 深邃且富含氧氣。</span>
+                        <span class="lang-my"><strong>Air jernih kristal:</strong> Dalam dan kaya dengan oksigen.</span>
+                    </li>
+                    <li>
+                        <span class="lang-en"><strong>Misty mornings:</strong> A fog often clings to the water's surface at sunrise, creating a mystical atmosphere.</span>
+                        <span class="lang-la"><strong>ຍາມເຊົ້າທີ່ມີຫມອກ:</strong> ຫມອກມັກຈະປົກຄຸມໜ້ານໍ້າໃນຍາມຕາເວັນຂຶ້ນ, ສ້າງບັນຍາກາດທີ່ລຶກລັບແລະສວຍງາມ.</span>
+                        <span class="lang-jp"><strong>霧の朝：</strong>日の出とともに水面に霧がかかり、神秘的な雰囲気を醸し出します。</span>
+                        <span class="lang-kr"><strong>안개 낀 아침:</strong> 일출 시 수면에 안개가 자주 끼어 신비로운 분위기를 자아냅니다.</span>
+                        <span class="lang-cn"><strong>雾蒙蒙的早晨：</strong> 日出时分，雾气常萦绕在水面上，营造出神秘的氛围。</span>
+                        <span class="lang-hk"><strong>霧濛濛嘅早晨：</strong> 日出時分，霧氣常萦繞喺水面上，營造出神秘嘅氛圍。</span>
+                        <span class="lang-my"><strong>Pagi berkabus:</strong> Kabus sering melekat pada permukaan air ketika matahari terbit, mewujudkan suasana mistik.</span>
+                    </li>
+                    <li>
+                        <span class="lang-en"><strong>Lush vegetation:</strong> The islands remain thick with jungle greenery.</span>
+                        <span class="lang-la"><strong>ພືດພັນຂຽວສົດງົດງາມ:</strong> ເກາະດອນຕ່າງໆຍັງຄົງປົກຫຸ້ມດ້ວຍປ່າໄມ້ທີ່ຂຽວອຸ່ມທຸ່ມ.</span>
+                        <span class="lang-jp"><strong>豊かな植生：</strong>島々はジャングルの緑で覆われています。</span>
+                        <span class="lang-kr"><strong>무성한 식물:</strong> 섬들은 여전히 짙은 정글의 녹음으로 뒤덮여 있습니다.</span>
+                        <span class="lang-cn"><strong>茂盛的植被：</strong> 岛屿上依然覆盖着浓密的丛林绿植。</span>
+                        <span class="lang-hk"><strong>茂盛嘅植被：</strong> 島嶼上依然覆蓋住濃密嘅叢林綠植。</span>
+                        <span class="lang-my"><strong>Tumbuhan subur:</strong> Pulau-pulau kekal tebal dengan kehijauan hutan.</span>
+                    </li>
+                </ul>
+
+                <h4 class="text-lg font-bold text-gray-900 mt-6 mb-2">
+                    <span class="lang-en">The "Battery of Laos"</span>
+                    <span class="lang-la">"ໝໍ້ໄຟຂອງປະເທດລາວ"</span>
+                    <span class="lang-jp">「ラオスのバッテリー」</span>
+                    <span class="lang-kr">"라오스의 배터리"</span>
+                    <span class="lang-cn">"老挝电池"</span>
+                    <span class="lang-hk">"老撾電池"</span>
+                    <span class="lang-my">"Bateri Laos"</span>
+                </h4>
+                <p class="mb-4">
+                    <span class="lang-en">The Nam Ngum River is historically significant as the site of the first major hydropower dam in Laos.</span>
+                    <span class="lang-la">ແມ່ນໍ້າງື່ມ ມີຄວາມສໍາຄັນທາງປະຫວັດສາດ ເພາະເປັນສະຖານທີ່ຕັ້ງຂອງເຂື່ອນໄຟຟ້າຂະຫນາດໃຫຍ່ແຫ່ງທໍາອິດໃນລາວ.</span>
+                    <span class="lang-jp">ナムグム川は、ラオスで最初の大規模水力発電ダムの建設地として歴史的に重要です。</span>
+                    <span class="lang-kr">남늠강은 라오스 최초의 대규모 수력 발전 댐이 건설된 곳으로 역사적으로 중요합니다.</span>
+                    <span class="lang-cn">南俄河具有重要的历史意义，它是老挝第一座大型水电站大坝的所在地。</span>
+                    <span class="lang-hk">南俄河具有重要嘅歷史意義，佢係老撾第一座大型水電站大壩嘅所在地。</span>
+                    <span class="lang-my">Sungai Nam Ngum mempunyai kepentingan sejarah sebagai tapak empangan hidroelektrik utama pertama di Laos.</span>
+                </p>
+                <ul class="list-disc pl-5 mb-4 space-y-1">
+                    <li>
+                        <span class="lang-en"><strong>Green Energy:</strong> The dam generates a significant portion of the electricity used in Vientiane and central Laos.</span>
+                        <span class="lang-la"><strong>ພະລັງງານສະອາດ:</strong> ເຂື່ອນຜະລິດໄຟຟ້າສ່ວນໃຫຍ່ທີ່ໃຊ້ໃນນະຄອນຫຼວງວຽງຈັນ ແລະ ພາກກາງຂອງລາວ.</span>
+                        <span class="lang-jp"><strong>グリーンエネルギー：</strong>ダムは、ヴィエンチャンとラオス中部で使用される電力の大部分を発電しています。</span>
+                        <span class="lang-kr"><strong>청정 에너지:</strong> 댐은 비엔티안과 라오스 중부에서 사용되는 전력의 상당 부분을 생산합니다.</span>
+                        <span class="lang-cn"><strong>绿色能源：</strong> 大坝产生的电力占万象和老挝中部用电量的很大一部分。</span>
+                        <span class="lang-hk"><strong>綠色能源：</strong> 大壩產生嘅電力佔萬象同老撾中部用電量嘅很大一部分。</span>
+                        <span class="lang-my"><strong>Tenaga Hijau:</strong> Empangan menjana sebahagian besar tenaga elektrik yang digunakan di Vientiane dan tengah Laos.</span>
+                    </li>
+                    <li>
+                        <span class="lang-en"><strong>Economic Driver:</strong> For decades, surplus electricity exported to neighboring Thailand has been a major source of income for the country.</span>
+                        <span class="lang-la"><strong>ແຮງຂັບເຄື່ອນທາງເສດຖະກິດ:</strong> ເປັນເວລາຫຼາຍທົດສະວັດ, ການສົ່ງອອກໄຟຟ້າສ່ວນເກີນໄປຍັງປະເທດໄທ ເປັນແຫຼ່ງລາຍຮັບທີ່ສຳຄັນຂອງປະເທດ.</span>
+                        <span class="lang-jp"><strong>経済的原動力：</strong>何十年もの間、隣国タイへの余剰電力の輸出は、国の主要な収入源でした。</span>
+                        <span class="lang-kr"><strong>경제 원동력:</strong> 수십 년 동안 인접국인 태국으로 수출되는 잉여 전력은 국가의 주요 수입원이었습니다.</span>
+                        <span class="lang-cn"><strong>经济驱动力：</strong> 几十年来，向邻国泰国出口剩余电力一直是该国的主要收入来源。</span>
+                        <span class="lang-hk"><strong>經濟驅動力：</strong> 幾十年嚟，向鄰國泰國出口剩餘電力一直係該國嘅主要收入來源。</span>
+                        <span class="lang-my"><strong>Pemacu Ekonomi:</strong> Selama beberapa dekad, lebihan elektrik yang dieksport ke negara jiran Thailand telah menjadi sumber pendapatan utama negara.</span>
+                    </li>
+                </ul>
+
+                <h4 class="text-lg font-bold text-gray-900 mt-6 mb-2">
+                    <span class="lang-en">Livelihood and Local Culture</span>
+                    <span class="lang-la">ວິຖີຊີວິດ ແລະ ວັດທະນະທຳທ້ອງຖິ່ນ</span>
+                    <span class="lang-jp">暮らしと地域文化</span>
+                    <span class="lang-kr">생계와 지역 문화</span>
+                    <span class="lang-cn">生计与当地文化</span>
+                    <span class="lang-hk">生計與當地文化</span>
+                    <span class="lang-my">Kehidupan dan Budaya Tempatan</span>
+                </h4>
+                <p class="mb-2">
+                    <span class="lang-en">For the communities living along its banks, the river is life.</span>
+                    <span class="lang-la">ສຳລັບຊຸມຊົນທີ່ອາໄສຢູ່ແຄມນໍ້າ, ແມ່ນໍ້າຄືຊີວິດ.</span>
+                    <span class="lang-jp">川沿いに住むコミュニティにとって、川は命そのものです。</span>
+                    <span class="lang-kr">강변에 사는 지역 사회에게 강은 곧 생명입니다.</span>
+                    <span class="lang-cn">对于生活在沿岸的社区来说，这条河就是生命。</span>
+                    <span class="lang-hk">對於生活喺沿岸嘅社區嚟講，呢條河就係生命。</span>
+                    <span class="lang-my">Bagi komuniti yang tinggal di sepanjang tepinya, sungai adalah kehidupan.</span>
+                </p>
+                <ul class="list-disc pl-5 mb-4 space-y-1">
+                    <li>
+                        <span class="lang-en"><strong>Fishing:</strong> The reservoir is teeming with fish, particularly Tilapia and Pa Keo. It serves as a massive natural fishery.</span>
+                        <span class="lang-la"><strong>ການປະມົງ:</strong> ອ່າງນໍ້ານີ້ເຕັມໄປດ້ວຍປາ, ໂດຍສະເພາະປານິນ ແລະ ປາແກ້ວ. ມັນເປັນແຫຼ່ງປະມົງທຳມະຊາດຂະໜາດໃຫຍ່.</span>
+                        <span class="lang-jp"><strong>漁業：</strong>貯水池には魚、特にティラピアやパケオが豊富にいます。巨大な天然の漁場として機能しています。</span>
+                        <span class="lang-kr"><strong>어업:</strong> 저수지에는 물고기, 특히 틸라피아와 파케오가 가득합니다. 이곳은 거대한 천연 어장 역할을 합니다.</span>
+                        <span class="lang-cn"><strong>捕鱼：</strong> 水库里鱼类丰富，特别是罗非鱼和 Pa Keo。它是一个巨大的天然渔场。</span>
+                        <span class="lang-hk"><strong>捕魚：</strong> 水庫裡魚類豐富，特別係羅非魚同 Pa Keo。佢係一個巨大嘅天然漁場。</span>
+                        <span class="lang-my"><strong>Memancing:</strong> Takungan ini penuh dengan ikan, terutamanya Tilapia dan Pa Keo. Ia berfungsi sebagai perikanan semulajadi yang besar.</span>
+                    </li>
+                    <li>
+                        <span class="lang-en"><strong>Tha Heua Village:</strong> Located on the road between Vientiane and Vang Vieng, this village is famous for its "Dried Fish" markets. Travelers often stop here to buy high-quality preserved fish, which hang in rows along the roadside stalls.</span>
+                        <span class="lang-la"><strong>ບ້ານທ່າເຮືອ:</strong> ຕັ້ງຢູ່ເສັ້ນທາງລະຫວ່າງວຽງຈັນ ແລະ ວັງວຽງ, ບ້ານນີ້ມີຊື່ສຽງໃນເລື່ອງຕະຫຼາດ "ປາແຫ້ງ". ນັກທ່ອງທ່ຽວມັກຈະແວ່ຊື້ປາແປຮູບຄຸນນະພາບດີ ທີ່ຫ້ອຍເປັນແຖວຕາມຮ້ານຂາຍເຄື່ອງແຄມທາງ.</span>
+                        <span class="lang-jp"><strong>タヘウア村：</strong>ヴィエンチャンとヴァンヴィエンを結ぶ道路沿いにあるこの村は、「干物」市場で有名です。旅行者はよくここに立ち寄り、道端の屋台に並んで吊るされた高品質の保存魚を購入します。</span>
+                        <span class="lang-kr"><strong>타흐아 마을:</strong> 비엔티안과 방비엥 사이의 도로에 위치한 이 마을은 "건어물" 시장으로 유명합니다. 여행자들은 종종 이곳에 들러 길가 가판대에 줄지어 걸려 있는 고품질의 보존 생선을 구입합니다.</span>
+                        <span class="lang-cn"><strong>塔赫村 (Tha Heua)：</strong> 位于万象和万荣之间的道路上，这个村庄以其"干鱼"市场而闻名。游客经常在这里停留，购买沿路边摊位成排悬挂的高品质腌制鱼。</span>
+                        <span class="lang-hk"><strong>塔赫村 (Tha Heua)：</strong> 位於萬象同萬榮之間嘅道路上，呢個村莊以其"乾魚"市場而聞名。遊客經常喺度停留，購買沿路邊攤位成排懸掛嘅高品質醃製魚。</span>
+                        <span class="lang-my"><strong>Kampung Tha Heua:</strong> Terletak di jalan antara Vientiane dan Vang Vieng, kampung ini terkenal dengan pasar "Ikan Kering". Pelancong sering berhenti di sini untuk membeli ikan awet berkualiti tinggi, yang tergantung dalam barisan di sepanjang gerai tepi jalan.</span>
+                    </li>
+                </ul>
+
+                <h4 class="text-lg font-bold text-gray-900 mt-6 mb-2">
+                    <span class="lang-en">Tourism and Recreation</span>
+                    <span class="lang-la">ການທ່ອງທ່ຽວ ແລະ ການພັກຜ່ອນ</span>
+                    <span class="lang-jp">観光とレクリエーション</span>
+                    <span class="lang-kr">관광 및 레크리에이션</span>
+                    <span class="lang-cn">旅游与休闲</span>
+                    <span class="lang-hk">旅遊與休閒</span>
+                    <span class="lang-my">Pelancongan dan Rekreasi</span>
+                </h4>
+                <p class="mb-2">
+                    <span class="lang-en">Today, the Nam Ngum River is a popular escape for locals and tourists seeking tranquility.</span>
+                    <span class="lang-la">ປະຈຸບັນ, ແມ່ນໍ້າງື່ມເປັນສະຖານທີ່ພັກຜ່ອນທີ່ນິຍົມສຳລັບຄົນທ້ອງຖິ່ນ ແລະ ນັກທ່ອງທ່ຽວທີ່ຊອກຫາຄວາມສະຫງົບ.</span>
+                    <span class="lang-jp">今日、ナムグム川は静けさを求める地元の人々や観光客にとって人気のリゾート地となっています。</span>
+                    <span class="lang-kr">오늘날 남늠강은 평온함을 찾는 현지인과 관광객들에게 인기 있는 휴식처입니다.</span>
+                    <span class="lang-cn">如今，南俄河是寻求宁静的当地人和游客的热门去处。</span>
+                    <span class="lang-hk">如今，南俄河係尋求寧靜嘅當地人同遊客嘅熱門去處。</span>
+                    <span class="lang-my">Hari ini, Sungai Nam Ngum adalah tempat pelarian popular bagi penduduk tempatan dan pelancong yang mencari ketenangan.</span>
+                </p>
+                <ul class="list-disc pl-5 mb-4 space-y-1">
+                    <li>
+                        <span class="lang-en"><strong>Boat Cruises:</strong> Visitors can rent long-tail boats for relaxed cruises around the islands.</span>
+                        <span class="lang-la"><strong>ລ່ອງເຮືອ:</strong> ນັກທ່ອງທ່ຽວສາມາດເຊົ່າເຮືອຫາງຍາວ ເພື່ອລ່ອງເຮືອຊົມເກາະດອນຕ່າງໆຢ່າງຜ່ອນຄາຍ.</span>
+                        <span class="lang-jp"><strong>ボートクルーズ：</strong>ロングテールボートをチャーターして、島々を巡るリラックスしたクルーズを楽しめます。</span>
+                        <span class="lang-kr"><strong>보트 크루즈:</strong> 방문객들은 롱테일 보트를 빌려 섬 주변을 여유롭게 유람할 수 있습니다.</span>
+                        <span class="lang-cn"><strong>乘船游览：</strong> 游客可以租用长尾船在岛屿周围轻松巡游。</span>
+                        <span class="lang-hk"><strong>乘船遊覽：</strong> 遊客可以租用長尾船喺島嶼周圍輕鬆巡遊。</span>
+                        <span class="lang-my"><strong>Pelayaran Bot:</strong> Pelawat boleh menyewa bot ekor panjang untuk pelayaran santai di sekitar pulau.</span>
+                    </li>
+                    <li>
+                        <span class="lang-en"><strong>Floating Restaurants:</strong> A unique local experience involves eating fresh grilled fish and sticky rice on floating rafts towed out onto the lake.</span>
+                        <span class="lang-la"><strong>ຮ້ານອາຫານລອຍນໍ້າ:</strong> ປະສົບການທ້ອງຖິ່ນທີ່ເປັນເອກະລັກ ຄືການກິນປາປີ້ງສົດໆ ແລະ ເຂົ້າໜຽວ ເທິງແພທີ່ຖືກລາກອອກໄປກາງທະເລສາບ.</span>
+                        <span class="lang-jp"><strong>水上レストラン：</strong>湖上に浮かぶ筏（いかだ）の上で、新鮮な焼き魚ともち米を食べるのがユニークな地元体験です。</span>
+                        <span class="lang-kr"><strong>수상 레스토랑:</strong> 호수 위로 끌려나가는 뗏목 위에서 신선한 구운 생선과 찹쌀밥을 먹는 것은 독특한 현지 경험입니다.</span>
+                        <span class="lang-cn"><strong>水上餐厅：</strong> 一种独特的当地体验是在拖到湖中的浮筏上吃新鲜的烤鱼和糯米饭。</span>
+                        <span class="lang-hk"><strong>水上餐廳：</strong> 一種獨特嘅當地體驗係喺拖到湖中嘅浮筏上食新鮮嘅烤魚同糯米飯。</span>
+                        <span class="lang-my"><strong>Restoran Terapung:</strong> Pengalaman tempatan yang unik melibatkan makan ikan bakar segar dan pulut di atas rakit terapung yang ditunda ke tengah tasik.</span>
+                    </li>
+                    <li>
+                        <span class="lang-en"><strong>Resorts:</strong> The shoreline is dotted with accommodations ranging from simple guesthouses to the high-end Dansavanh Nam Ngum Resort.</span>
+                        <span class="lang-la"><strong>ຣີສອດ:</strong> ແຄມຝັ່ງມີທີ່ພັກຫຼາຍແຫ່ງ ຕັ້ງແຕ່ເຮືອນພັກແບບງ່າຍໆ ໄປຈົນເຖິງຣີສອດຫຼູຫຼາ ແດນສະຫວັນ ນໍ້າງື່ມ ຣີສອດ.</span>
+                        <span class="lang-jp"><strong>リゾート：</strong>湖岸には、シンプルなゲストハウスから高級なダンサバン・ナムグム・リゾートまで、様々な宿泊施設が点在しています。</span>
+                        <span class="lang-kr"><strong>리조트:</strong> 호숫가에는 소박한 게스트하우스부터 고급스러운 댄사반 남늠 리조트까지 다양한 숙박 시설이 점재해 있습니다.</span>
+                        <span class="lang-cn"><strong>度假村：</strong> 岸边散布着各种住宿设施，从简单的宾馆到高端的丹萨旺南俄度假村 (Dansavanh Nam Ngum Resort)。</span>
+                        <span class="lang-hk"><strong>度假村：</strong> 岸邊散佈住各種住宿設施，從簡單嘅賓館到高端嘅丹薩旺南俄度假村 (Dansavanh Nam Ngum Resort)。</span>
+                        <span class="lang-my"><strong>Resort:</strong> Garis pantai dipenuhi dengan penginapan dari rumah tumpangan sederhana hingga Dansavanh Nam Ngum Resort yang mewah.</span>
+                    </li>
+                </ul>
+
+                <div class="bg-sky-50 p-4 rounded-lg mt-8 border-l-4 border-sky-500">
+                    <h5 class="font-bold text-sky-800 mb-2">
+                        <span class="lang-en">Conclusion</span>
+                        <span class="lang-la">ສະຫຼຸບ</span>
+                        <span class="lang-jp">結論</span>
+                        <span class="lang-kr">결론</span>
+                        <span class="lang-cn">结语</span>
+                        <span class="lang-hk">結語</span>
+                        <span class="lang-my">Kesimpulan</span>
+                    </h5>
+                    <p class="text-sm text-sky-900">
+                        <span class="lang-en">Whether you view it as an economic powerhouse, a source of sustenance, or a stunning natural wonder, the Nam Ngum River is undeniably the heart of central Laos. Its transformation from a mountain stream to the majestic "Lao Sea" is a testament to the relationship between the Lao people and their environment.</span>
+                        <span class="lang-la">ບໍ່ວ່າທ່ານຈະເບິ່ງມັນໃນມຸມຂອງແຫຼ່ງພະລັງທາງເສດຖະກິດ, ແຫຼ່ງອາຫານ, ຫຼື ຄວາມງົດງາມທາງທຳມະຊາດ, ແມ່ນໍ້າງື່ມ ຄືຫົວໃຈຂອງພາກກາງຂອງລາວຢ່າງແທ້ຈິງ. ການປ່ຽນແປງຈາກສາຍນໍ້າເທິງພູ ມາເປັນ "ທະເລລາວ" ທີ່ຍິ່ງໃຫຍ່ ແມ່ນຫຼັກຖານສະແດງເຖິງຄວາມຜູກພັນລະຫວ່າງຄົນລາວ ແລະ ສິ່ງແວດລ້ອມຂອງພວກເຂົາ.</span>
+                        <span class="lang-jp">経済的原動力、生活の糧、あるいは息をのむような自然の驚異、どのように見るにせよ、ナムグム川がラオス中部の心臓部であることは間違いありません。山の小川から雄大な「ラオスの海」への変貌は、ラオスの人々とその環境との関係の証です。</span>
+                        <span class="lang-kr">경제적 원동력으로 보든, 생계의 원천으로 보든, 아니면 놀라운 자연의 경이로움으로 보든, 남늠강은 부인할 수 없는 라오스 중부의 심장입니다. 산골짜기 개울에서 장엄한 "라오스의 바다"로의 변모는 라오스 사람들과 그들의 환경 사이의 관계를 보여주는 증거입니다.</span>
+                        <span class="lang-cn">无论您将其视为经济强国、维持生计的源泉，还是令人惊叹的自然奇观，南俄河无疑是老挝中部的核心。从山间溪流到宏伟的"老挝海"的转变，证明了老挝人民与其环境之间的关系。</span>
+                        <span class="lang-hk">無論你將其視為經濟強國、維持生計嘅源泉，定係令人驚嘆嘅自然奇觀，南俄河無疑係老撾中部嘅核心。從山間溪流到宏偉嘅"老撾海"嘅轉變，證明咗老撾人民與其環境之間嘅關係。</span>
+                        <span class="lang-my">Sama ada anda melihatnya sebagai kuasa ekonomi, sumber rezeki, atau keajaiban semula jadi yang menakjubkan, Sungai Nam Ngum tidak dapat dinafikan adalah nadi tengah Laos. Transformasinya daripada aliran gunung kepada "Laut Laos" yang agung adalah bukti hubungan antara rakyat Laos dan persekitaran mereka.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- --- DOG BREEDS MODAL --- -->
+    <div id="dog-modal" class="modal-overlay">
+        <div class="modal-content text-left w-full max-w-4xl">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <h3 class="text-2xl font-bold brand-font text-sky-600">
+                    <span class="lang-en">Popular Dog Breeds</span>
+                    <span class="lang-la">ສາຍພັນໝາທີ່ນິຍົມ</span>
+                    <span class="lang-jp">人気の犬種</span>
+                    <span class="lang-kr">인기 강아지 품종</span>
+                    <span class="lang-cn">热门犬种</span>
+                    <span class="lang-hk">熱門狗種</span>
+                    <span class="lang-my">Baka Anjing Popular</span>
+                </h3>
+                <button onclick="closeDogModal()" class="text-gray-400 hover:text-gray-600 transition p-2">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Content: Replaced Grid with Single Image -->
+            <div class="w-full flex justify-center bg-gray-100 rounded-xl overflow-hidden">
+                <img src="top30dogs.jpg" alt="Popular Dog Breeds" class="w-full h-auto object-contain">
+            </div>
+        </div>
+    </div>
+
+    <!-- --- CAT BREEDS MODAL --- -->
+    <div id="cat-modal" class="modal-overlay">
+        <div class="modal-content text-left w-full max-w-4xl">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <h3 class="text-2xl font-bold brand-font text-sky-600">
+                    <span class="lang-en">Popular Cat Breeds</span>
+                    <span class="lang-la">ສາຍພັນແມວທີ່ນິຍົມ</span>
+                    <span class="lang-jp">人気の猫種</span>
+                    <span class="lang-kr">인기 고양이 품종</span>
+                    <span class="lang-cn">热门猫种</span>
+                    <span class="lang-hk">熱門貓種</span>
+                    <span class="lang-my">Baka Kucing Popular</span>
+                </h3>
+                <button onclick="closeCatModal()" class="text-gray-400 hover:text-gray-600 transition p-2">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Content: Replaced Grid with Single Image -->
+            <div class="w-full flex justify-center bg-gray-100 rounded-xl overflow-hidden">
+                <img src="top30cats.jpg" alt="Popular Cat Breeds" class="w-full h-auto object-contain">
+            </div>
+        </div>
+    </div>
+
+    <!-- --- DEHYDRATED PROCESS MODAL --- -->
+    <div id="dehydrated-modal" class="modal-overlay">
+        <div class="modal-content text-left w-full max-w-4xl">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <h3 class="text-2xl font-bold brand-font text-sky-600">
+                    <span class="lang-en">Slow Dehydration Process</span>
+                    <span class="lang-la">ຂະບວນການອົບແຫ້ງອຸນຫະພູມຕໍ່າ</span>
+                    <span class="lang-jp">低温乾燥プロセス</span>
+                    <span class="lang-kr">저온 건조 공정</span>
+                    <span class="lang-cn">低温脱水工艺</span>
+                    <span class="lang-hk">低溫脫水工藝</span>
+                    <span class="lang-my">Proses Dehidrasi Perlahan</span>
+                </h3>
+                <button onclick="closeDehydratedModal()" class="text-gray-400 hover:text-gray-600 transition p-2">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Process Image -->
+            <div class="w-full flex justify-center bg-white rounded-xl overflow-hidden">
+                <img src="DehyratedP.jpg" alt="Dehydration Process Diagram" class="w-full h-auto object-contain max-h-[80vh]">
+            </div>
+            
+            <!-- Optional Caption -->
+            <p class="text-center text-gray-500 mt-4 text-sm">
+                <span class="lang-en">Our specialized drying chamber circulates warm air to gently remove moisture while preserving nutrients.</span>
+                <span class="lang-la">ຫ້ອງອົບແຫ້ງພິເສດຂອງພວກເຮົາໝູນວຽນອາກາດອຸ່ນ ເພື່ອດຶງຄວາມຊຸ່ມອອກຢ່າງນຸ່ມນວນ ໂດຍຍັງຮັກສາຄຸນຄ່າທາງອາຫານໄວ້.</span>
+                <span class="lang-jp">専用の乾燥室で温風を循環させ、栄養素を保ちながら優しく水分を取り除きます。</span>
+                <span class="lang-kr">우리의 특수 건조실은 따뜻한 공기를 순환시켜 영양소를 보존하면서 수분을 부드럽게 제거합니다.</span>
+                <span class="lang-cn">我们特制的干燥室循环暖空气，在保留营养的同时温和地去除水分。</span>
+                <span class="lang-hk">我哋特製嘅乾燥室循環暖空氣，喺保留營養嘅同時溫和咁去除水分。</span>
+                <span class="lang-my">Bilik pengeringan khusus kami mengedarkan udara suam untuk mengeluarkan kelembapan secara lembut sambil memelihara nutrien.</span>
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
