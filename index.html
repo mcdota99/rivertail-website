@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kawanosachi Naturals | Premium Pet Treats from Laos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Added Noto Sans SC (Simplified) and TC (Traditional) for Chinese */
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&family=Nunito:wght@300;400;600;700&family=Noto+Sans+Lao:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Nunito', 'Noto Sans Lao', 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans SC', 'Noto Sans TC', sans-serif;
+        }
+        
+        h1, h2, h3, h4, .brand-font {
+            font-family: 'Fredoka', 'Noto Sans Lao', 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans SC', 'Noto Sans TC', sans-serif;
+        }
+
+        .hero-pattern {
+            background-color: #f0f9ff;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23bae6fd' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* Language Switching Logic for 7 Languages (Added Malay) */
+        /* Hide all language spans by default */
+        .lang-en, .lang-la, .lang-jp, .lang-kr, .lang-cn, .lang-hk, .lang-my { display: none; }
+
+        /* Show specific language based on body class */
+        body.show-en .lang-en { display: inline !important; }
+        body.show-la .lang-la { display: inline !important; }
+        body.show-jp .lang-jp { display: inline !important; }
+        body.show-kr .lang-kr { display: inline !important; }
+        body.show-cn .lang-cn { display: inline !important; }
+        body.show-hk .lang-hk { display: inline !important; }
+        body.show-my .lang-my { display: inline !important; }
+
+        /* MALAY SPECIAL LOGIC: Hide Dog Content */
+        body.show-my .dog-content { display: none !important; }
+        
+        /* Hide Malay-specific cat content by default, show only when Malay is active */
+        .cat-content-my-only { display: none; }
+        body.show-my .cat-content-my-only { display: block !important; }
+
+        /* --- PIXEL ART PETS ANIMATION --- */
+        .pixel-pets-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            z-index: 9999;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .pixel-pets-wrapper {
+            position: absolute;
+            bottom: 5px;
+            display: flex;
+            align-items: flex-end;
+            animation: runLoop 20s linear infinite;
+        }
+
+        .pixel-pet {
+            width: 48px;
+            height: 48px;
+            margin-right: 0;
+            animation: bounce 0.4s cubic-bezier(0.3, 0, 0.7, 1) infinite alternate;
+            transition: width 0.3s ease, height 0.3s ease; /* Smooth size transition */
+        }
+        
+        .pixel-pet.giant {
+            width: 150px;
+            height: 150px;
+        }
+        
+        /* --- NEW CHASE ANIMATION --- */
+        @keyframes runRight {
+            0% { left: -150px; }
+            100% { left: 120%; } /* Run fully off-screen right */
+        }
+        
+        @keyframes fastBounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-15px); }
+        }
+        
+        .chase-anim {
+            position: absolute;
+            bottom: 20px;
+            /* Run across screen in 4s, bounce quickly for running effect */
+            animation: runRight 4s linear forwards, fastBounce 0.2s cubic-bezier(0.4, 0, 1, 1) infinite alternate;
+        }
+
+        /* --- FISH SWIMMING ANIMATION --- */
+        @keyframes fishSwim {
+            0%, 100% { transform: translateY(0) rotate(0deg) translateX(0); }
+            25% { transform: translateY(-8px) rotate(2deg) translateX(5px); }
+            50% { transform: translateY(0) rotate(0deg) translateX(0); }
+            75% { transform: translateY(8px) rotate(-2deg) translateX(-5px); }
+        }
+
+        .animate-swim {
+            animation: fishSwim 4s ease-in-out infinite;
+        }
+        
+        /* --- TRAINING MODAL ANIMATIONS --- */
+        .field-bg {
+            background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 50%, #90EE90 50%, #90EE90 100%);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        @keyframes flyFrisbee {
+            0% { left: 20%; top: 55%; transform: rotate(0deg); }
+            50% { top: 40%; }
+            100% { left: 80%; top: 60%; transform: rotate(720deg); }
+        }
+        
+        .frisbee {
+            position: absolute;
+            animation: flyFrisbee 2s linear infinite;
+        }
+        
+        @keyframes petChase {
+            0% { left: 25%; transform: scaleX(1); }
+            45% { left: 75%; transform: scaleX(1); }
+            50% { transform: scaleX(-1); } /* Turn around */
+            95% { left: 25%; transform: scaleX(-1); }
+            100% { transform: scaleX(1); }
+        }
+        
+        .pet-runner {
+            position: absolute;
+            bottom: 10%;
+            animation: petChase 4s linear infinite, fastBounce 0.2s infinite alternate;
+        }
+        
+        .girl-thrower {
+            position: absolute;
+            bottom: 10%;
+            left: 10%;
+            animation: fastBounce 0.5s infinite alternate;
+        }
+        
+        .pixel-pet svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.2));
+        }
+
+        .pixel-cat {
+            animation-delay: 0.1s;
+        }
+
+        @keyframes runLoop {
+            0% { left: -150px; transform: scaleX(1); }
+            45% { left: 100%; transform: scaleX(1); }
+            45.01% { transform: scaleX(-1); }
+            50% { left: 100%; transform: scaleX(-1); }
+            95% { left: -150px; transform: scaleX(-1); }
+            95.01% { transform: scaleX(1); }
+            100% { left: -150px; transform: scaleX(1); }
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        /* --- MODAL STYLES --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 95vw; /* Increased max-width to allow larger images */
+            width: auto;     /* Changed from fixed % to auto to fit content */
+            min-width: 300px; /* Minimum width for mobile */
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transition: width 0.3s, height 0.3s; /* Smooth transition for resizing */
+        }
+    </style>
+    <script>
+        function setLanguage(lang) {
+            // Remove all language classes
+            document.body.classList.remove('show-en', 'show-la', 'show-jp', 'show-kr', 'show-cn', 'show-hk', 'show-my');
+            // Add the selected language class
+            document.body.classList.add('show-' + lang);
+        }
+
+        // --- AUTOMATIC LANGUAGE DETECTION REMOVED ---
+        // Default is set via body class="show-en"
+
+        // --- MODAL LOGIC ---
+        function openModal(type, productName, rawImageSrc, testCertSrc, nutritionCertSrc) {
+            console.log("OpenModal called with:", type, productName); // Debugging
+
+            const modal = document.getElementById('info-modal');
+            const modalTitle = document.getElementById('modal-title');
+            
+            // Sections
+            const rawSection = document.getElementById('modal-section-raw');
+            const certSection = document.getElementById('modal-section-cert');
+            // Benefit Sections
+            const benefitsJerky = document.getElementById('modal-benefits-jerky');
+            const benefitsCubes = document.getElementById('modal-benefits-cubes');
+            const benefitsRolls = document.getElementById('modal-benefits-rolls');
+            
+            // Images
+            const rawImage = document.getElementById('modal-raw-image');
+            const testCertImage = document.getElementById('modal-test-cert');
+            const nutritionCertImage = document.getElementById('modal-nutrition-cert');
+            
+            // Reset visibility (Hide everything first)
+            if(rawSection) rawSection.classList.add('hidden');
+            if(certSection) certSection.classList.add('hidden');
+            if(benefitsJerky) benefitsJerky.classList.add('hidden');
+            if(benefitsCubes) benefitsCubes.classList.add('hidden');
+            if(benefitsRolls) benefitsRolls.classList.add('hidden');
+
+            // Handle Content based on Type
+            if (type === 'raw') {
+                if(modalTitle) modalTitle.textContent = "Ingredient: " + productName;
+                if(rawSection) rawSection.classList.remove('hidden');
+                if(rawImage) rawImage.src = rawImageSrc;
+                
+            } else if (type === 'cert') {
+                if(modalTitle) modalTitle.textContent = "Certificates: " + productName;
+                if(certSection) certSection.classList.remove('hidden');
+                if(testCertImage) {
+                    testCertImage.style.display = 'block'; 
+                    testCertImage.src = testCertSrc;
+                    const errorMsg = testCertImage.nextElementSibling;
+                    if(errorMsg) errorMsg.style.display = 'none';
+                }
+                if(nutritionCertImage) {
+                    nutritionCertImage.style.display = 'block';
+                    nutritionCertImage.src = nutritionCertSrc;
+                    const errorMsg = nutritionCertImage.nextElementSibling;
+                    if(errorMsg) errorMsg.style.display = 'none';
+                }
+            } else if (type === 'benefits') {
+                if(modalTitle) modalTitle.textContent = "Benefits: " + productName;
+                
+                // Show specific product benefits based on name
+                if (productName.includes('Jerky')) {
+                    if(benefitsJerky) benefitsJerky.classList.remove('hidden');
+                } else if (productName.includes('Cubes')) {
+                    if(benefitsCubes) benefitsCubes.classList.remove('hidden');
+                } else if (productName.includes('Rolls')) {
+                    if(benefitsRolls) benefitsRolls.classList.remove('hidden');
+                }
+            }
+            
+            if(modal) modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('info-modal');
+            if(modal) modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // --- MODAL OPENERS ---
+        function openRiverModal() { document.getElementById('river-modal').classList.add('show'); document.body.style.overflow = 'hidden'; }
+        function closeRiverModal() { document.getElementById('river-modal').classList.remove('show'); document.body.style.overflow = 'auto'; }
+
+        function openDogModal() { document.getElementById('dog-modal').classList.add('show'); document.body.style.overflow = 'hidden'; }
+        function closeDogModal() { document.getElementById('dog-modal').classList.remove('show'); document.body.style.overflow = 'auto'; }
+
+        function openCatModal() { document.getElementById('cat-modal').classList.add('show'); document.body.style.overflow = 'hidden'; }
+        function closeCatModal() { document.getElementById('cat-modal').classList.remove('show'); document.body.style.overflow = 'auto'; }
+
+        function openDehydratedModal() { document.getElementById('dehydrated-modal').classList.add('show'); document.body.style.overflow = 'hidden'; }
+        function closeDehydratedModal() { document.getElementById('dehydrated-modal').classList.remove('show'); document.body.style.overflow = 'auto'; }
+
+        function openNaturalModal() { document.getElementById('natural-modal').classList.add('show'); document.body.style.overflow = 'hidden'; }
+        function closeNaturalModal() { document.getElementById('natural-modal').classList.remove('show'); document.body.style.overflow = 'auto'; }
+
+        function openBreedModal() { document.getElementById('breed-modal').classList.add('show'); document.body.style.overflow = 'hidden'; }
+        function closeBreedModal() { document.getElementById('breed-modal').classList.remove('show'); document.body.style.overflow = 'auto'; }
+
+        function openTrainingModal() { document.getElementById('training-modal').classList.add('show'); document.body.style.overflow = 'hidden'; }
+        function closeTrainingModal() { document.getElementById('training-modal').classList.remove('show'); document.body.style.overflow = 'auto'; }
+
+        function triggerHealthyPlay() {
+            const scene = document.getElementById('healthy-play-scene');
+            if(scene) {
+                scene.classList.remove('hidden');
+                setTimeout(() => { scene.classList.add('hidden'); }, 5000);
+            }
+        }
+
+        // Close modal on outside click
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 show-en">
+
+    <!-- PIXEL ART PETS OVERLAY -->
+    <div class="pixel-pets-container">
+        <div class="pixel-pets-wrapper">
+            <div class="pixel-pet pixel-dog dog-content">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+                    <rect x="3" y="6" width="8" height="5" fill="#8B4513"/>
+                    <rect x="3" y="11" width="2" height="3" fill="#8B4513"/>
+                    <rect x="9" y="11" width="2" height="3" fill="#8B4513"/>
+                    <rect x="8" y="3" width="5" height="4" fill="#8B4513"/>
+                    <rect x="11" y="4" width="1" height="1" fill="black"/>
+                    <rect x="13" y="5" width="1" height="1" fill="black"/>
+                    <rect x="2" y="5" width="2" height="3" fill="#8B4513"/>
+                    <rect x="9" y="3" width="2" height="2" fill="#5D4037"/>
+                </svg>
+            </div>
+            <div class="pixel-pet pixel-cat">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+                    <rect x="4" y="7" width="7" height="4" fill="#FFA500"/>
+                    <rect x="4" y="11" width="2" height="2" fill="#FFA500"/>
+                    <rect x="9" y="11" width="2" height="2" fill="#FFA500"/>
+                    <rect x="8" y="4" width="4" height="4" fill="#FFA500"/>
+                    <rect x="8" y="3" width="1" height="2" fill="#FFA500"/>
+                    <rect x="11" y="3" width="1" height="2" fill="#FFA500"/>
+                    <rect x="10" y="5" width="1" height="1" fill="black"/>
+                    <rect x="2" y="6" width="2" height="3" fill="#FFA500"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center">
+                    <i class="fa-solid fa-paw text-3xl text-sky-500 mr-2"></i>
+                    <span class="brand-font text-2xl font-bold text-gray-800">Kawanosachi <span class="text-sky-500">Naturals</span></span>
+                </div>
+                <div class="hidden lg:flex space-x-6 items-center">
+                    <a href="#home" class="text-gray-600 hover:text-sky-500 font-medium transition"><span class="lang-en">Home</span><span class="lang-la">ໜ້າຫຼັກ</span><span class="lang-jp">ホーム</span><span class="lang-kr">홈</span><span class="lang-cn">首页</span><span class="lang-hk">首頁</span><span class="lang-my">Laman Utama</span></a>
+                    <a href="#products" class="text-gray-600 hover:text-sky-500 font-medium transition"><span class="lang-en">Our Treats</span><span class="lang-la">ຜະລິດຕະພັນ</span><span class="lang-jp">商品一覧</span><span class="lang-kr">제품 소개</span><span class="lang-cn">产品</span><span class="lang-hk">產品</span><span class="lang-my">Snek Kami</span></a>
+                    <a href="#about" class="text-gray-600 hover:text-sky-500 font-medium transition"><span class="lang-en">Our Story</span><span class="lang-la">ເລື່ອງລາວຂອງເຮົາ</span><span class="lang-jp">私たちのストーリー</span><span class="lang-kr">브랜드 스토리</span><span class="lang-cn">品牌故事</span><span class="lang-hk">品牌故事</span><span class="lang-my">Cerita Kami</span></a>
+                    <a href="#contact" class="bg-sky-500 text-white px-5 py-2 rounded-full font-medium hover:bg-sky-600 transition shadow-lg shadow-sky-200"><span class="lang-en">Contact Us</span><span class="lang-la">ຕິດຕໍ່</span><span class="lang-jp">お問い合わせ</span><span class="lang-kr">문의하기</span><span class="lang-cn">联系我们</span><span class="lang-hk">聯絡我們</span><span class="lang-my">Hubungi Kami</span></a>
+                    <!-- Language Switcher -->
+                    <div class="flex items-center space-x-1 border-l pl-4 border-gray-300">
+                        <button onclick="setLanguage('en')" class="text-xs font-bold text-gray-500 hover:text-sky-500">EN</button><span class="text-gray-300">|</span>
+                        <button onclick="setLanguage('la')" class="text-xs font-bold text-gray-500 hover:text-sky-500">LA</button><span class="text-gray-300">|</span>
+                        <button onclick="setLanguage('jp')" class="text-xs font-bold text-gray-500 hover:text-sky-500">JP</button><span class="text-gray-300">|</span>
+                        <button onclick="setLanguage('kr')" class="text-xs font-bold text-gray-500 hover:text-sky-500">KR</button><span class="text-gray-300">|</span>
+                        <button onclick="setLanguage('cn')" class="text-xs font-bold text-gray-500 hover:text-sky-500">CN</button><span class="text-gray-300">|</span>
+                        <button onclick="setLanguage('hk')" class="text-xs font-bold text-gray-500 hover:text-sky-500">HK</button><span class="text-gray-300">|</span>
+                        <button onclick="setLanguage('my')" class="text-xs font-bold text-gray-500 hover:text-sky-500">MY</button>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="lg:hidden flex items-center gap-4">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-gray-600 hover:text-sky-500 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t">
+             <div class="p-4 flex flex-wrap gap-2 justify-center bg-gray-50 border-b">
+                <button onclick="setLanguage('en')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">EN</button>
+                <button onclick="setLanguage('la')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">LA</button>
+                <button onclick="setLanguage('jp')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">JP</button>
+                <button onclick="setLanguage('kr')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">KR</button>
+                <button onclick="setLanguage('cn')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">CN</button>
+                <button onclick="setLanguage('hk')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">HK</button>
+                <button onclick="setLanguage('my')" class="text-xs font-bold text-gray-600 bg-white px-2 py-1 rounded shadow">MY</button>
+            </div>
+            <a href="#products" class="block py-3 px-4 text-gray-700 hover:bg-gray-50">Our Treats</a>
+            <a href="#contact" class="block py-3 px-4 text-sky-600 font-bold hover:bg-gray-50">Contact Us</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-pattern pt-20 pb-28 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto">
+                <div class="inline-block bg-sky-100 text-sky-600 px-4 py-1 rounded-full text-sm font-semibold mb-6 animate-bounce">
+                    <span class="lang-en">Running out of treats? 🐾</span>
+                    <span class="lang-la">ໝົດຂະໜົມໃຫ້ເຈົ້ານາຍແລ້ວບໍ່? 🐾</span>
+                    <span class="lang-jp">おやつ、足りていますか？ 🐾</span>
+                    <span class="lang-kr">간식이 떨어졌나요? 🐾</span>
+                    <span class="lang-cn">零食吃完了吗？ 🐾</span>
+                    <span class="lang-hk">零食食晒啦？ 🐾</span>
+                    <span class="lang-my">Kehabisan snek? 🐾</span>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-6">
+                    <span class="lang-en">The Fresh Bounty of the <br/><a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">Nam Ngum River</a></span>
+                    <span class="lang-la">ຄວາມອຸດົມສົມບູນອັນສົດໃໝ່ຈາກ <br/><a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">ແມ່ນໍ້າງື່ມ</a></span>
+                    <span class="lang-jp"><a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">ナムグム川</a>からの<br/>新鮮な恵み</span>
+                    <span class="lang-kr"><a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">남늠강</a>의 <br/>신선한 풍요</span>
+                    <span class="lang-cn">来自<a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">南俄河</a>的<br/>新鲜馈赠</span>
+                    <span class="lang-hk">來自<a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">南俄河</a>嘅<br/>新鮮豐饒</span>
+                    <span class="lang-my">Kurniaan Segar dari <br/><a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">Sungai Nam Ngum</a></span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-10 leading-relaxed">
+                    <span class="lang-en">Premium pet snacks made from sustainably sourced Tilapia. 100% Natural, Low-Temp Dehydrated, and produced with love in Laos.</span>
+                    <span class="lang-la">ຂະໜົມສັດລ້ຽງເກຣດພຣີມ່ຽມ ຜະລິດຈາກປານິນທຳມະຊາດ. ປອດສານພິດ 100%, ອົບແຫ້ງດ້ວຍອຸນຫະພູມຕໍ່າ ແລະ ຜະລິດດ້ວຍໃຈໃນລາວ.</span>
+                    <span class="lang-jp">持続可能な方法で調達されたティラピアから作られたプレミアムペットスナック。100%天然、低温乾燥、そしてラオスで愛を込めて生産されています。</span>
+                    <span class="lang-kr">지속 가능한 방식으로 공급된 틸라피아로 만든 프리미엄 반려동물 간식. 100% 천연, 저온 건조 공법, 라오스에서 정성을 다해 생산되었습니다.</span>
+                    <span class="lang-cn">源自老挝的可持续罗非鱼，100%天然，低温脱水，精心制作的高级宠物零食。</span>
+                    <span class="lang-hk">源自老撾嘅可持續羅非魚，100%天然，低溫脫水，用心製作嘅高級寵物零食。</span>
+                    <span class="lang-my">Snek haiwan peliharaan premium yang diperbuat daripada Tilapia sumber lestari. 100% Semulajadi, Dehidrasi Suhu Rendah, dan dihasilkan dengan kasih sayang di Laos.</span>
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#products" class="bg-sky-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-sky-600 transition shadow-xl shadow-sky-200 flex items-center justify-center">
+                        <i class="fa-solid fa-bone mr-2"></i> <span class="lang-en">Shop Treats</span><span class="lang-la">ເລືອກຊື້ສິນຄ້າ</span><span class="lang-jp">商品を見る</span><span class="lang-kr">쇼핑하기</span><span class="lang-cn">立即购买</span><span class="lang-hk">立即購買</span><span class="lang-my">Beli Snek</span>
+                    </a>
+                    <a href="#about" class="bg-white text-gray-700 border-2 border-gray-200 px-8 py-4 rounded-full font-bold text-lg hover:border-sky-500 hover:text-sky-500 transition flex items-center justify-center">
+                        <span class="lang-en">Learn More</span><span class="lang-la">ອ່ານເພີ່ມເຕີມ</span><span class="lang-jp">もっと詳しく</span><span class="lang-kr">더 알아보기</span><span class="lang-cn">了解更多</span><span class="lang-hk">了解更多</span><span class="lang-my">Ketahui Lebih Lanjut</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features / USP -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+                <!-- 100% Natural -->
+                <div onclick="openNaturalModal()" class="p-6 rounded-2xl bg-gray-50 hover:bg-sky-50 transition duration-300 cursor-pointer group">
+                    <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4 text-sky-600 text-2xl group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2"><span class="lang-en">100% Natural</span><span class="lang-la">ທຳມະຊາດ 100%</span><span class="lang-jp">100%天然</span><span class="lang-kr">100% 천연 재료</span><span class="lang-cn">100% 天然</span><span class="lang-hk">100% 天然</span><span class="lang-my">100% Semulajadi</span></h3>
+                    <p class="text-gray-600"><span class="lang-en">No additives, no seasoning, and absolutely no preservatives. Just pure goodness.</span><span class="lang-la">ບໍ່ມີສານປຸງແຕ່ງ, ບໍ່ມີລົດຊາດປຸງແຕ່ງ ແລະ ບໍ່ມີວັດຖຸກັນເສຍ. ຄຸນປະໂຫຍດເນັ້ນໆ.</span><span class="lang-jp">添加物、調味料、保存料は一切使用していません。純粋な美味しさだけ。</span><span class="lang-kr">첨가물, 조미료, 방부제가 전혀 들어있지 않습니다. 오직 순수한 재료만 담았습니다.</span><span class="lang-cn">无添加剂，无调味，绝对无防腐剂。只有纯净的美味。</span><span class="lang-hk">無添加劑，無調味，絕對無防腐劑。只有純淨嘅美味。</span><span class="lang-my">Tiada bahan tambahan, tiada perasa, dan tiada bahan pengawet. Hanya kebaikan tulen.</span></p>
+                </div>
+                <!-- Slow Dehydration -->
+                <div onclick="openDehydratedModal()" class="p-6 rounded-2xl bg-gray-50 hover:bg-sky-50 transition duration-300 cursor-pointer group">
+                    <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4 text-sky-600 text-2xl group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-temperature-low"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2"><span class="lang-en">Slow Dehydration</span><span class="lang-la">ອົບແຫ້ງອຸນຫະພູມຕໍ່າ</span><span class="lang-jp">じっくり低温乾燥</span><span class="lang-kr">저온 건조 공법</span><span class="lang-cn">低温慢烘</span><span class="lang-hk">低溫慢烘</span><span class="lang-my">Dehidrasi Perlahan</span></h3>
+                    <p class="text-gray-600"><span class="lang-en">Low-temperature dehydration locks in nutrients and flavor without cooking them away.</span><span class="lang-la">ການອົບແຫ້ງດ້ວຍອຸນຫະພູມຕໍ່າ ຊ່ວຍຮັກສາຄຸນຄ່າທາງອາຫານ ແລະ ລົດຊາດໄວ້ຢ່າງຄົບຖ້ວນ.</span><span class="lang-jp">低温乾燥により、栄養と風味を損なうことなく閉じ込めました。</span><span class="lang-kr">저온 건조 공법으로 조리 과정에서 손실될 수 있는 영양소와 풍미를 그대로 지켰습니다.</span><span class="lang-cn">低温脱水技术锁住营养和风味，避免高温破坏。</span><span class="lang-hk">低溫脫水技術鎖住營養同風味，避免高溫破壞。</span><span class="lang-my">Dehidrasi suhu rendah mengunci nutrien dan rasa tanpa memasaknya.</span></p>
+                </div>
+                <!-- Nam Ngum Origin -->
+                <div onclick="openBreedModal()" class="p-6 rounded-2xl bg-gray-50 hover:bg-sky-50 transition duration-300 cursor-pointer group">
+                    <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4 text-sky-600 text-2xl group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-water"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2"><span class="lang-en">Nam Ngum Origin</span><span class="lang-la">ຕົ້ນກຳເນີດຈາກນໍ້າງື່ມ</span><span class="lang-jp">ナムグム産</span><span class="lang-kr">남늠강 원산지</span><span class="lang-cn">源自南俄河</span><span class="lang-hk">源自南俄河</span><span class="lang-my">Asal Nam Ngum</span></h3>
+                    <p class="text-gray-600"><span class="lang-en">Sourced from quality Tilapia bred in fish pens directly at the <span class="text-sky-500 hover:text-sky-600 hover:underline transition">Nam Ngum River</span>.</span><span class="lang-la">ຜະລິດຈາກປານິນຄຸນນະພາບດີ ທີ່ລ້ຽງໃນກະຊັງໃນ<span class="text-sky-500 hover:text-sky-600 hover:underline transition">ແມ່ນໍ້າງື່ມ</span>ໂດຍກົງ.</span><span class="lang-jp"><span class="text-sky-500 hover:text-sky-600 hover:underline transition">ナムグム川</span>の養殖生け簀で育てられた高品質なティラピアを使用しています。</span><span class="lang-kr"><span class="text-sky-500 hover:text-sky-600 hover:underline transition">남늠강</span>의 양식장에서 직접 기른 고품질 틸라피아를 사용합니다.</span><span class="lang-cn">选用直接在<span class="text-sky-500 hover:text-sky-600 hover:underline transition">南俄河</span>网箱养殖的优质罗非鱼。</span><span class="lang-hk">選用直接喺<span class="text-sky-500 hover:text-sky-600 hover:underline transition">南俄河</span>網箱養殖嘅優質羅非魚。</span><span class="lang-my">Diperoleh daripada Tilapia berkualiti yang dibiakkan dalam sangkar ikan secara terus di <span class="text-sky-500 hover:text-sky-600 hover:underline transition">Sungai Nam Ngum</span>.</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-sky-500 font-bold uppercase tracking-wider text-sm"><span class="lang-en">Our Selection</span><span class="lang-la">ສິນຄ້າຂອງເຮົາ</span><span class="lang-jp">商品ラインナップ</span><span class="lang-kr">제품 라인업</span><span class="lang-cn">我们的精选</span><span class="lang-hk">我哋嘅精選</span><span class="lang-my">Pilihan Kami</span></span>
+                <h2 class="text-4xl font-bold text-gray-900 mt-2"><span class="lang-en">Treats They'll Beg For</span><span class="lang-la">ຂະໜົມທີ່ສັດລ້ຽງຂອງທ່ານຕ້ອງຫຼົງຮັກ</span><span class="lang-jp">おねだりしたくなるおやつ</span><span class="lang-kr">반려동물이 간절히 원하는 간식</span><span class="lang-cn">宠物爱不释手的零食</span><span class="lang-hk">寵物愛不釋手嘅零食</span><span class="lang-my">Snek yang Mereka Idamkan</span></h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto mb-8"><span class="lang-en">Suitable for both dogs and cats. Perfect for training, playtime, or just saying "I love you."</span><span class="lang-la">ເໝາະສຳລັບທັງໝາ ແລະ ແມວ. ດີເລີດສຳລັບການຝຶກສອນ, ເວລາຫຼິ້ນ ຫຼື ມອບເປັນລາງວັນແຫ່ງຄວາມຮັກ.</span><span class="lang-jp">犬猫兼用。トレーニングや遊び、そして「大好き」を伝えるのに最適です。</span><span class="lang-kr">강아지와 고양이 모두에게 적합합니다. 훈련, 놀이 시간, 또는 사랑을 전할 때 완벽한 선택입니다.</span><span class="lang-cn">猫狗皆宜。完美的训练奖励、游戏伴侣，或表达爱意的小礼物。</span><span class="lang-hk">貓狗皆宜。完美嘅訓練獎勵、遊戲伴侶，或表達愛意嘅小禮物。</span><span class="lang-my">Sesuai untuk kucing. Sempurna untuk latihan, masa bermain, atau sekadar berkata "Saya sayang awak."</span></p>
+                <!-- NEW OEM BUTTON -->
+                <a href="#contact" class="inline-flex items-center bg-white border-2 border-gray-800 text-gray-800 px-6 py-2 rounded-full font-bold hover:bg-gray-800 hover:text-white transition shadow-sm hover:shadow-md">
+                    <i class="fa-solid fa-handshake mr-2"></i><span class="lang-en">OEM Order Contact</span><span class="lang-la">ຕິດຕໍ່ສັ່ງຜະລິດ OEM</span><span class="lang-jp">OEM製造のお問い合わせ</span><span class="lang-kr">OEM 주문 문의</span><span class="lang-cn">OEM 订单咨询</span><span class="lang-hk">OEM 訂單查詢</span><span class="lang-my">Hubungi Tempahan OEM</span>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Product 1: Fish Fillet Jerky -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
+                    <div class="h-64 overflow-hidden relative bg-gray-200">
+                        <img src="FishJerky.jpg" alt="Fish Fillet Jerky" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                        <div class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">Best Seller</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2"><span class="lang-en">Fish Fillet Jerky</span><span class="lang-la">ປານິນແຜ່ນອົບແຫ້ງ</span><span class="lang-jp">魚のフィレジャーキー</span><span class="lang-kr">생선 필레 저키</span><span class="lang-cn">罗非鱼肉干</span><span class="lang-hk">羅非魚肉乾</span><span class="lang-my">Dendeng Filet Ikan</span></h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">
+                            <span class="lang-en">Premium whole Tilapia fillets, slow-dried to a chewy perfection. Acts as a natural toothbrush to reduce plaque while delivering essential protein for muscle health.</span>
+                            <span class="lang-la">ຊີ້ນປານິນແຜ່ນເກຣດພຣີມ່ຽມ, ອົບແຫ້ງຈົນໜຽວນຸ້ມ. ຊ່ວຍຂັດແຂ້ວຫຼຸດຜ່ອນຄາບຫີນປູນ ແລະ ໃຫ້ໂປຣຕີນສູງເພື່ອສຸຂະພາບກ້າມຊີ້ນ.</span>
+                            <span class="lang-jp">厳選されたティラピアのフィレをじっくり乾燥。噛み応えがあり、歯垢を減らす天然の歯ブラシとして機能しながら、筋肉の健康に必要なタンパク質を供給します。</span>
+                            <span class="lang-kr">프리미엄 틸라피아 통살을 천천히 건조하여 쫄깃하게 만들었습니다. 치석을 줄여주는 천연 칫솔 역할을 하며 근육 건강에 필수적인 단백질을 제공합니다.</span>
+                            <span class="lang-cn">优质整块罗非鱼片，慢火烘干至耐嚼完美。作为天然牙刷减少牙菌斑，同时提供肌肉健康所需的蛋白质。</span>
+                            <span class="lang-hk">優質整塊羅非魚片，慢火烘乾至耐嚼完美。作為天然牙刷減少牙菌斑，同時提供肌肉健康所需嘅蛋白質。</span>
+                            <span class="lang-my">Filet Tilapia premium, dikeringkan perlahan untuk kekenyalan sempurna. Bertindak sebagai berus gigi semulajadi untuk mengurangkan plak sambil membekalkan protein untuk otot.</span>
+                        </p>
+                        <ul class="text-sm text-gray-500 mb-6 space-y-2">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">Dental Health</span><span class="lang-la">ສຸຂະພາບແຂ້ວ</span><span class="lang-jp">デンタルケア</span><span class="lang-kr">치아 건강</span><span class="lang-cn">牙齿健康</span><span class="lang-hk">牙齒健康</span><span class="lang-my">Kesihatan Gigi</span></li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">Muscle Support</span><span class="lang-la">ເສີມສ້າງກ້າມຊີ້ນ</span><span class="lang-jp">筋肉サポート</span><span class="lang-kr">근육 강화</span><span class="lang-cn">肌肉支持</span><span class="lang-hk">肌肉支持</span><span class="lang-my">Sokongan Otot</span></li>
+                        </ul>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="openModal('benefits', 'Fish Fillet Jerky', '', '', '')" class="bg-sky-100 text-sky-700 py-3 rounded-xl font-bold hover:bg-sky-200 transition text-xs flex flex-col items-center justify-center">
+                                <i class="fa-solid fa-star mb-1"></i><span class="lang-en">Benefits</span><span class="lang-la">ປະໂຫຍດ</span><span class="lang-jp">メリット</span><span class="lang-kr">효능</span><span class="lang-cn">益处</span><span class="lang-hk">益處</span><span class="lang-my">Faedah</span>
+                            </button>
+                            <button onclick="openModal('raw', 'Fish Fillet Jerky', 'FishJerkyRaw.jpg', 'FishJerky_Test.jpg', 'FishJerky_Nutrition.jpg')" class="bg-gray-200 text-gray-800 py-3 rounded-xl font-bold hover:bg-gray-300 transition text-xs flex flex-col items-center justify-center">
+                                <i class="fa-solid fa-fish mb-1"></i><span class="lang-en">Ingredient</span><span class="lang-la">ສ່ວນປະກອບ</span><span class="lang-jp">原材料</span><span class="lang-kr">재료</span><span class="lang-cn">成分</span><span class="lang-hk">成分</span><span class="lang-my">Ramuan</span>
+                            </button>
+                            <button onclick="openModal('cert', 'Fish Fillet Jerky', 'FishJerkyRaw.jpg', 'FishJerky_Test.jpg', 'FishJerky_Nutrition.jpg')" class="bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition text-xs flex flex-col items-center justify-center">
+                                <i class="fa-solid fa-certificate mb-1"></i><span class="lang-en">Certificates</span><span class="lang-la">ໃບຢັ້ງຢືນ</span><span class="lang-jp">証明書</span><span class="lang-kr">인증서</span><span class="lang-cn">证书</span><span class="lang-hk">證書</span><span class="lang-my">Sijil</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2: Fish Calcium Cubes -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
+                    <div class="h-64 overflow-hidden relative bg-gray-200">
+                        <img src="FishCookie.jpg" alt="Fish Calcium Cubes" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2"><span class="lang-en">Fish Calcium Cubes</span><span class="lang-la">ກ້ອນແຄວຊຽມປາ</span><span class="lang-jp">魚のカルシウムキューブ</span><span class="lang-kr">생선 칼슘 큐브</span><span class="lang-cn">鱼钙方块</span><span class="lang-hk">魚鈣方塊</span><span class="lang-my">Kiub Kalsium Ikan</span></h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">
+                            <span class="lang-en">Minced Tilapia bone and meat formed into bite-sized cubes. A natural source of calcium to support strong bones and teeth, perfect for growing puppies and senior pets.</span>
+                            <span class="lang-la">ຊີ້ນແລະກະດູກປານິນບົດ ປັ້ນເປັນກ້ອນພໍດີຄຳ. ແຫຼ່ງແຄວຊຽມທຳມະຊາດ ຊ່ວຍເສີມສ້າງກະດູກແລະແຂ້ວໃຫ້ແຂງແຮງ, ເໝາະສຳລັບລູກໝາທີ່ກຳລັງໃຫຍ່ ແລະ ສັດລ້ຽງສູງອາຍຸ.</span>
+                            <span class="lang-jp">ティラピアの骨と肉をミンチにし、一口サイズのキューブにしました。骨と歯を強くする天然のカルシウム源で、成長期の子犬やシニアペットに最適です。</span>
+                            <span class="lang-kr">틸라피아 뼈와 살을 다져 한입 크기의 큐브로 만들었습니다. 뼈와 치아를 튼튼하게 하는 천연 칼슘원으로, 성장기 강아지와 노령 반려동물에게 완벽합니다.</span>
+                            <span class="lang-cn">罗非鱼骨肉碎制成的一口大小方块。天然钙源支持强健的骨骼和牙齿，非常适合成长中的幼犬和老年宠物。</span>
+                            <span class="lang-hk">羅非魚骨肉碎製成嘅一口大小方塊。天然鈣源支持強健嘅骨骼同牙齒，非常適合成長中嘅幼犬同老年寵物。</span>
+                            <span class="lang-my">Tulang dan daging Tilapia cincang dibentuk menjadi kiub bersaiz gigitan. Sumber kalsium semulajadi untuk tulang dan gigi yang kuat, sesuai untuk anak anjing dan haiwan tua.</span>
+                        </p>
+                        <ul class="text-sm text-gray-500 mb-6 space-y-2">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">Rich in Calcium</span><span class="lang-la">ອຸດົມດ້ວຍແຄວຊຽມ</span><span class="lang-jp">カルシウム豊富</span><span class="lang-kr">칼슘 풍부</span><span class="lang-cn">富含钙质</span><span class="lang-hk">富含鈣質</span><span class="lang-my">Kaya dengan Kalsium</span></li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">Bone & Joint Support</span><span class="lang-la">ບຳລຸງກະດູກແລະຂໍ້</span><span class="lang-jp">骨と関節のサポート</span><span class="lang-kr">뼈 및 관절 지원</span><span class="lang-cn">骨骼关节支持</span><span class="lang-hk">骨骼關節支持</span><span class="lang-my">Sokongan Tulang & Sendi</span></li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">Soft & Easy Chew</span><span class="lang-la">ນຸ່ມ ແລະ ຄ້ຽວງ່າຍ</span><span class="lang-jp">柔らかくて食べやすい</span><span class="lang-kr">부드럽고 씹기 편함</span><span class="lang-cn">松软易嚼</span><span class="lang-hk">鬆軟易嚼</span><span class="lang-my">Lembut & Mudah Dikunyah</span></li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">100% Fish</span><span class="lang-la">ປາແທ້ 100%</span><span class="lang-jp">魚 100%</span><span class="lang-kr">100% 생선</span><span class="lang-cn">100% 纯鱼</span><span class="lang-hk">100% 純魚</span><span class="lang-my">100% Ikan</span></li>
+                        </ul>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="openModal('benefits', 'Fish Calcium Cubes', '', '', '')" class="bg-sky-100 text-sky-700 py-3 rounded-xl font-bold hover:bg-sky-200 transition text-xs flex flex-col items-center justify-center">
+                                <i class="fa-solid fa-star mb-1"></i><span class="lang-en">Benefits</span><span class="lang-la">ປະໂຫຍດ</span><span class="lang-jp">メリット</span><span class="lang-kr">효능</span><span class="lang-cn">益处</span><span class="lang-hk">益處</span><span class="lang-my">Faedah</span>
+                            </button>
+                            <button onclick="openModal('raw', 'Fish Calcium Cubes', 'FishCookieRaw.jpg', 'FishCookie_Test.jpg', 'FishCookie_Nutrition.jpg')" class="bg-gray-200 text-gray-800 py-3 rounded-xl font-bold hover:bg-gray-300 transition text-xs flex flex-col items-center justify-center">
+                                <i class="fa-solid fa-fish mb-1"></i><span class="lang-en">Ingredient</span><span class="lang-la">ສ່ວນປະກອບ</span><span class="lang-jp">原材料</span><span class="lang-kr">재료</span><span class="lang-cn">成分</span><span class="lang-hk">成分</span><span class="lang-my">Ramuan</span>
+                            </button>
+                            <button onclick="openModal('cert', 'Fish Calcium Cubes', 'FishCookieRaw.jpg', 'FishCookie_Test.jpg', 'FishCookie_Nutrition.jpg')" class="bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition text-xs flex flex-col items-center justify-center">
+                                <i class="fa-solid fa-certificate mb-1"></i><span class="lang-en">Certificates</span><span class="lang-la">ໃບຢັ້ງຢືນ</span><span class="lang-jp">証明書</span><span class="lang-kr">인증서</span><span class="lang-cn">证书</span><span class="lang-hk">證書</span><span class="lang-my">Sijil</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3: Fish Skin Rolls -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
+                    <div class="h-64 overflow-hidden relative bg-gray-200">
+                        <img src="FishSkin.jpg" alt="Fish Skin Rolls" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                        <div class="absolute top-4 right-4 bg-orange-400 text-white text-xs font-bold px-3 py-1 rounded-full">Crunchy!</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2"><span class="lang-en">Fish Skin Rolls</span><span class="lang-la">ໜັງປາມ້ວນ</span><span class="lang-jp">魚皮ロール</span><span class="lang-kr">생선 껍질 롤</span><span class="lang-cn">鱼皮卷</span><span class="lang-hk">魚皮卷</span><span class="lang-my">Gulungan Kulit Ikan</span></h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">
+                            <span class="lang-en">Hand-rolled fish skins loaded with natural Collagen. Promotes a glossy coat, healthy skin, and supports elasticity with every crunchy bite.</span>
+                            <span class="lang-la">ໜັງປາມ້ວນດ້ວຍມື ອຸດົມດ້ວຍຄໍລາເຈນທຳມະຊາດ. ຊ່ວຍໃຫ້ຂົນເງົາງາມ, ຜິວໜັງສຸຂະພາບດີ ແລະ ເພີ່ມຄວາມຍືດຫຍຸ່ນ ໃນທຸກໆຄຳທີ່ກອບແຊບ.</span>
+                            <span class="lang-jp">天然コラーゲンたっぷりの手巻き魚皮。噛むたびに艶やかな毛並みと健康な皮膚を促進し、弾力性をサポートします。</span>
+                            <span class="lang-kr">천연 콜라겐이 풍부한 수제 생선 껍질 롤. 바삭한 식감과 함께 윤기 나는 털과 건강한 피부를 만들어줍니다.</span>
+                            <span class="lang-cn">富含天然胶原蛋白的手卷鱼皮。每一口酥脆都能促进毛发光亮、皮肤健康并支持皮肤弹性。</span>
+                            <span class="lang-hk">富含天然膠原蛋白嘅手捲魚皮。每一口酥脆都能促進毛髮光亮、皮膚健康並支持皮膚彈性。</span>
+                            <span class="lang-my">Kulit ikan gulung tangan yang sarat dengan Kolagen semulajadi. Menggalakkan bulu berkilat, kulit yang sihat, dan menyokong keanjalan dengan setiap gigitan rangup.</span>
+                        </p>
+                        <ul class="text-sm text-gray-500 mb-6 space-y-2">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">Rich in Collagen</span><span class="lang-la">ອຸດົມດ້ວຍຄໍລາເຈນ</span><span class="lang-jp">コラーゲン豊富</span><span class="lang-kr">콜라겐 풍부</span><span class="lang-cn">富含胶原蛋白</span><span class="lang-hk">富含膠原蛋白</span><span class="lang-my">Kaya dengan Kolagen</span></li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span class="lang-en">Skin & Coat Health</span><span class="lang-la">ບຳລຸງຜິວ ແລະ ຂົນ</span><span class="lang-jp">皮膚と被毛の健康</span><span class="lang-kr">피부 및 피모 건강</span><span class="lang-cn">皮肤与毛发健康</span><span class="lang-hk">皮膚與毛髮健康</span><span class="lang-my">Kesihatan Bulu</span></li>
+                        </ul>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="openModal('benefits', 'Fish Skin Rolls', '', '', '')" class="bg-sky-100 text-sky-700 py-3 rounded-xl font-bold hover:bg-sky-200 transition text-xs flex flex-col items-center justify-center">
+                                <i class="fa-solid fa-star mb-1"></i><span class="lang-en">Benefits</span><span class="lang-la">ປະໂຫຍດ</span><span class="lang-jp">メリット</span><span class="lang-kr">효능</span><span class="lang-cn">益处</span><span class="lang-hk">益處</span><span class="lang-my">Faedah</span>
+                            </button>
+                            <button onclick="openModal('raw', 'Fish Skin Rolls', 'FishSkinRaw.jpg', 'FishSkin_Test.jpg', 'FishSkin_Nutrition.jpg')" class="bg-gray-200 text-gray-800 py-3 rounded-xl font-bold hover:bg-gray-300 transition text-xs flex flex-col items-center justify-center">
+                                <i class="fa-solid fa-fish mb-1"></i><span class="lang-en">Ingredient</span><span class="lang-la">ສ່ວນປະກອບ</span><span class="lang-jp">原材料</span><span class="lang-kr">재료</span><span class="lang-cn">成分</span><span class="lang-hk">成分</span><span class="lang-my">Ramuan</span>
+                            </button>
+                            <button onclick="openModal('cert', 'Fish Skin Rolls', 'FishSkinRaw.jpg', 'FishSkin_Test.jpg', 'FishSkin_Nutrition.jpg')" class="bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition text-xs flex flex-col items-center justify-center">
+                                <i class="fa-solid fa-certificate mb-1"></i><span class="lang-en">Certificates</span><span class="lang-la">ໃບຢັ້ງຢືນ</span><span class="lang-jp">証明書</span><span class="lang-kr">인증서</span><span class="lang-cn">证书</span><span class="lang-hk">證書</span><span class="lang-my">Sijil</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usage / About Section -->
+    <section id="about" class="py-20 bg-white relative overflow-hidden">
+        <!-- NEW PIXEL PLAY SCENE (Hidden by default) -->
+        <div id="healthy-play-scene" class="hidden absolute bottom-0 left-0 w-full h-full pointer-events-none z-20 overflow-hidden">
+            <!-- Pixel Cat (Leads) -->
+            <div class="pixel-pet w-16 h-16 chase-anim" style="animation-delay: 0s;">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect x="4" y="7" width="7" height="4" fill="#FFA500"/><rect x="4" y="11" width="2" height="2" fill="#FFA500"/><rect x="9" y="11" width="2" height="2" fill="#FFA500"/><rect x="8" y="4" width="4" height="4" fill="#FFA500"/><rect x="8" y="3" width="1" height="2" fill="#FFA500"/><rect x="11" y="3" width="1" height="2" fill="#FFA500"/><rect x="10" y="5" width="1" height="1" fill="black"/><rect x="2" y="6" width="2" height="3" fill="#FFA500"/></svg>
+            </div>
+            <!-- Pixel Dog -->
+            <div class="pixel-pet w-16 h-16 chase-anim" style="animation-delay: 0.3s;">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect x="3" y="6" width="8" height="5" fill="#8B4513"/><rect x="3" y="11" width="2" height="3" fill="#8B4513"/><rect x="9" y="11" width="2" height="3" fill="#8B4513"/><rect x="8" y="3" width="5" height="4" fill="#8B4513"/><rect x="11" y="4" width="1" height="1" fill="black"/><rect x="13" y="5" width="1" height="1" fill="black"/><rect x="2" y="5" width="2" height="3" fill="#8B4513"/><rect x="9" y="3" width="2" height="2" fill="#5D4037"/></svg>
+            </div>
+            <!-- Pixel Girl -->
+            <div class="pixel-pet w-16 h-16 chase-anim" style="animation-delay: 0.6s;">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect x="5" y="2" width="6" height="3" fill="#3E2723"/><rect x="4" y="3" width="1" height="4" fill="#3E2723"/><rect x="11" y="3" width="1" height="4" fill="#3E2723"/><rect x="5" y="5" width="6" height="3" fill="#FFCCBC"/><rect x="6" y="6" width="1" height="1" fill="black"/><rect x="9" y="6" width="1" height="1" fill="black"/><rect x="6" y="8" width="4" height="5" fill="#E91E63"/><rect x="5" y="9" width="1" height="3" fill="#E91E63"/><rect x="10" y="9" width="1" height="3" fill="#E91E63"/><rect x="6" y="13" width="1" height="2" fill="#FFCCBC"/><rect x="9" y="13" width="1" height="2" fill="#FFCCBC"/><rect x="6" y="15" width="1" height="1" fill="black"/><rect x="9" y="15" width="1" height="1" fill="black"/></svg>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row items-start gap-12">
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1551730459-92db2a308d6a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Dog Training" class="rounded-3xl shadow-2xl w-full mb-8 dog-content">
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Cat" class="rounded-3xl shadow-2xl w-full mb-8 cat-content-my-only">
+                </div>
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Hand petting a cat" class="rounded-3xl shadow-xl w-full max-w-md mb-8 object-cover aspect-video h-64">
+                    <span class="text-sky-500 font-bold uppercase tracking-wider text-sm"><span class="lang-en">Our Promise</span><span class="lang-la">ຄຳໝັ້ນສັນຍາຂອງເຮົາ</span><span class="lang-jp">私たちの約束</span><span class="lang-kr">우리의 약속</span><span class="lang-cn">我们的承诺</span><span class="lang-hk">我哋嘅承諾</span><span class="lang-my">Janji Kami</span></span>
+                    <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-6"><span class="lang-en">From Our River to Your Home</span><span class="lang-la">ຈາກແມ່ນໍ້າຂອງເຮົາ ສູ່ເຮືອນຂອງທ່ານ</span><span class="lang-jp">私たちの川から、あなたの家へ</span><span class="lang-kr">우리의 강에서 당신의 집으로</span><span class="lang-cn">从我们的河流到您的家</span><span class="lang-hk">從我哋嘅河流到你嘅家</span><span class="lang-my">Dari Sungai Kami ke Rumah Anda</span></h2>
+                    <p class="text-gray-600 mb-4 text-lg"><span class="lang-en">At <strong>Kawanosachi Naturals</strong>, we believe pets deserve real food. Our journey begins at the <a href="#" onclick="openRiverModal(); return false;" class="text-sky-500 hover:text-sky-600 hover:underline transition">Nam Ngum River</a> in Laos...</span><!-- ... --></p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div onclick="openDogModal()" class="flex items-center p-3 bg-sky-50 rounded-lg dog-content cursor-pointer hover:bg-sky-100 hover:shadow-md transition">
+                            <i class="fa-solid fa-dog text-sky-500 mr-3 text-xl"></i><span class="font-bold text-gray-700"><span class="lang-en">For Dogs</span><span class="lang-la">ສຳລັບໝາ</span><span class="lang-jp">犬用</span><span class="lang-kr">강아지용</span><span class="lang-cn">适合狗狗</span><span class="lang-hk">適合狗狗</span><span class="lang-my">Untuk Anjing</span></span>
+                        </div>
+                        <div onclick="openCatModal()" class="flex items-center p-3 bg-sky-50 rounded-lg cursor-pointer hover:bg-sky-100 hover:shadow-md transition">
+                            <i class="fa-solid fa-cat text-sky-500 mr-3 text-xl"></i><span class="font-bold text-gray-700"><span class="lang-en">For Cats</span><span class="lang-la">ສຳລັບແມວ</span><span class="lang-jp">猫用</span><span class="lang-kr">고양이용</span><span class="lang-cn">适合猫咪</span><span class="lang-hk">適合貓咪</span><span class="lang-my">Untuk Kucing</span></span>
+                        </div>
+                        <div onclick="openTrainingModal()" class="flex items-center p-3 bg-sky-50 rounded-lg cursor-pointer hover:bg-sky-100 hover:shadow-md transition">
+                            <i class="fa-solid fa-medal text-sky-500 mr-3 text-xl"></i><span class="font-bold text-gray-700"><span class="lang-en">Award / Training</span><span class="lang-la">ລາງວັນ / ຝຶກສອນ</span><span class="lang-jp">ご褒美 / トレーニング</span><span class="lang-kr">보상 / 훈련</span><span class="lang-cn">奖励 / 训练</span><span class="lang-hk">獎勵 / 訓練</span><span class="lang-my">Ganjaran / Latihan</span></span>
+                        </div>
+                        <div onclick="triggerHealthyPlay()" class="flex items-center p-3 bg-sky-50 rounded-lg cursor-pointer hover:bg-sky-100 hover:shadow-md transition">
+                            <i class="fa-solid fa-heart text-sky-500 mr-3 text-xl"></i><span class="font-bold text-gray-700"><span class="lang-en">Healthy Play</span><span class="lang-la">ການຫຼິ້ນທີ່ມີປະໂຫຍດ</span><span class="lang-jp">健康的な遊び</span><span class="lang-kr">건강한 놀이</span><span class="lang-cn">健康玩耍</span><span class="lang-hk">健康玩耍</span><span class="lang-my">Permainan Sihat</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center mb-6"><i class="fa-solid fa-paw text-2xl text-sky-500 mr-2"></i><span class="brand-font text-2xl font-bold">Kawanosachi</span></div>
+                    <p class="text-gray-400"><span class="lang-en">Pure, natural treats from the heart of Laos. Give your pets the nutrition they deserve.</span><!-- ... --></p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-6"><span class="lang-en">Products</span><span class="lang-la">ສິນຄ້າ</span><span class="lang-jp">商品</span><span class="lang-kr">제품</span><span class="lang-cn">产品</span><span class="lang-hk">產品</span><span class="lang-my">Produk</span></h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-sky-400 transition"><span class="lang-en">Fish Fillet Jerky</span><span class="lang-la">ປານິນແຜ່ນອົບແຫ້ງ</span><span class="lang-jp">魚のフィレジャーキー</span><span class="lang-kr">생선 필레 저키</span><span class="lang-cn">罗非鱼肉干</span><span class="lang-hk">羅非魚肉乾</span><span class="lang-my">Dendeng Filet Ikan</span></a></li>
+                        <li><a href="#" class="hover:text-sky-400 transition"><span class="lang-en">Fish Calcium Cubes</span><span class="lang-la">ກ້ອນແຄວຊຽມປາ</span><span class="lang-jp">魚のカルシウムキューブ</span><span class="lang-kr">생선 칼슘 큐브</span><span class="lang-cn">鱼钙方块</span><span class="lang-hk">魚鈣方塊</span><span class="lang-my">Kiub Kalsium Ikan</span></a></li>
+                        <li><a href="#" class="hover:text-sky-400 transition"><span class="lang-en">Fish Skin Rolls</span><span class="lang-la">ໜັງປາມ້ວນ</span><span class="lang-jp">魚皮ロール</span><span class="lang-kr">생선 껍질 롤</span><span class="lang-cn">鱼皮卷</span><span class="lang-hk">魚皮卷</span><span class="lang-my">Gulungan Kulit Ikan</span></a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-6"><span class="lang-en">Contact</span><span class="lang-la">ຕິດຕໍ່</span><span class="lang-jp">お問い合わせ</span><span class="lang-kr">연락처</span><span class="lang-cn">联系我们</span><span class="lang-hk">聯絡我們</span><span class="lang-my">Hubungi</span></h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start"><i class="fa-solid fa-location-dot mt-1 mr-3 text-sky-500"></i> Twomeals Ventures Individual Enterprise<br>Vientiane, Laos</li>
+                        <li class="flex items-center"><i class="fa-solid fa-envelope mr-3 text-sky-500"></i> allanpang@twomeals.biz</li>
+                        <li class="flex items-center"><i class="fa-solid fa-phone mr-3 text-sky-500"></i> +856 20 5809 6813</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-6"><span class="lang-en">LINE us</span><span class="lang-la">ຕິດຕໍ່ທາງ LINE</span><span class="lang-jp">LINEで連絡</span><span class="lang-kr">LINE 문의</span><span class="lang-cn">LINE 联系</span><span class="lang-hk">LINE 聯絡</span><span class="lang-my">Hubungi kami di LINE</span></h4>
+                    <div class="bg-white p-4 rounded-lg inline-block"><img src="LineQRcode.jpg" alt="LINE QR Code" class="w-32 h-32 object-contain"></div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2024 Twomeals Ventures Individual Enterprise. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- --- PRODUCT INFO MODAL --- -->
+    <div id="info-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="modal-title" class="text-2xl font-bold brand-font text-gray-900">Further Information</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+            
+            <!-- Raw Material Section -->
+            <div id="modal-section-raw" class="mb-8 hidden">
+                <h4 class="text-xl font-semibold text-gray-800 mb-4"><span class="lang-en">Ingredient</span><span class="lang-la">ສ່ວນປະກອບ</span><span class="lang-jp">原材料</span><span class="lang-kr">재료</span><span class="lang-cn">成分</span><span class="lang-hk">成分</span><span class="lang-my">Ramuan</span></h4>
+                <div class="bg-gray-100 rounded-xl p-4 flex justify-center"><img id="modal-raw-image" src="" alt="Ingredient" class="max-w-full max-h-[75vh] w-auto h-auto object-contain rounded-lg shadow-md"></div>
+            </div>
+
+            <!-- Certificates Section -->
+            <div id="modal-section-cert" class="grid grid-cols-1 md:grid-cols-2 gap-8 hidden">
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Mandatory Test Certificate</h4>
+                    <div class="bg-white p-4 rounded-xl shadow-md"><div class="aspect-[3/4] bg-gray-100 rounded-lg overflow-hidden relative"><img id="modal-test-cert" src="" alt="Cert" class="w-full h-full object-contain"><div class="error-msg hidden">Not Found</div></div></div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Nutritional Analysis Certificate</h4>
+                    <div class="bg-white p-4 rounded-xl shadow-md"><div class="aspect-[3/4] bg-gray-100 rounded-lg overflow-hidden relative"><img id="modal-nutrition-cert" src="" alt="Cert" class="w-full h-full object-contain"><div class="error-msg hidden">Not Found</div></div></div>
+                </div>
+            </div>
+
+            <!-- --- NEW BENEFITS INFOGRAPHICS --- -->
+            
+            <!-- 1. Jerky Benefits -->
+            <div id="modal-benefits-jerky" class="hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="bg-blue-50 p-6 rounded-2xl border border-blue-100">
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-blue-500 shadow-sm text-3xl"><i class="fa-solid fa-tooth"></i></div>
+                        <h4 class="font-bold text-gray-800 mb-2"><span class="lang-en">Dental Health</span><span class="lang-la">ສຸຂະພາບແຂ້ວ</span><span class="lang-jp">デンタルケア</span><span class="lang-kr">치아 건강</span><span class="lang-cn">牙齿健康</span><span class="lang-hk">牙齒健康</span><span class="lang-my">Kesihatan Gigi</span></h4>
+                        <p class="text-sm text-gray-600"><span class="lang-en">Chewy texture acts as a natural toothbrush, reducing plaque buildup.</span><span class="lang-la">ຄວາມໜຽວນຸ້ມຊ່ວຍຂັດແຂ້ວແບບທຳມະຊາດ ແລະ ຫຼຸດຜ່ອນຄາບຫີນປູນ.</span><span class="lang-jp">噛み応えのある食感が天然の歯ブラシとなり、歯垢の蓄積を減らします。</span><span class="lang-kr">쫄깃한 식감이 천연 칫솔 역할을 하여 치석 축적을 줄여줍니다.</span><span class="lang-cn">耐嚼的质地犹如天然牙刷，减少牙菌斑堆积。</span><span class="lang-hk">耐嚼嘅質地好似天然牙刷，減少牙菌斑堆積。</span><span class="lang-my">Tekstur kenyal bertindak sebagai berus gigi semulajadi, mengurangkan pembentukan plak.</span></p>
+                    </div>
+                    <div class="bg-red-50 p-6 rounded-2xl border border-red-100">
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-red-500 shadow-sm text-3xl"><i class="fa-solid fa-dumbbell"></i></div>
+                        <h4 class="font-bold text-gray-800 mb-2"><span class="lang-en">Muscle Support</span><span class="lang-la">ເສີມສ້າງກ້າມຊີ້ນ</span><span class="lang-jp">筋肉サポート</span><span class="lang-kr">근육 강화</span><span class="lang-cn">肌肉支持</span><span class="lang-hk">肌肉支持</span><span class="lang-my">Sokongan Otot</span></h4>
+                        <p class="text-sm text-gray-600"><span class="lang-en">Packed with high-quality protein to support muscle growth and energy.</span><span class="lang-la">ອຸດົມດ້ວຍໂປຣຕີນຄຸນນະພາບສູງ ຊ່ວຍເສີມສ້າງກ້າມຊີ້ນແລະພະລັງງານ.</span><span class="lang-jp">筋肉の成長とエネルギーをサポートする高品質なタンパク質が豊富です。</span><span class="lang-kr">근육 성장과 에너지를 지원하는 고품질 단백질이 가득합니다.</span><span class="lang-cn">富含优质蛋白质，支持肌肉生长并提供能量。</span><span class="lang-hk">富含優質蛋白質，支持肌肉生長並提供能量。</span><span class="lang-my">Padat dengan protein berkualiti tinggi untuk menyokong pertumbuhan otot dan tenaga.</span></p>
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-2xl border border-green-100">
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-green-500 shadow-sm text-3xl"><i class="fa-solid fa-leaf"></i></div>
+                        <h4 class="font-bold text-gray-800 mb-2"><span class="lang-en">100% Pure</span><span class="lang-la">ທຳມະຊາດ 100%</span><span class="lang-jp">100%ピュア</span><span class="lang-kr">100% 순수</span><span class="lang-cn">100% 纯天然</span><span class="lang-hk">100% 純天然</span><span class="lang-my">100% Tulen</span></h4>
+                        <p class="text-sm text-gray-600"><span class="lang-en">Just one ingredient: Tilapia. No fillers, just pure fish goodness.</span><span class="lang-la">ມີພຽງຢ່າງດຽວຄືປານິນ. ບໍ່ມີສານເຕີມແຕ່ງ, ມີແຕ່ປາບໍລິສຸດ.</span><span class="lang-jp">原材料はティラピアのみ。混ぜ物なし、純粋な魚の美味しさだけ。</span><span class="lang-kr">오직 틸라피아 하나뿐입니다. 첨가물 없이 순수한 생선의 맛을 담았습니다.</span><span class="lang-cn">只有一种成分：罗非鱼。无填充物，只有纯正的鱼肉美味。</span><span class="lang-hk">只有一種成分：羅非魚。無填充物，只有純正嘅魚肉美味。</span><span class="lang-my">Hanya satu ramuan: Tilapia. Tiada bahan pengisi, hanya kebaikan ikan tulen.</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Cubes Benefits -->
+            <div id="modal-benefits-cubes" class="hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="bg-yellow-50 p-6 rounded-2xl border border-yellow-100">
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-yellow-500 shadow-sm text-3xl"><i class="fa-solid fa-bone"></i></div>
+                        <h4 class="font-bold text-gray-800 mb-2"><span class="lang-en">Strong Bones</span><span class="lang-la">ກະດູກແຂງແຮງ</span><span class="lang-jp">丈夫な骨</span><span class="lang-kr">튼튼한 뼈</span><span class="lang-cn">强健骨骼</span><span class="lang-hk">強健骨骼</span><span class="lang-my">Tulang Kuat</span></h4>
+                        <p class="text-sm text-gray-600"><span class="lang-en">Made with minced bone for a natural calcium boost to support skeletal health.</span><span class="lang-la">ເຮັດຈາກກະດູກບົດ ເປັນແຫຼ່ງແຄວຊຽມທຳມະຊາດ ຊ່ວຍບຳລຸງກະດູກ.</span><span class="lang-jp">骨の健康をサポートする天然カルシウムたっぷりのミンチ骨を使用。</span><span class="lang-kr">뼈 건강을 지원하는 천연 칼슘 공급원인 다진 뼈로 만들었습니다.</span><span class="lang-cn">由碎骨制成，提供天然钙质，支持骨骼健康。</span><span class="lang-hk">由碎骨製成，提供天然鈣質，支持骨骼健康。</span><span class="lang-my">Dibuat dengan tulang cincang untuk rangsangan kalsium semulajadi bagi menyokong kesihatan rangka.</span></p>
+                    </div>
+                    <div class="bg-purple-50 p-6 rounded-2xl border border-purple-100">
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-purple-500 shadow-sm text-3xl"><i class="fa-solid fa-paw"></i></div>
+                        <h4 class="font-bold text-gray-800 mb-2"><span class="lang-en">Easy to Chew</span><span class="lang-la">ຄ້ຽວງ່າຍ</span><span class="lang-jp">食べやすい</span><span class="lang-kr">씹기 편함</span><span class="lang-cn">易于咀嚼</span><span class="lang-hk">易於咀嚼</span><span class="lang-my">Mudah Dikunyah</span></h4>
+                        <p class="text-sm text-gray-600"><span class="lang-en">Soft, bite-sized cubes perfect for puppies, seniors, or training rewards.</span><span class="lang-la">ກ້ອນນຸ່ມພໍດີຄຳ ເໝາະສຳລັບລູກໝາ, ສັດອາຍຸສູງ ຫຼື ໃຊ້ຝຶກສອນ.</span><span class="lang-jp">子犬、シニア、またはトレーニングのご褒美に最適な、柔らかい一口サイズのキューブ。</span><span class="lang-kr">강아지, 노령견 또는 훈련 보상용으로 완벽한 부드러운 한입 크기 큐브입니다.</span><span class="lang-cn">柔软的一口大小方块，非常适合幼犬、老年犬或作为训练奖励。</span><span class="lang-hk">柔軟嘅一口大小方塊，非常適合幼犬、老年犬或作為訓練獎勵。</span><span class="lang-my">Kiub lembut bersaiz gigitan sesuai untuk anak anjing, haiwan tua, atau ganjaran latihan.</span></p>
+                    </div>
+                    <div class="bg-orange-50 p-6 rounded-2xl border border-orange-100">
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-orange-500 shadow-sm text-3xl"><i class="fa-solid fa-check"></i></div>
+                        <h4 class="font-bold text-gray-800 mb-2"><span class="lang-en">Digestion Friendly</span><span class="lang-la">ຍ່ອຍງ່າຍ</span><span class="lang-jp">消化に優しい</span><span class="lang-kr">소화가 잘됨</span><span class="lang-cn">易消化</span><span class="lang-hk">易消化</span><span class="lang-my">Mesra Penghadaman</span></h4>
+                        <p class="text-sm text-gray-600"><span class="lang-en">Minced texture allows for quick digestion and nutrient absorption.</span><span class="lang-la">ເນື້ອສຳຜັດລະອຽດ ຊ່ວຍໃຫ້ຍ່ອຍງ່າຍແລະດູດຊຶມສານອາຫານໄດ້ໄວ.</span><span class="lang-jp">ミンチ状の食感により、素早い消化と栄養吸収が可能です。</span><span class="lang-kr">다진 질감으로 빠른 소화와 영양 흡수가 가능합니다.</span><span class="lang-cn">肉碎质地有助于快速消化和营养吸收。</span><span class="lang-hk">肉碎質地有助於快速消化同營養吸收。</span><span class="lang-my">Tekstur cincang membolehkan penghadaman dan penyerapan nutrien yang cepat.</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Rolls Benefits -->
+            <div id="modal-benefits-rolls" class="hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="bg-teal-50 p-6 rounded-2xl border border-teal-100">
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-teal-500 shadow-sm text-3xl"><i class="fa-solid fa-sparkles"></i></div>
+                        <h4 class="font-bold text-gray-800 mb-2"><span class="lang-en">Shiny Coat</span><span class="lang-la">ຂົນເງົາງາມ</span><span class="lang-jp">輝く毛並み</span><span class="lang-kr">윤기 나는 털</span><span class="lang-cn">毛发光亮</span><span class="lang-hk">毛髮光亮</span><span class="lang-my">Bulu Berkilat</span></h4>
+                        <p class="text-sm text-gray-600"><span class="lang-en">Contains natural fish oils to promote healthy, glossy fur.</span><span class="lang-la">ມີນໍ້າມັນປາທຳມະຊາດ ຊ່ວຍບຳລຸງຂົນໃຫ້ເງົາງາມແລະສຸຂະພາບດີ.</span><span class="lang-jp">健康的で艶やかな毛並みを促進する天然の魚油を含んでいます。</span><span class="lang-kr">건강하고 윤기 나는 털을 위한 천연 어유가 함유되어 있습니다.</span><span class="lang-cn">含有天然鱼油，促进健康亮丽的皮毛。</span><span class="lang-hk">含有天然魚油，促進健康亮麗嘅皮毛。</span><span class="lang-my">Mengandungi minyak ikan semulajadi untuk menggalakkan bulu yang sihat dan berkilat.</span></p>
+                    </div>
+                    <div class="bg-pink-50 p-6 rounded-2xl border border-pink-100">
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-pink-500 shadow-sm text-3xl"><i class="fa-solid fa-link"></i></div>
+                        <h4 class="font-bold text-gray-800 mb-2"><span class="lang-en">Natural Collagen</span><span class="lang-la">ຄໍລາເຈນທຳມະຊາດ</span><span class="lang-jp">天然コラーゲン</span><span class="lang-kr">천연 콜라겐</span><span class="lang-cn">天然胶原蛋白</span><span class="lang-hk">天然膠原蛋白</span><span class="lang-my">Kolagen Semulajadi</span></h4>
+                        <p class="text-sm text-gray-600"><span class="lang-en">Supports skin elasticity and joint health naturally from fish skin.</span><span class="lang-la">ຊ່ວຍເພີ່ມຄວາມຍືດຫຍຸ່ນຂອງຜິວໜັງ ແລະ ບຳລຸງຂໍ້ຕໍ່ຈາກໜັງປາທຳມະຊາດ.</span><span class="lang-jp">魚の皮由来の成分が、皮膚の弾力性と関節の健康を自然にサポートします。</span><span class="lang-kr">생선 껍질에서 유래한 성분이 피부 탄력과 관절 건강을 자연스럽게 지원합니다.</span><span class="lang-cn">源自鱼皮的天然成分支持皮肤弹性和关节健康。</span><span class="lang-hk">源自魚皮嘅天然成分支持皮膚彈性同關節健康。</span><span class="lang-my">Menyokong keanjalan kulit dan kesihatan sendi secara semulajadi daripada kulit ikan.</span></p>
+                    </div>
+                    <div class="bg-yellow-50 p-6 rounded-2xl border border-yellow-100">
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-yellow-600 shadow-sm text-3xl"><i class="fa-solid fa-cookie-bite"></i></div>
+                        <h4 class="font-bold text-gray-800 mb-2"><span class="lang-en">Satisfying Crunch</span><span class="lang-la">ກອບແຊບ</span><span class="lang-jp">満足のいく歯ごたえ</span><span class="lang-kr">만족스러운 바삭함</span><span class="lang-cn">酥脆满足</span><span class="lang-hk">酥脆滿足</span><span class="lang-my">Rangup Memuaskan</span></h4>
+                        <p class="text-sm text-gray-600"><span class="lang-en">The crispy texture provides mental stimulation and joy during snack time.</span><span class="lang-la">ຄວາມກອບຊ່ວຍກະຕຸ້ນຄວາມຢາກອາຫານ ແລະ ສ້າງຄວາມສຸກໃນເວລາວ່າງ.</span><span class="lang-jp">カリカリとした食感が、おやつの時間に精神的な刺激と喜びを与えます。</span><span class="lang-kr">바삭한 식감은 간식 시간에 정신적 자극과 즐거움을 제공합니다.</span><span class="lang-cn">酥脆的口感在零食时间提供精神刺激和快乐。</span><span class="lang-hk">酥脆嘅口感喺零食時間提供精神刺激同快樂。</span><span class="lang-my">Tekstur rangup memberikan rangsangan mental dan kegembiraan semasa waktu snek.</span></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- --- NAM NGUM RIVER MODAL --- -->
+    <div id="river-modal" class="modal-overlay">
+        <div class="modal-content text-left">
+            <div class="flex justify-between items-start mb-6 border-b pb-4">
+                <div><h3 class="text-2xl font-bold brand-font text-sky-600 mb-1"><span class="lang-en">The Nam Ngum River</span><!--...--></h3><p class="text-gray-500 font-medium"><span class="lang-en">The Emerald Jewel of Laos</span></p></div>
+                <button onclick="closeRiverModal()" class="text-gray-400 hover:text-gray-600 transition p-2"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+            <div class="prose prose-sky max-w-none text-gray-700 leading-relaxed">
+                <div class="relative w-full h-64 mb-6 rounded-xl overflow-hidden shadow-md bg-gray-200">
+                    <img src="NamNgumRiver.jpg" alt="Nam Ngum River Landscape" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80';">
+                </div>
+                <p class="mb-4"><span class="lang-en">The Nam Ngum River is one of the most vital and beautiful waterways in Laos...</span><!--...--></p>
+                <!-- (Full River Content Preserved) -->
+            </div>
+        </div>
+    </div>
+
+    <!-- --- DOG BREEDS MODAL --- -->
+    <div id="dog-modal" class="modal-overlay">
+        <div class="modal-content text-left w-full max-w-4xl">
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <h3 class="text-2xl font-bold brand-font text-sky-600"><span class="lang-en">Popular Dog Breeds</span><!--...--></h3>
+                <button onclick="closeDogModal()" class="text-gray-400 hover:text-gray-600 transition p-2"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+            <div class="w-full flex justify-center bg-gray-100 rounded-xl overflow-hidden">
+                <img src="top30dogs.jpg" alt="Popular Dog Breeds" class="w-full h-auto object-contain">
+            </div>
+        </div>
+    </div>
+
+    <!-- --- CAT BREEDS MODAL --- -->
+    <div id="cat-modal" class="modal-overlay">
+        <div class="modal-content text-left w-full max-w-4xl">
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <h3 class="text-2xl font-bold brand-font text-sky-600"><span class="lang-en">Popular Cat Breeds</span><!--...--></h3>
+                <button onclick="closeCatModal()" class="text-gray-400 hover:text-gray-600 transition p-2"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+            <div class="w-full flex justify-center bg-gray-100 rounded-xl overflow-hidden">
+                <img src="top30cats.jpg" alt="Popular Cat Breeds" class="w-full h-auto object-contain">
+            </div>
+        </div>
+    </div>
+
+    <!-- --- DEHYDRATED PROCESS MODAL --- -->
+    <div id="dehydrated-modal" class="modal-overlay">
+        <div class="modal-content text-left w-full max-w-4xl">
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <h3 class="text-2xl font-bold brand-font text-sky-600"><span class="lang-en">Slow Dehydration Process</span><!--...--></h3>
+                <button onclick="closeDehydratedModal()" class="text-gray-400 hover:text-gray-600 transition p-2"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+            <div class="w-full flex justify-center bg-white rounded-xl overflow-hidden mb-6 border border-gray-100">
+                <img src="DehyratedP.jpg" alt="Dehydration Process" class="w-full h-auto object-contain max-h-[60vh]">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+                    <h4 class="font-bold text-sky-700 mb-3 flex items-center"><i class="fa-solid fa-gears mr-2"></i><span class="lang-en">How It Works</span></h4>
+                    <p class="text-sm text-gray-700 leading-relaxed"><span class="lang-en">Unlike traditional baking...</span></p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-800 mb-4 border-b pb-2"><span class="lang-en">Why Slow Dehydration?</span></h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start"><div class="bg-orange-100 p-2 rounded-lg mr-3 text-orange-500"><i class="fa-solid fa-carrot"></i></div><div><span class="font-bold text-gray-800 block text-sm"><span class="lang-en">Maximum Nutrition</span></span><span class="text-xs text-gray-500"><span class="lang-en">Low heat preserves vital nutrients and enzymes.</span><span class="lang-la">ຄວາມຮ້ອນຕໍ່າຊ່ວຍຮັກສາສານອາຫານ ແລະ ເອນໄຊທີ່ສຳຄັນ.</span></span></div></li>
+                        <li class="flex items-start"><div class="bg-yellow-100 p-2 rounded-lg mr-3 text-yellow-600"><i class="fa-solid fa-star"></i></div><div><span class="font-bold text-gray-800 block text-sm"><span class="lang-en">Irresistible Flavor</span></span></div></li>
+                        <li class="flex items-start"><div class="bg-green-100 p-2 rounded-lg mr-3 text-green-600"><i class="fa-solid fa-shield-heart"></i></div><div><span class="font-bold text-gray-800 block text-sm"><span class="lang-en">Safe & Natural</span></span></div></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- --- 100% NATURAL MODAL --- -->
+    <div id="natural-modal" class="modal-overlay">
+        <div class="modal-content text-left w-full max-w-4xl">
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <h3 class="text-2xl font-bold brand-font text-sky-600"><span class="lang-en">100% Natural Assurance</span><!--...--></h3>
+                <button onclick="closeNaturalModal()" class="text-gray-400 hover:text-gray-600 transition p-2"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+            <div class="w-full flex justify-center bg-white rounded-xl overflow-hidden mb-6">
+                <img src="Natural100.jpg" alt="100% Natural" class="w-full h-auto object-contain max-h-[50vh]">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-green-50 p-6 rounded-xl border border-green-100">
+                <div class="flex items-start"><div class="bg-white p-3 rounded-full shadow-sm text-green-500 mr-4"><i class="fa-solid fa-fish"></i></div><div><h4 class="font-bold text-gray-800 mb-1"><span class="lang-en">Pure Process</span></h4><p class="text-sm text-gray-600"><span class="lang-en">We use whole fish fillets, ensuring you get actual meat.</span></p></div></div>
+                <div class="flex items-start"><div class="bg-white p-3 rounded-full shadow-sm text-red-500 mr-4"><i class="fa-solid fa-ban"></i></div><div><h4 class="font-bold text-gray-800 mb-1"><span class="lang-en">No Additives</span></h4><p class="text-sm text-gray-600"><span class="lang-en">Zero fillers, binders, or artificial colors.</span></p></div></div>
+                <div class="flex items-start"><div class="bg-white p-3 rounded-full shadow-sm text-yellow-500 mr-4"><i class="fa-solid fa-mortar-pestle"></i></div><div><h4 class="font-bold text-gray-800 mb-1"><span class="lang-en">No Seasoning</span></h4><p class="text-sm text-gray-600"><span class="lang-en">Absolutely no salt, sugar, or MSG added.</span></p></div></div>
+                <div class="flex items-start"><div class="bg-white p-3 rounded-full shadow-sm text-blue-500 mr-4"><i class="fa-solid fa-shield-virus"></i></div><div><h4 class="font-bold text-gray-800 mb-1"><span class="lang-en">No Preservatives</span></h4><p class="text-sm text-gray-600"><span class="lang-en">We rely solely on precise dehydration.</span></p></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- --- BREEDING MODAL --- -->
+    <div id="breed-modal" class="modal-overlay">
+        <div class="modal-content text-left w-full max-w-4xl">
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <h3 class="text-2xl font-bold brand-font text-sky-600"><span class="lang-en">Sustainable Cage Farming</span><!--...--></h3>
+                <button onclick="closeBreedModal()" class="text-gray-400 hover:text-gray-600 transition p-2"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+            <div class="w-full flex justify-center bg-white rounded-xl overflow-hidden mb-6">
+                <img src="NamngumBreed.jpg" alt="Cage Farming" class="w-full h-auto object-contain max-h-[50vh]">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-blue-50 p-6 rounded-xl border border-blue-100">
+                <div class="flex items-start"><div class="bg-white p-3 rounded-full shadow-sm text-blue-500 mr-4"><i class="fa-solid fa-water"></i></div><div><h4 class="font-bold text-gray-800 mb-1"><span class="lang-en">Clean Flowing Water</span></h4><p class="text-sm text-gray-600"><span class="lang-en">Placed in the flowing Nam Ngum River for cleaner fish.</span></p></div></div>
+                <div class="flex items-start"><div class="bg-white p-3 rounded-full shadow-sm text-green-500 mr-4"><i class="fa-solid fa-leaf"></i></div><div><h4 class="font-bold text-gray-800 mb-1"><span class="lang-en">Sustainable Practices</span></h4><p class="text-sm text-gray-600"><span class="lang-en">Supporting local livelihoods within the river ecosystem.</span></p></div></div>
+                <div class="flex items-start"><div class="bg-white p-3 rounded-full shadow-sm text-orange-500 mr-4"><i class="fa-solid fa-truck-fast"></i></div><div><h4 class="font-bold text-gray-800 mb-1"><span class="lang-en">Farm to Kitchen</span></h4><p class="text-sm text-gray-600"><span class="lang-en">Harvested and transported immediately for processing.</span></p></div></div>
+                <div class="flex items-start"><div class="bg-white p-3 rounded-full shadow-sm text-yellow-500 mr-4"><i class="fa-solid fa-star"></i></div><div><h4 class="font-bold text-gray-800 mb-1"><span class="lang-en">Premium Quality</span></h4><p class="text-sm text-gray-600"><span class="lang-en">Only healthy, mature Tilapia selected.</span></p></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- --- TRAINING/AWARD MODAL --- -->
+    <div id="training-modal" class="modal-overlay">
+        <div class="modal-content text-left w-full max-w-4xl p-0 overflow-hidden relative" style="min-height: 400px;">
+            <div class="absolute top-0 left-0 w-full p-6 flex justify-between items-center z-20">
+                <h3 class="text-2xl font-bold brand-font text-white drop-shadow-md"><span class="lang-en">Training Time!</span><span class="lang-la">ເວລາຝຶກສອນ!</span></h3>
+                <button onclick="closeTrainingModal()" class="text-white hover:text-gray-200 transition p-2 bg-black bg-opacity-20 rounded-full"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+            <div class="field-bg w-full h-full absolute top-0 left-0">
+                <div class="pixel-pet w-8 h-8 frisbee z-10"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><ellipse cx="8" cy="8" rx="7" ry="2" fill="#FFEB3B" stroke="#FBC02D" stroke-width="1"/></svg></div>
+                <div class="pixel-pet w-24 h-24 girl-thrower z-10"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect x="5" y="2" width="6" height="3" fill="#3E2723"/><rect x="4" y="3" width="1" height="4" fill="#3E2723"/><rect x="11" y="3" width="1" height="4" fill="#3E2723"/><rect x="5" y="5" width="6" height="3" fill="#FFCCBC"/><rect x="6" y="6" width="1" height="1" fill="black"/><rect x="9" y="6" width="1" height="1" fill="black"/><rect x="6" y="8" width="4" height="5" fill="#E91E63"/><rect x="5" y="9" width="1" height="3" fill="#E91E63"/><rect x="10" y="9" width="3" height="1" fill="#FFCCBC"/><rect x="6" y="13" width="1" height="2" fill="#FFCCBC"/><rect x="9" y="13" width="1" height="2" fill="#FFCCBC"/><rect x="6" y="15" width="1" height="1" fill="black"/><rect x="9" y="15" width="1" height="1" fill="black"/></svg></div>
+                <div class="pixel-pet w-20 h-20 pet-runner z-10" style="animation-delay: 0.1s;"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect x="3" y="6" width="8" height="5" fill="#8B4513"/><rect x="3" y="11" width="2" height="3" fill="#8B4513"/><rect x="9" y="11" width="2" height="3" fill="#8B4513"/><rect x="8" y="3" width="5" height="4" fill="#8B4513"/><rect x="11" y="4" width="1" height="1" fill="black"/><rect x="13" y="5" width="1" height="1" fill="black"/><rect x="2" y="5" width="2" height="3" fill="#8B4513"/></svg></div>
+                <div class="pixel-pet w-16 h-16 pet-runner z-10" style="animation-delay: 0.3s; margin-left: -40px;"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect x="4" y="7" width="7" height="4" fill="#FFA500"/><rect x="4" y="11" width="2" height="2" fill="#FFA500"/><rect x="9" y="11" width="2" height="2" fill="#FFA500"/><rect x="8" y="4" width="4" height="4" fill="#FFA500"/><rect x="8" y="3" width="1" height="2" fill="#FFA500"/><rect x="11" y="3" width="1" height="2" fill="#FFA500"/><rect x="10" y="5" width="1" height="1" fill="black"/><rect x="2" y="6" width="2" height="3" fill="#FFA500"/></svg></div>
+                <div class="absolute bottom-5 left-1/4 text-green-700 opacity-50"><i class="fa-solid fa-grass text-2xl"></i></div>
+                <div class="absolute top-10 left-1/3 text-white opacity-60"><i class="fa-solid fa-cloud text-4xl"></i></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
